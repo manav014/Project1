@@ -1,0 +1,21 @@
+1. Home Page(component)
+	1.1. Header Bar(component)
+		1.1. Cart Icon
+		1.2. My account link
+		1.3. Logo
+		1.4. Background rectangle
+		1.5. Header Bar Dropdown(Component)
+			1.5.1 Buttons for logour profile/ Login Register
+
+	1.2. Search Bar(Component)
+		2.1 Explore shop icon
+		2.2 2 separators for icons( | )
+		2.3 Explore Products icon
+		2.4 Search icon
+		2.5 Search textbox
+		2.6. Search Dropdown(Component)
+			2.6.1 Shop names with location list and a separator (-) between location and shop name
+			2.6.2 Shop and location icon
+			2.6.3 Dropdown box
+
+	1.3. Map(Component)
