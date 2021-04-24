@@ -8,6 +8,8 @@ import classNames from "classnames";
 import banner_image from "./bg2.png";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import SearchBar from "./HomePage/SearchBar";
+
 const gridStyles = {
   grid: {
     marginRight: "-15px",
@@ -46,6 +48,8 @@ function HomePage() {
                   A Badass Material-UI Kit based on Material Design.
                 </h3>
               </div> */}
+
+              <SearchBar />
             </Grid>
           </Grid>
         </div>
@@ -55,7 +59,7 @@ function HomePage() {
           brand="Material Kit React"
           rightLinks={
             <List>
-              <ListItem>Hello</ListItem>
+              <ListItem>Hi</ListItem>
             </List>
           }
           sticky
