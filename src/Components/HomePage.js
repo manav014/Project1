@@ -55,7 +55,7 @@ function HomePage() {
           brand="Material Kit React"
           rightLinks={
             <List>
-              <ListItem>Hello</ListItem>
+              <ListItem>Hi</ListItem>
             </List>
           }
           sticky
