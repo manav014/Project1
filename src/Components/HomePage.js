@@ -33,7 +33,6 @@ function HomePage() {
   const gridclasses = useGridStyles();
   const griditemclasses = useGridItemStyles();
   const classes = useStyles();
-  //   console.log(require("./bg2.jpg"));
   return (
     <div>
       <Map image={banner_image}>
