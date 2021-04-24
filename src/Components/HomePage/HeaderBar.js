@@ -79,8 +79,9 @@ export default function HeaderBar(props) {
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
-        <IconButton aria-label="cart"></IconButton>
-        <LocalMallIcon />
+        <IconButton aria-label="logo">
+          <LocalMallIcon />
+        </IconButton>
         {leftLinks !== undefined ? brandComponent : null}
         <div className={classes.flex}>
           {leftLinks !== undefined ? (
