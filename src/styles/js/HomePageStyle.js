@@ -52,6 +52,11 @@ const componentsStyle = {
   link: {
     textDecoration: "none",
   },
+  searchbarPosition: {
+    position: "absolute",
+    marginTop: "-45vh",
+    marginLeft: "-10vw",
+  },
   textCenter: {
     textAlign: "center",
   },

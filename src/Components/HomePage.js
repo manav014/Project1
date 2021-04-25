@@ -48,8 +48,9 @@ function HomePage() {
                   A Badass Material-UI Kit based on Material Design.
                 </h3>
               </div> */}
-
-              <SearchBar />
+              <div className={classes.searchbarPosition}>
+                <SearchBar />
+              </div>
             </Grid>
           </Grid>
         </div>
