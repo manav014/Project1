@@ -60,20 +60,18 @@ function HomePage() {
           brand="Material Kit React"
           rightLinks={
             <List>
-              <ListItem>
-                <CustomDropdown
-                  buttonText="My account"
-                  buttonProps={{
-                    className: classes.navLink,
-                    color: "transparent",
-                  }}
-                  dropdownList={["Profile", { divider: true }, "Logout"]}
-                />
-              </ListItem>
+              <CustomDropdown
+                buttonText="My account"
+                buttonProps={{
+                  className: classes.navLink,
+                  color: "transparent",
+                }}
+                dropdownList={["Profile", { divider: true }, "Logout"]}
+              />
             </List>
           }
           sticky
-          color="red"
+          color="blue"
           changeColorOnScroll={{
             height: 400,
             color: "white",
