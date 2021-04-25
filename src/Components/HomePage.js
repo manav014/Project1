@@ -7,8 +7,9 @@ import styles from "../styles/js/HomePageStyle.js";
 import classNames from "classnames";
 import banner_image from "./bg2.png";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
 import SearchBar from "./HomePage/SearchBar";
+import { makeStyles } from "@material-ui/core/styles";
+import CustomDropdown from "./HomePage/CustomDropdown.js";
 
 const gridStyles = {
   grid: {
@@ -59,11 +60,18 @@ function HomePage() {
           brand="Material Kit React"
           rightLinks={
             <List>
-              <ListItem>Hi</ListItem>
+              <CustomDropdown
+                buttonText="My account"
+                buttonProps={{
+                  className: classes.navLink,
+                  color: "transparent",
+                }}
+                dropdownList={["Profile", { divider: true }, "Logout"]}
+              />
             </List>
           }
           sticky
-          color="red"
+          color="blue"
           changeColorOnScroll={{
             height: 400,
             color: "white",

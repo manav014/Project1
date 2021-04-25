@@ -51,7 +51,7 @@ const headerStyle = {
     marginBottom: "20px",
     color: "#555",
     width: "100%",
-    backgroundColor: "#fff",
+    backgroundColor: "#37b3f9",
     boxShadow:
       "0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)",
     transition: "all 150ms ease 0s",
@@ -143,6 +143,15 @@ const headerStyle = {
     boxShadow: "none",
     paddingTop: "25px",
     color: "#FFFFFF",
+  },
+  blue: {
+    border: "0",
+    padding: "0.625rem 0",
+    marginBottom: "20px",
+    color: "#000000",
+    backgroundColor: "#37b3f9 !important",
+    boxShadow:
+      "0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)",
   },
   dark: {
     color: "#FFFFFF",
