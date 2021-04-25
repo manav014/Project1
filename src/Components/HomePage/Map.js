@@ -6,7 +6,7 @@ import styles from "../../styles/js/MapStyle.js";
 
 const useStyles = makeStyles(styles);
 
-export default function Parallax(props) {
+export default function Map(props) {
   let windowScrollTop;
   if (window.innerWidth >= 768) {
     windowScrollTop = window.pageYOffset / 3;
@@ -52,7 +52,7 @@ export default function Parallax(props) {
   );
 }
 
-Parallax.propTypes = {
+Map.propTypes = {
   className: PropTypes.string,
   filter: PropTypes.bool,
   children: PropTypes.node,

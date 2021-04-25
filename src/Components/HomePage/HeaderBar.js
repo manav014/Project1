@@ -10,9 +10,20 @@ import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
 import styles from "../../styles/js/HeaderBarStyle.js";
+import Badge from "@material-ui/core/Badge";
+import { withStyles } from "@material-ui/core/styles";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import LocalMallIcon from "@material-ui/icons/LocalMall";
 
 const useStyles = makeStyles(styles);
-
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: "0 4px",
+  },
+}))(Badge);
 export default function HeaderBar(props) {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -68,6 +79,9 @@ export default function HeaderBar(props) {
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
+        <IconButton aria-label="logo">
+          <LocalMallIcon />
+        </IconButton>
         {leftLinks !== undefined ? brandComponent : null}
         <div className={classes.flex}>
           {leftLinks !== undefined ? (
@@ -90,6 +104,11 @@ export default function HeaderBar(props) {
             <Menu />
           </IconButton>
         </Hidden>
+        <IconButton aria-label="cart">
+          <StyledBadge badgeContent={4} color="secondary">
+            <ShoppingCartIcon />
+          </StyledBadge>
+        </IconButton>
       </Toolbar>
       <Hidden mdUp implementation="js">
         <Drawer
