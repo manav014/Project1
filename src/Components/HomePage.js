@@ -59,7 +59,7 @@ function HomePage() {
       </Map>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <HeaderBar
-          brand="Material Kit React"
+          brand="Blah Project"
           rightLinks={
             <List>
               <CustomDropdown
