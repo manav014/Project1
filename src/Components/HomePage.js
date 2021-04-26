@@ -2,7 +2,7 @@ import React from "react";
 import List from "@material-ui/core/List";
 import Map from "./HomePage/Map.js";
 import HeaderBar from "./HomePage/HeaderBar.js";
-import styles from "../styles/js/HomePageStyle.js";
+import styles from "../styles/js/HomePage/HomePageStyle.js";
 import classNames from "classnames";
 import banner_image from "./bg2.png";
 import Grid from "@material-ui/core/Grid";

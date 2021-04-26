@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
-import styles from "../../styles/js/HeaderBarStyle.js";
+import styles from "../../styles/js/HomePage/HeaderBarStyle.js";
 import Badge from "@material-ui/core/Badge";
 import { withStyles } from "@material-ui/core/styles";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
