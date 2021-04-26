@@ -1,6 +1,5 @@
 import React from "react";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import Map from "./HomePage/Map.js";
 import HeaderBar from "./HomePage/HeaderBar.js";
 import styles from "../styles/js/HomePageStyle.js";
@@ -10,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import SearchBar from "./HomePage/SearchBar";
 import { makeStyles } from "@material-ui/core/styles";
 import CustomDropdown from "./HomePage/CustomDropdown.js";
+import LeftPane from "./HomePage/LeftPane.js";
 
 const gridStyles = {
   grid: {
@@ -52,6 +52,7 @@ function HomePage() {
               <div className={classes.searchbarPosition}>
                 <SearchBar />
               </div>
+              <LeftPane />
             </Grid>
           </Grid>
         </div>
