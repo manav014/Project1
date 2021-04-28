@@ -13,8 +13,6 @@ import LeftPane from "./HomePage/LeftPane.js";
 
 const gridStyles = {
   grid: {
-    marginRight: "-15px",
-    marginLeft: "-15px",
     width: "auto",
   },
 };

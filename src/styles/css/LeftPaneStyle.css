@@ -1,0 +1,27 @@
+.MuiInput-underline:before {
+  border-bottom: none !important;
+}
+.MuiInput-underline:hover:not(.Mui-disabled):before {
+  border-bottom: none !important;
+}
+.MuiAutocomplete-inputRoot[class*="MuiInput-root"]
+  .MuiAutocomplete-input:first-child {
+  padding-left: 5px !important;
+}
+.MuiDrawer-paperAnchorLeft {
+  width: 26.5vw;
+}
+.icon-style {
+  margin-left: 25px;
+  color: #37b3f9 !important;
+}
+.MuiIconButton-colorPrimary {
+  color: #37b3f9 !important;
+}
+.searchbarPlacement {
+  position: absolute !important;
+  top: 5% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 1;
+}
