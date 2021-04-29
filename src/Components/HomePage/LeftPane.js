@@ -23,13 +23,16 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
+// HomePage imports
 import CustomDropdown from "./CustomDropdown";
 import SearchBar from "./SearchBar";
 
+// Asset imports
 import "../../styles/css/LeftPaneStyle.css";
 import banner_image from "../bg2.png";
 import styles from "../../styles/js/HomePage/LeftPaneStyle.js";
 
+// Making styles
 const useStyles = makeStyles(styles);
 
 const accordionStyles = makeStyles((theme) => ({
@@ -47,6 +50,7 @@ const accordionStyles = makeStyles((theme) => ({
   },
 }));
 
+// main functional component start
 function LeftPane() {
   //Accordion Style
   const accordionnClasses = accordionStyles();
@@ -55,6 +59,7 @@ function LeftPane() {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
   // Basic styles class
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -63,7 +68,7 @@ function LeftPane() {
     bottom: false,
     right: false,
   });
-  const [value, setValue] = React.useState(2);
+  const value = React.useState(2);
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event &&
@@ -88,14 +93,14 @@ function LeftPane() {
         style={{ width: "600px" }}
       >
         <Card>
-          <div className="searchbarPlacement">
+          <div className={classes.searchbarPlacement}>
             <SearchBar />
           </div>
           <CardActionArea>
             <CardMedia
               component="img"
               alt="Contemplative Reptile"
-              height="140"
+              height="200"
               image={banner_image}
               style={{ display: "flex" }}
             ></CardMedia>
@@ -119,78 +124,45 @@ function LeftPane() {
         >
           <Grid item>
             <Tooltip title="Open Now">
-              <Box borderRadius="50px" border={1} className="icon-style">
-                <IconButton
-                  className="icon-style"
-                  aria-label="search"
-                  color="primary"
-                  type="submit"
-                  className={classes.iconButton}
-                  aria-label="search"
-                >
-                  <CheckIcon />
+              <Box borderRadius="50px" border={1} className={classes.iconStyle}>
+                <IconButton aria-label="ShopStatus" color="37b3f9">
+                  <CheckIcon style={{ color: "#37b3f9" }} />
                 </IconButton>
               </Box>
             </Tooltip>
           </Grid>
           <Grid item>
             <Tooltip title="Save">
-              <Box borderRadius="50px" border={1} className="icon-style">
-                <IconButton
-                  className="icon-style"
-                  aria-label="search"
-                  color="primary"
-                  type="submit"
-                  className={classes.iconButton}
-                  aria-label="search"
-                >
-                  <BookmarkIcon />
+              <Box borderRadius="50px" border={1} className={classes.iconStyle}>
+                <IconButton aria-label="SaveShop">
+                  <BookmarkIcon style={{ color: "#37b3f9" }} />
                 </IconButton>
               </Box>
             </Tooltip>
           </Grid>
           <Grid item>
             <Tooltip title="Directions">
-              <Box borderRadius="50px" border={1} className="icon-style">
-                <IconButton
-                  className="icon-style"
-                  aria-label="search"
-                  color="primary"
-                  type="submit"
-                  className={classes.iconButton}
-                  aria-label="search"
-                >
-                  <DirectionsIcon />
+              <Box borderRadius="50px" border={1} className={classes.iconStyle}>
+                <IconButton aria-label="Directions">
+                  <DirectionsIcon style={{ color: "#37b3f9" }} />
                 </IconButton>
               </Box>
             </Tooltip>
           </Grid>
           <Grid item>
             <Tooltip title="Share">
-              <Box borderRadius="50px" border={1} className="icon-style">
-                <IconButton
-                  aria-label="search"
-                  color="primary"
-                  type="submit"
-                  className={classes.iconButton}
-                  aria-label="search"
-                  color="primary"
-                >
-                  <ShareIcon />
+              <Box borderRadius="50px" border={1} className={classes.iconStyle}>
+                <IconButton aria-label="ShareShop">
+                  <ShareIcon style={{ color: "#37b3f9" }} />
                 </IconButton>
               </Box>
             </Tooltip>
           </Grid>
           <Grid item>
-            <Tooltip title="Explore Products">
-              <Box borderRadius="50px" border={1} className="icon-style">
-                <IconButton
-                  type="submit"
-                  className={classes.iconButton}
-                  aria-label="search"
-                  color="primary"
-                >
-                  <ExploreIcon />
+            <Tooltip title="Explore all Products">
+              <Box borderRadius="50px" border={1} className={classes.iconStyle}>
+                <IconButton aria-label="ExploreShop">
+                  <ExploreIcon style={{ color: "#37b3f9" }} />
                 </IconButton>
               </Box>
             </Tooltip>
@@ -223,17 +195,14 @@ function LeftPane() {
               id="panel1bh-header"
             >
               <Typography className={accordionnClasses.heading}>
-                General settings
+                Breads
               </Typography>
-              <Typography className={accordionnClasses.secondaryHeading}>
+              {/* <Typography className={accordionnClasses.secondaryHeading}>
                 I am an accordion
-              </Typography>
+              </Typography> */}
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
-                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-                feugiat. Aliquam eget maximus est, id dignissim quam.
-              </Typography>
+              <Typography>All Breads would be listed here.</Typography>
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -245,19 +214,13 @@ function LeftPane() {
               aria-controls="panel2bh-content"
               id="panel2bh-header"
             >
-              <Typography className={accordionnClasses.heading}>
-                Users
-              </Typography>
-              <Typography className={accordionnClasses.secondaryHeading}>
+              <Typography className={accordionnClasses.heading}>Dal</Typography>
+              {/* <Typography className={accordionnClasses.secondaryHeading}>
                 You are currently not an owner
-              </Typography>
+              </Typography> */}
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
-                Donec placerat, lectus sed mattis semper, neque lectus feugiat
-                lectus, varius pulvinar diam eros in elit. Pellentesque
-                convallis laoreet laoreet.
-              </Typography>
+              <Typography>All kind of Dals would be listed here.</Typography>
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -270,18 +233,14 @@ function LeftPane() {
               id="panel3bh-header"
             >
               <Typography className={accordionnClasses.heading}>
-                Advanced settings
+                Dairy
               </Typography>
-              <Typography className={accordionnClasses.secondaryHeading}>
+              {/* <Typography className={accordionnClasses.secondaryHeading}>
                 Filtering has been entirely disabled for whole web server
-              </Typography>
+              </Typography> */}
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
-                Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.
-                Integer sit amet egestas eros, vitae egestas augue. Duis vel est
-                augue.
-              </Typography>
+              <Typography>All Dairy Products would be listed here.</Typography>
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -294,15 +253,11 @@ function LeftPane() {
               id="panel4bh-header"
             >
               <Typography className={accordionnClasses.heading}>
-                Personal data
+                Flour
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
-                Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.
-                Integer sit amet egestas eros, vitae egestas augue. Duis vel est
-                augue.
-              </Typography>
+              <Typography>All Flours would be listed here.</Typography>
             </AccordionDetails>
           </Accordion>
         </div>
@@ -310,5 +265,5 @@ function LeftPane() {
     </React.Fragment>
   );
 }
-
+// main functional component end
 export default LeftPane;

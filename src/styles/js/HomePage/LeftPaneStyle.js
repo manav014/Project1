@@ -21,8 +21,19 @@ const container = {
   },
 };
 const typographyStyle = {
+  searchbarPlacement: {
+    position: "absolute !important",
+    top: "5% !important",
+    left: "50% !important",
+    transform: "translate(-50%, -50%) !important",
+    zIndex: "1",
+  },
   section: {
     padding: "70px 0",
+  },
+  iconStyle: {
+    marginLeft: "25px",
+    color: "#37b3f9 !important",
   },
   container,
   space50: {
