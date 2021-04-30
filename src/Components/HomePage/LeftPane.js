@@ -216,7 +216,6 @@ function LeftPane() {
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
-              {/* hi */}
               <Typography className={accordionnClasses.heading}>
                 Breads
               </Typography>
