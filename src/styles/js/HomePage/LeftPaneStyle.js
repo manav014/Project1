@@ -89,6 +89,55 @@ const typographyStyle = {
     marginTop: "-10px",
     height: "20px",
   },
+  shopName: {
+    marginTop: " 2vh !important",
+    paddingLeft: "10px",
+    fontSize: "1.5vw",
+    fontWeight: "500",
+  },
+  rating: {
+    marginBottom: "0 !important",
+    marginTop: "1.8vh !important",
+    // paddingBlockStart: "0",
+    // paddingBlockEnd: "0",
+    "@media (min-width: 992px)": {
+      maxWidth: "960px",
+      marginTop: "1.8vh !important",
+    },
+  },
+  timing: {
+    paddingLeft: "10px",
+    color: "#777777",
+    fontSize: "0.8vw",
+    fontWeight: "400",
+    marginBottom: "1vh",
+  },
+  textfieldstyle: {
+    width: "1vw",
+  },
+  MuiInputBaseInput: {
+    textAlign: "center !important",
+  },
+  review: {
+    width: "50%",
+    borderColor: "#37b3f9",
+    color: "#37b3f9",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  chip: {
+    marginTop: "2vh",
+    width: "45%",
+    margin: "auto",
+    borderColor: "#37b3f9",
+    borderWidth: "2px",
+    color: "#37b3f9",
+    backgroundColor: "white",
+    padding: "17px",
+  },
+  MuiChipIcon: {
+    color: "#37b3f9",
+  },
 };
 
 export default typographyStyle;

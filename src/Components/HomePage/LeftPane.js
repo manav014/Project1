@@ -22,7 +22,13 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
+import RateReviewIcon from "@material-ui/icons/RateReview";
+import Chip from "@material-ui/core/Chip";
+import Link from "@material-ui/core/Link";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+import TextField from "@material-ui/core/TextField";
 // HomePage imports
 import CustomDropdown from "./CustomDropdown";
 import SearchBar from "./SearchBar";
@@ -53,6 +59,8 @@ const accordionStyles = makeStyles((theme) => ({
 // main functional component start
 function LeftPane() {
   //Accordion Style
+  const preventDefault = (event) => event.preventDefault();
+  const [count, setCount] = React.useState(0);
   const accordionnClasses = accordionStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -68,7 +76,7 @@ function LeftPane() {
     bottom: false,
     right: false,
   });
-  const value = React.useState(2);
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event &&
@@ -80,7 +88,7 @@ function LeftPane() {
 
     setState({ ...state, [anchor]: open });
   };
-
+  const [value, setValue] = React.useState(2);
   const anchor = "left";
   return (
     <React.Fragment key={anchor}>
@@ -107,12 +115,26 @@ function LeftPane() {
           </CardActionArea>
         </Card>
 
-        <Typography gutterBottom variant="h5" component="h2">
-          Aggarwal Store
-        </Typography>
-        <Box component="fieldset" mb={3} borderColor="transparent">
-          <Rating name="read-only" value={value} readOnly />
-        </Box>
+        <div style={{ display: "flex" }}>
+          <div
+            gutterBottom
+            variant="h5"
+            component="h2"
+            className={classes.shopName}
+          >
+            Aggarwal Store
+          </div>
+
+          <Box
+            component="fieldset"
+            mb={3}
+            borderColor="transparent"
+            className={classes.rating}
+          >
+            <Rating name="read-only" value={value} readOnly />
+          </Box>
+        </div>
+        <div className={classes.timing}>Open Now - 11:00 AM - 11:00 PM</div>
         <Divider variant="middle" />
         <Grid
           container
@@ -201,6 +223,55 @@ function LeftPane() {
                 I am an accordion
               </Typography> */}
             </AccordionSummary>
+            <div style={{ display: "flex" }}>
+              <AccordionDetails>
+                <Typography>
+                  <Link href="#" onClick={preventDefault}>
+                    {/* <Badge color="#37b3f9" overlap="circle" badgeContent="12"> */}
+                    Whole Wheat Bread
+                    {/* </Badge> */}
+                  </Link>
+                </Typography>
+                <div>
+                  <ButtonGroup
+                    // size="small"
+                    style={{
+                      position: "absolute",
+                      right: "1vw",
+                    }}
+                    // variant="text"
+                  >
+                    <Button
+                      style={{ color: "#37b3f9" }}
+                      aria-label="reduce"
+                      onClick={() => {
+                        setCount(Math.max(count - 1, 0));
+                      }}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </Button>
+                    <Button aria-label="quantity">
+                      <TextField
+                        defaultValue={count}
+                        size="small"
+                        className={classes.textfieldstyle}
+                        value={count}
+                      />
+                    </Button>
+                    <Button
+                      style={{ color: "#37b3f9" }}
+                      aria-label="increase"
+                      onClick={() => {
+                        setCount(count + 1);
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </Button>
+                  </ButtonGroup>
+                </div>
+              </AccordionDetails>
+            </div>
+
             <AccordionDetails>
               <Typography>All Breads would be listed here.</Typography>
             </AccordionDetails>
@@ -261,6 +332,19 @@ function LeftPane() {
             </AccordionDetails>
           </Accordion>
         </div>
+        {/* <Button variant="outlined" className={classes.review}>
+          <Button style={{ color: "#37b3f9" }} aria-label="increase">
+            <RateReviewIcon fontSize="small" />
+          </Button>{" "}
+          Primary
+        </Button> */}
+        <Chip
+          onClick={preventDefault}
+          variant="outlined"
+          icon={<RateReviewIcon />}
+          label={"Write a Review"}
+          className={classes.chip}
+        />
       </SwipeableDrawer>
     </React.Fragment>
   );

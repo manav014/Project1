@@ -10,6 +10,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
 import { createFilterOptions } from "@material-ui/lab/Autocomplete";
+import "../../styles/css/LeftPaneStyle.css";
 
 const filter = createFilterOptions();
 
@@ -31,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
     height: 28,
     margin: 4,
   },
-  FastfoodOutlinedIcon: {},
 }));
 
 export default function CustomizedInputBase() {
@@ -93,7 +93,7 @@ export default function CustomizedInputBase() {
           <TextField {...params} placeholder="Search Category,Shop,Location" />
         )}
       />
-      <Tooltip title="Search">
+      <Tooltip title="Search" className="colorchange">
         <IconButton
           type="submit"
           className={classes.iconButton}
@@ -103,7 +103,7 @@ export default function CustomizedInputBase() {
         </IconButton>
       </Tooltip>
       <Divider className={classes.divider} orientation="vertical" />
-      <Tooltip title="Explore Products">
+      <Tooltip title="Explore Products" className="colorchange">
         <IconButton
           //   color="primary"
           type="submit"
@@ -114,7 +114,7 @@ export default function CustomizedInputBase() {
         </IconButton>
       </Tooltip>
       <Divider className={classes.divider} orientation="vertical" />
-      <Tooltip title="Explore Shops">
+      <Tooltip title="Explore Shops" className="colorchange">
         <IconButton
           // color="primary"
           type="submit"
