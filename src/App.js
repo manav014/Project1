@@ -1,21 +1,15 @@
 import React from "react";
-import { createBrowserHistory } from "history";
-import { Router, Route, Switch } from "react-router-dom";
-
-// import "./styles/scss/material-kit-react.scss?v=1.9.0";
-
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage.js";
 
 function App() {
-  var hist = createBrowserHistory();
   return (
     <div>
-      <Router history={hist}>
+      <Router>
         <Switch>
-          {/* <Route path="/landing-page" component={LandingPage} />
-      <Route path="/profile-page" component={ProfilePage} />
-      <Route path="/login-page" component={LoginPage} /> */}
-          <Route path="/" component={HomePage} />
+          <Route exact path="/" component={HomePage} />
+          <Redirect from="*" to="/" />
         </Switch>
       </Router>
     </div>
@@ -23,9 +17,3 @@ function App() {
 }
 
 export default App;
-
-// pages for this product
-// import Components from "views/Components/Components.js";
-// import LandingPage from "views/LandingPage/LandingPage.js";
-// import ProfilePage from "views/ProfilePage/ProfilePage.js";
-// import LoginPage from "views/LoginPage/LoginPage.js";

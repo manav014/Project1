@@ -1,62 +1,53 @@
-import React from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
+import React, { useRef, useEffect, useState } from "react";
+import mapboxgl from "mapbox-gl";
 import { makeStyles } from "@material-ui/core/styles";
-import styles from "../../styles/js/HomePage/MapStyle.js";
 
-const useStyles = makeStyles(styles);
+const mapStyles = {
+  map: {
+    position: "absolute",
+    top: "0",
+    right: "0",
+    left: "0",
+    bottom: "0",
+  },
+};
+const useMapStyles = makeStyles(mapStyles);
 
-export default function Map(props) {
-  let windowScrollTop;
-  if (window.innerWidth >= 768) {
-    windowScrollTop = window.pageYOffset / 3;
-  } else {
-    windowScrollTop = 0;
-  }
-  const [transform, setTransform] = React.useState(
-    "translate3d(0," + windowScrollTop + "px,0)"
-  );
-  React.useEffect(() => {
-    if (window.innerWidth >= 768) {
-      window.addEventListener("scroll", resetTransform);
-    }
-    return function cleanup() {
-      if (window.innerWidth >= 768) {
-        window.removeEventListener("scroll", resetTransform);
-      }
-    };
-  });
-  const resetTransform = () => {
-    var windowScrollTop = window.pageYOffset / 3;
-    setTransform("translate3d(0," + windowScrollTop + "px,0)");
-  };
-  const { filter, className, children, style, image, small } = props;
-  const classes = useStyles();
-  const parallaxClasses = classNames({
-    [classes.parallax]: true,
-    [classes.filter]: filter,
-    [classes.small]: small,
-    [className]: className !== undefined,
-  });
+mapboxgl.accessToken =
+  "pk.eyJ1IjoidGVzdGluZzEyMzQyNTEyNTQxIiwiYSI6ImNraGFud2ZyYjE1eWUycG5xMTA3b2lrZTcifQ.utAlAYrt6I8LmG1Uyhn4ug";
+
+const MapComponent = () => {
+  const mapclasses = useMapStyles();
+
+  const mapContainer = useRef();
+  const [lng, setLng] = useState(77.77142);
+  const [lat, setLat] = useState(28.73061);
+  const [zoom, setZoom] = useState(13);
+
+  useEffect(() => {
+    const map = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: [lng, lat],
+      zoom: zoom,
+    });
+
+    map.on("move", () => {
+      setLng(map.getCenter().lng.toFixed(4));
+      setLat(map.getCenter().lat.toFixed(4));
+      setZoom(map.getZoom().toFixed(2));
+    });
+
+    return () => map.remove();
+  }, []);
+
   return (
-    <div
-      className={parallaxClasses}
-      style={{
-        ...style,
-        backgroundImage: "url(" + image + ")",
-        transform: transform,
-      }}
-    >
-      {children}
+    <div>
+      <div className={mapclasses.map} ref={mapContainer} />
     </div>
   );
-}
-
-Map.propTypes = {
-  className: PropTypes.string,
-  filter: PropTypes.bool,
-  children: PropTypes.node,
-  style: PropTypes.string,
-  image: PropTypes.string,
-  small: PropTypes.bool,
 };
+
+export default function Map(props) {
+  return <MapComponent></MapComponent>;
+}
