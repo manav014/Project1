@@ -139,9 +139,8 @@ function LeftPane() {
         open={state[anchor]}
         onClose={toggleDrawer(anchor, false)}
         onOpen={toggleDrawer(anchor, true)}
-        style={{ width: "600px" }}
       >
-        <List>
+        <List style={{ backgroundColor: "#F4F5F5" }}>
           <Card>
             <div className={classes.searchbarPlacement}>
               <SearchBar />
