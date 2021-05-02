@@ -53,9 +53,7 @@ const componentsStyle = {
     textDecoration: "none",
   },
   searchbarPosition: {
-    position: "absolute",
     marginTop: "-45vh",
-    marginLeft: "-10vw",
   },
   textCenter: {
     textAlign: "center",
