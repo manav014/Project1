@@ -41,6 +41,8 @@ export default function CustomizedInputBase() {
   return (
     <Paper component="form" className={classes.root}>
       <Autocomplete
+        id="disable-clearable"
+        disableClearable
         value={value}
         onChange={(event, newValue) => {
           if (typeof newValue === "string") {
@@ -90,7 +92,7 @@ export default function CustomizedInputBase() {
         style={{ width: 300 }}
         freeSolo
         renderInput={(params) => (
-          <TextField {...params} placeholder="Search Category,Shop,Location" />
+          <TextField {...params} placeholder="Search Shop or Location" />
         )}
       />
       <Tooltip title="Search" className="colorchange">

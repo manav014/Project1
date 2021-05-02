@@ -9,7 +9,7 @@
   padding-left: 5px !important;
 }
 .MuiDrawer-paperAnchorLeft {
-  width: 26.5vw;
+  width: 28.5vw;
 }
 .MuiIconButton-colorPrimary {
   color: #37b3f9 !important;
@@ -29,4 +29,18 @@
 }
 .MuiChip-icon {
   color: #37b3f9 !important;
+}
+.MuiList-padding {
+  padding-top: 0px !important;
+}
+.makeStyles-primaryHover-88:hover,
+.makeStyles-primaryHover-89:hover,
+.makeStyles-primaryHover-86:hover {
+  background-color: #37b3f9 !important;
+}
+.react-multi-carousel-item {
+  margin-left: 1.5vw !important;
+}
+.MuiPaper-elevation1 {
+  box-shadow: none !important;
 }

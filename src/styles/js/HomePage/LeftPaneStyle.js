@@ -23,7 +23,7 @@ const container = {
 const typographyStyle = {
   searchbarPlacement: {
     position: "absolute !important",
-    top: "5% !important",
+    top: "5vh !important",
     left: "50% !important",
     transform: "translate(-50%, -50%) !important",
     zIndex: "1",
@@ -74,7 +74,6 @@ const typographyStyle = {
   img_responsive: {
     height: "100vh",
     maxHeight: "1000px",
-    overflow: "hidden",
     position: "relative",
     backgroundPosition: "center center",
     backgroundSize: "cover",
@@ -98,8 +97,7 @@ const typographyStyle = {
   rating: {
     marginBottom: "0 !important",
     marginTop: "1.8vh !important",
-    // paddingBlockStart: "0",
-    // paddingBlockEnd: "0",
+
     "@media (min-width: 992px)": {
       maxWidth: "960px",
       marginTop: "1.8vh !important",
@@ -110,7 +108,8 @@ const typographyStyle = {
     color: "#777777",
     fontSize: "0.8vw",
     fontWeight: "400",
-    marginBottom: "1vh",
+    marginBottom: "2vh",
+    marginTop: "-2vh",
   },
   textfieldstyle: {
     width: "1vw",
@@ -127,7 +126,7 @@ const typographyStyle = {
   },
   chip: {
     marginTop: "2vh",
-    width: "45%",
+    width: "50%",
     margin: "auto",
     borderColor: "#37b3f9",
     borderWidth: "2px",
@@ -137,6 +136,42 @@ const typographyStyle = {
   },
   MuiChipIcon: {
     color: "#37b3f9",
+  },
+  reviewheading: {
+    fontSize: "1.5vw",
+    fontWeight: "500",
+    paddingLeft: "10px",
+    marginTop: "2vh",
+  },
+  reviewcontainer: {
+    width: "85%",
+    margin: "auto",
+    marginTop: "2.5vh",
+    borderRadius: "10px",
+    marginBottom: "2vh",
+  },
+  reviewname: {
+    fontWeight: "500 !important",
+    fontSize: "1.3vw",
+  },
+  review2: {
+    fontWeight: "500",
+    fontSize: "1vw",
+    color: "#777777",
+    lineHeight: "15px",
+  },
+  reviewtext: {
+    marginTop: "1.3vh",
+  },
+  bestdeals: {
+    fontWeight: "500",
+    fontSize: "1.5vw",
+    textAlign: "center",
+    marginTop: "2vh",
+  },
+  morereviews: {
+    fontWeight: "550",
+    margin: "auto",
   },
 };
 
