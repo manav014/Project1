@@ -1,15 +1,15 @@
 import React from "react";
 import List from "@material-ui/core/List";
-import Map from "./HomePage/Map.js";
+import HomePageContainer from "./HomePage/HomePageContainer.js";
 import HeaderBar from "./HomePage/HeaderBar.js";
 import styles from "../styles/js/HomePage/HomePageStyle.js";
 import classNames from "classnames";
-import banner_image from "./bg2.png";
 import Grid from "@material-ui/core/Grid";
 import SearchBar from "./HomePage/SearchBar";
 import { makeStyles } from "@material-ui/core/styles";
 import CustomDropdown from "./HomePage/CustomDropdown.js";
 import LeftPane from "./HomePage/LeftPane.js";
+import Map from "./HomePage/Map.js";
 
 const gridStyles = {
   grid: {
@@ -36,7 +36,9 @@ function HomePage() {
   const classes = useStyles();
   return (
     <div>
-      <Map image={banner_image}>
+      <HomePageContainer>
+        <Map />
+
         <div className={classes.container}>
           <Grid container className={gridclasses.grid}>
             <Grid item className={griditemclasses.grid}>
@@ -54,7 +56,7 @@ function HomePage() {
             </Grid>
           </Grid>
         </div>
-      </Map>
+      </HomePageContainer>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <HeaderBar
           brand="Blah Project"
