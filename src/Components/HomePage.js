@@ -4,7 +4,6 @@ import HomePageContainer from "./HomePage/HomePageContainer.js";
 import HeaderBar from "./HomePage/HeaderBar.js";
 import styles from "../styles/js/HomePage/HomePageStyle.js";
 import classNames from "classnames";
-import banner_image from "./bg2.png";
 import Grid from "@material-ui/core/Grid";
 import SearchBar from "./HomePage/SearchBar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -37,7 +36,7 @@ function HomePage() {
   const classes = useStyles();
   return (
     <div>
-      <HomePageContainer image={banner_image}>
+      <HomePageContainer>
         <Map />
 
         <div className={classes.container}>
