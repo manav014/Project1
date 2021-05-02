@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import { makeStyles } from "@material-ui/core/styles";
-import marker from "../../assets/Map/marker.png";
+import marker from "../../assets/HomePage/marker.png";
 const mapStyles = {
   map: {
     position: "absolute",

@@ -40,7 +40,7 @@ import SearchBar from "./SearchBar";
 import ProductsTab from "./ProductsTab";
 // Asset imports
 import "../../styles/css/LeftPaneStyle.css";
-import banner_image from "../levis.jpg";
+import banner_image from "../../assets/HomePage/levis.jpg";
 import styles from "../../styles/js/HomePage/LeftPaneStyle.js";
 
 // Making styles
