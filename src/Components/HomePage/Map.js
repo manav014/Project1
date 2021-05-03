@@ -285,15 +285,22 @@ mapboxgl.accessToken =
 
 export default function Map(props) {
   const mapclasses = useMapStyles();
-
   const mapContainer = useRef();
   const [lng, setLng] = useState(77.77142);
   const [lat, setLat] = useState(28.73061);
-  const [zoom, setZoom] = useState(13);
-  navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
-    enableHighAccuracy: true,
-  });
+  const [zoom, setZoom] = useState(16);
+
   React.useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLng(position.coords.longitude);
+        setLat(position.coords.latitude);
+      },
+      () => {},
+      {
+        enableHighAccuracy: true,
+      }
+    );
     const map = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
@@ -335,12 +342,6 @@ export default function Map(props) {
     });
     // return () => map.remove();
   }, []);
-  function successLocation(position) {
-    setLng(position.coords.longitude);
-    setLat(position.coords.latitude);
-    // setupMap([position.coords.longitude, position.coords.latitude]);
-  }
-  function errorLocation() {}
 
   return (
     <div>
