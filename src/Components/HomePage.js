@@ -1,7 +1,7 @@
 import React from "react";
 import List from "@material-ui/core/List";
 import HomePageContainer from "./HomePage/HomePageContainer.js";
-import HeaderBar from "./HomePage/HeaderBar.js";
+import HeaderBar from "./HeaderBar.js";
 import styles from "../styles/js/HomePage/HomePageStyle.js";
 import classNames from "classnames";
 import Grid from "@material-ui/core/Grid";
@@ -38,7 +38,6 @@ function HomePage() {
     <div>
       <HomePageContainer>
         <Map />
-
         <div className={classes.container}>
           <Grid container className={gridclasses.grid}>
             <Grid item className={griditemclasses.grid}>
@@ -76,7 +75,7 @@ function HomePage() {
           color="blue"
           changeColorOnScroll={{
             height: 400,
-            color: "white",
+            color: "#37b3f9",
           }}
         />
       </div>

@@ -83,6 +83,9 @@ const typographyStyle = {
     display: "flex",
     alignItems: "center",
   },
+  paperAnchorLeft: {
+    width: "28.5vw",
+  },
   cardPos: {
     display: "flex",
     marginTop: "-10px",

@@ -12,7 +12,6 @@ import flour from "../../assets/HomePage/flour.jpg";
 import maggi from "../../assets/HomePage/maggi.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import "../../styles/css/LeftPaneStyle.css";
 
 const useStyles = makeStyles({
   root: {

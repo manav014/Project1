@@ -39,7 +39,6 @@ import CustomDropdown from "./CustomDropdown";
 import SearchBar from "./SearchBar";
 import ProductsTab from "./ProductsTab";
 // Asset imports
-import "../../styles/css/LeftPaneStyle.css";
 import banner_image from "../../assets/HomePage/levis.jpg";
 import styles from "../../styles/js/HomePage/LeftPaneStyle.js";
 
@@ -93,6 +92,9 @@ const usePopperStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
 }));
+const CustomDrawer = withStyles({
+  paperAnchorLeft: { width: "28.5vw" },
+})(SwipeableDrawer);
 // TODO: make category dropdown functional and working
 // TODO: Add modal and search suggestions
 // main functional component start
@@ -131,10 +133,11 @@ function LeftPane() {
     setState({ ...state, [anchor]: open });
   };
   const anchor = "left";
+
   return (
     <React.Fragment key={anchor}>
       <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-      <SwipeableDrawer
+      <CustomDrawer
         anchor={anchor}
         open={state[anchor]}
         onClose={toggleDrawer(anchor, false)}
@@ -249,7 +252,7 @@ function LeftPane() {
               marginTop: "15px",
             }}
           />
-          <List style={{ marginTop: "2vh" }}>
+          <div style={{ marginTop: "2vh" }}>
             <CustomDropdown
               buttonText="Choose a Category"
               buttonProps={{
@@ -258,7 +261,7 @@ function LeftPane() {
               }}
               dropdownList={["Breads", "Dal", "Dairy", "Flour"]}
             />
-          </List>
+          </div>
           <div>
             <Accordion>
               <AccordionSummary
@@ -790,7 +793,7 @@ function LeftPane() {
             </Typography>
           </ListItem>
         </List>
-      </SwipeableDrawer>
+      </CustomDrawer>
     </React.Fragment>
   );
 }

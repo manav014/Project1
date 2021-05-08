@@ -1,31 +1,10 @@
-.MuiInput-underline:before {
-  border-bottom: none !important;
-}
-.MuiInput-underline:hover:not(.Mui-disabled):before {
-  border-bottom: none !important;
-}
+/*
 .MuiAutocomplete-inputRoot[class*="MuiInput-root"]
   .MuiAutocomplete-input:first-child {
   padding-left: 5px !important;
 }
-.MuiDrawer-paperAnchorLeft {
-  width: 28.5vw;
-}
-.MuiIconButton-colorPrimary {
-  color: #37b3f9 !important;
-}
 .colorchange:hover {
   color: #37b3f9 !important;
-}
-.MuiInputBase-input {
-  text-align: center;
-}
-.MuiButton-outlined {
-  padding: 0px 0px !important;
-}
-.MuiButton-outlinedPrimary {
-  color: #37b3f9 !important;
-  border-color: #37b3f9;
 }
 .MuiChip-icon {
   color: #37b3f9 !important;
@@ -43,4 +22,4 @@
 }
 .MuiPaper-elevation1 {
   box-shadow: none !important;
-}
+} */
