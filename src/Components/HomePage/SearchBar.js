@@ -10,7 +10,6 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
 import { createFilterOptions } from "@material-ui/lab/Autocomplete";
-import "../../styles/css/LeftPaneStyle.css";
 
 const filter = createFilterOptions();
 

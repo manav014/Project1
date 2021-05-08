@@ -26,7 +26,7 @@ import MuiAccordion from "@material-ui/core/Accordion";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import RateReviewIcon from "@material-ui/icons/RateReview";
-import Chip from "@material-ui/core/Chip";
+import MuiChip from "@material-ui/core/Chip";
 import Link from "@material-ui/core/Link";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
@@ -79,22 +79,20 @@ const AccordionSummary = withStyles({
   },
   expanded: {},
 })(MuiAccordionSummary);
+
 const AccordionDetails = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
   },
 }))(MuiAccordionDetails);
-const usePopperStyles = makeStyles((theme) => ({
-  root: {
-    width: 500,
-  },
-  typography: {
-    padding: theme.spacing(2),
-  },
-}));
+
 const CustomDrawer = withStyles({
   paperAnchorLeft: { width: "28.5vw" },
 })(SwipeableDrawer);
+
+const ReviewChip = withStyles({
+  icon: { color: "#37b3f9 !important" },
+})(MuiChip);
 // TODO: make category dropdown functional and working
 // TODO: Add modal and search suggestions
 // main functional component start
@@ -143,7 +141,7 @@ function LeftPane() {
         onClose={toggleDrawer(anchor, false)}
         onOpen={toggleDrawer(anchor, true)}
       >
-        <List style={{ backgroundColor: "#F4F5F5" }}>
+        <div style={{ backgroundColor: "#F4F5F5" }}>
           <Card>
             <div className={classes.searchbarPlacement}>
               <SearchBar />
@@ -759,7 +757,7 @@ function LeftPane() {
           </div>
           <Divider variant="middle" />
           <ListItem>
-            <Chip
+            <ReviewChip
               onClick={preventDefault}
               variant="outlined"
               icon={<RateReviewIcon />}
@@ -792,7 +790,7 @@ function LeftPane() {
               </Link>
             </Typography>
           </ListItem>
-        </List>
+        </div>
       </CustomDrawer>
     </React.Fragment>
   );

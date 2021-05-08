@@ -3,15 +3,6 @@
   .MuiAutocomplete-input:first-child {
   padding-left: 5px !important;
 }
-.colorchange:hover {
-  color: #37b3f9 !important;
-}
-.MuiChip-icon {
-  color: #37b3f9 !important;
-}
-.MuiList-padding {
-  padding-top: 0px !important;
-}
 .makeStyles-primaryHover-88:hover,
 .makeStyles-primaryHover-89:hover,
 .makeStyles-primaryHover-86:hover {
