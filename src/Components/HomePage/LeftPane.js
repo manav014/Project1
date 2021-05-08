@@ -250,7 +250,7 @@ function LeftPane() {
               marginTop: "15px",
             }}
           />
-          <div style={{ marginTop: "2vh" }}>
+          <div style={{ marginTop: "2vh", marginBottom: "2vh" }}>
             <CustomDropdown
               buttonText="Choose a Category"
               buttonProps={{

@@ -26,6 +26,9 @@ const useStyles = makeStyles({
     height: "20vh",
     objectFit: "cover",
   },
+  carouselItem: {
+    marginLeft: "1.5vw !important",
+  },
 });
 export default function ProductsTab() {
   const responsive = {
@@ -59,7 +62,7 @@ export default function ProductsTab() {
       transitionDuration={500}
       containerClass="carousel-container"
       removeArrowOnDeviceType={["tablet", "mobile"]}
-      itemClass="carousel-item-padding-40-px"
+      itemClass={classes.carouselItem}
     >
       <Card
         className={classes.root}
