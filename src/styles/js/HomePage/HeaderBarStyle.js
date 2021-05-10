@@ -35,7 +35,7 @@ const container = {
   },
 };
 
-const primaryColor = "#9c27b0";
+const primaryColor = "#37b3f9";
 const warningColor = "#ff9800";
 const dangerColor = "#f44336";
 const successColor = "#4caf50";
@@ -64,6 +64,10 @@ const headerStyle = {
   absolute: {
     position: "absolute",
     zIndex: "1100",
+  },
+  bottom: {
+    top: "auto",
+    bottom: 0,
   },
   fixed: {
     position: "fixed",
