@@ -24,6 +24,8 @@ function getStepContent(step, handleNext) {
     case 0:
       return <AddressPage handleNext={handleNext} />;
     case 1:
+      return <AddressPage handleNext={handleNext} />;
+    case 1:
       return <PaymentForm />;
     case 2:
       return <ReviewOrder />;
