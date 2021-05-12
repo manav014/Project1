@@ -14,7 +14,8 @@ import { withStyles } from "@material-ui/core/styles";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import List from "@material-ui/core/List";
-import CustomDropdown from "./HomePage/CustomDropdown.js";
+import CustomDropdown from "./HeaderBar/HeaderBarDropdown.js";
+import { useHistory } from "react-router-dom";
 
 import styles from "../styles/js/HomePage/HeaderBarStyle.js";
 
@@ -30,18 +31,15 @@ const StyledBadge = withStyles((theme) => ({
 function userMenu(navlink) {
   return (
     <List>
-      <CustomDropdown
-        buttonText="My account"
-        buttonProps={{
-          className: navlink,
-          color: "transparent",
-        }}
-        dropdownList={["Profile", { divider: true }, "Logout"]}
-      />
+      <CustomDropdown dropdownList={["Profile", { divider: true }, "Logout"]} />
     </List>
   );
 }
 export default function HeaderBar(props) {
+  let history = useHistory();
+  function handleClick() {
+    history.push("/checkout");
+  }
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
@@ -107,7 +105,8 @@ export default function HeaderBar(props) {
             <Menu />
           </IconButton>
         </Hidden>
-        <IconButton aria-label="cart">
+
+        <IconButton aria-label="cart" onClick={handleClick}>
           <StyledBadge badgeContent={4} color="secondary">
             <ShoppingCartIcon />
           </StyledBadge>

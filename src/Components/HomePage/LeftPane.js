@@ -99,6 +99,7 @@ const ReviewChip = withStyles({
 function LeftPane() {
   //Accordion Style
   const preventDefault = (event) => event.preventDefault();
+
   const [count, setCount] = React.useState(0);
 
   const add = () => {
@@ -278,10 +279,10 @@ function LeftPane() {
                       style={{
                         fontSize: "13px",
                         lineHeight: "15px",
-                        display: "flex",
                       }}
                     >
-                      &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+                      &#8377;
+                       <div style={{ marginLeft: "1px" }}>21</div>
                     </div>
                     <div
                       style={{
@@ -290,7 +291,6 @@ function LeftPane() {
                         textDecoration: "line-through",
                         color: "#777777",
                         marginLeft: "5px",
-                        display: "flex",
                       }}
                     >
                       &#8377; <div style={{ marginLeft: "1px" }}>25</div>
@@ -765,31 +765,74 @@ function LeftPane() {
               className={classes.chip}
             />
           </ListItem>
-          <Box boxShadow={2} className={classes.reviewcontainer} m={1} p={1}>
-            <div className={classes.reviewname}>Avanya Wadhwa</div>
-            <div className={classes.review2}>Local Guid - 219 reviews</div>
-            <div className={classes.reviewtext}>
-              I think this is the best website ever build.
-            </div>
-          </Box>
-          <Box boxShadow={2} className={classes.reviewcontainer} m={1} p={1}>
-            <div className={classes.reviewname}>Manav Agarwal</div>
-            <div className={classes.review2}>Student - 719 reviews</div>
-            <div className={classes.reviewtext}>
-              Upar wali comment ko ignore krein.
-            </div>
-          </Box>
-          <ListItem>
-            <Typography className={classes.morereviews}>
-              <Link
-                href="#"
-                onClick={preventDefault}
-                style={{ color: "#37b3f9" }}
-              >
-                More Reviews (1,673)
-              </Link>
+          <Paper className={classes.paper} elevation={1}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              className={classes.reviewname}
+            >
+              Avanya Wadhwa
             </Typography>
-          </ListItem>
+            <Typography gutterBottom className={classes.review2}>
+              Local Guid - 219 reviews
+            </Typography>
+            <Typography gutterBottom className={classes.reviewtext}>
+              I think this is the best website ever build.
+            </Typography>
+            <Divider variant="middle" />
+            <Typography
+              variant="h6"
+              gutterBottom
+              className={classes.reviewname}
+            >
+              Manav Agarwal
+            </Typography>
+            <Typography gutterBottom className={classes.review2}>
+              Student - 719 reviews
+            </Typography>
+            <Typography gutterBottom className={classes.reviewtext}>
+              Upar wali comment ko ignore krein.
+            </Typography>
+            <Divider variant="middle" />
+            <Typography
+              variant="h6"
+              gutterBottom
+              className={classes.reviewname}
+            >
+              Avanya Wadhwa
+            </Typography>
+            <Typography gutterBottom className={classes.review2}>
+              Local Guid - 219 reviews
+            </Typography>
+            <Typography gutterBottom className={classes.reviewtext}>
+              I think this is the best website ever build.
+            </Typography>
+            <Divider variant="middle" />
+            <Typography
+              variant="h6"
+              gutterBottom
+              className={classes.reviewname}
+            >
+              Manav Agarwal
+            </Typography>
+            <Typography gutterBottom className={classes.review2}>
+              Student - 719 reviews
+            </Typography>
+            <Typography gutterBottom className={classes.reviewtext}>
+              Upar wali comment ko ignore krein.
+            </Typography>
+            <ListItem>
+              <Typography className={classes.morereviews}>
+                <Link
+                  href="#"
+                  onClick={preventDefault}
+                  style={{ color: "#37b3f9" }}
+                >
+                  More Reviews (1,673)
+                </Link>
+              </Typography>
+            </ListItem>
+          </Paper>
         </div>
       </CustomDrawer>
     </React.Fragment>
