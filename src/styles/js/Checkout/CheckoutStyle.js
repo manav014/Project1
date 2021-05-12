@@ -1,11 +1,11 @@
 const checkoutstyle = (theme) => ({
   layout: {
     width: "auto",
-    marginLeft: theme.spacing(2),
+    marginLeft: theme.spacing(1),
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up(1125 + theme.spacing(2) * 2)]: {
-      width: 1125,
-      marginLeft: "auto",
+    [theme.breakpoints.up(1000 + theme.spacing(2) * 2)]: {
+      width: "70vw",
+      marginLeft: theme.spacing(2),
       marginRight: "auto",
     },
   },
