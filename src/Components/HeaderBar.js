@@ -9,11 +9,15 @@ import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
-import styles from "../../styles/js/HomePage/HeaderBarStyle.js";
 import Badge from "@material-ui/core/Badge";
 import { withStyles } from "@material-ui/core/styles";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
+import List from "@material-ui/core/List";
+import CustomDropdown from "./HeaderBar/HeaderBarDropdown.js";
+import { useHistory } from "react-router-dom";
+
+import styles from "../styles/js/HomePage/HeaderBarStyle.js";
 
 const useStyles = makeStyles(styles);
 const StyledBadge = withStyles((theme) => ({
@@ -24,7 +28,18 @@ const StyledBadge = withStyles((theme) => ({
     padding: "0 4px",
   },
 }))(Badge);
+function userMenu(navlink) {
+  return (
+    <List>
+      <CustomDropdown dropdownList={["Profile", { divider: true }, "Logout"]} />
+    </List>
+  );
+}
 export default function HeaderBar(props) {
+  let history = useHistory();
+  function handleClick() {
+    history.push("/checkout");
+  }
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
@@ -59,41 +74,27 @@ export default function HeaderBar(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const {
-    color,
-    rightLinks,
-    leftLinks,
-    brand,
-    fixed,
-    absolute,
-    sticky,
-  } = props;
+  const { color, fixed, absolute, sticky, bottom } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
     [classes.absolute]: absolute,
     [classes.fixed]: fixed,
     [classes.sticky]: sticky,
+    [classes.bottom]: bottom,
   });
-  const brandComponent = <Button className={classes.title}>{brand}</Button>;
+  const brandComponent = (
+    <Button className={classes.title}>{"Blah Project"}</Button>
+  );
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
         <IconButton aria-label="logo">
           <LocalMallIcon />
         </IconButton>
-        {leftLinks !== undefined ? brandComponent : null}
-        <div className={classes.flex}>
-          {leftLinks !== undefined ? (
-            <Hidden smDown implementation="css">
-              {leftLinks}
-            </Hidden>
-          ) : (
-            brandComponent
-          )}
-        </div>
+        <div className={classes.flex}>{brandComponent}</div>
         <Hidden smDown implementation="css">
-          {rightLinks}
+          {userMenu(classes.navlink)}
         </Hidden>
         <Hidden mdUp>
           <IconButton
@@ -104,7 +105,8 @@ export default function HeaderBar(props) {
             <Menu />
           </IconButton>
         </Hidden>
-        <IconButton aria-label="cart">
+
+        <IconButton aria-label="cart" onClick={handleClick}>
           <StyledBadge badgeContent={4} color="secondary">
             <ShoppingCartIcon />
           </StyledBadge>
@@ -121,8 +123,7 @@ export default function HeaderBar(props) {
           onClose={handleDrawerToggle}
         >
           <div className={classes.appResponsive}>
-            {leftLinks}
-            {rightLinks}
+            {userMenu(classes.navlink)}
           </div>
         </Drawer>
       </Hidden>
@@ -131,7 +132,7 @@ export default function HeaderBar(props) {
 }
 
 HeaderBar.defaultProp = {
-  color: "white",
+  color: "primary",
 };
 
 HeaderBar.propTypes = {
@@ -146,12 +147,10 @@ HeaderBar.propTypes = {
     "rose",
     "dark",
   ]),
-  rightLinks: PropTypes.node,
-  leftLinks: PropTypes.node,
-  brand: PropTypes.string,
   fixed: PropTypes.bool,
   absolute: PropTypes.bool,
   sticky: PropTypes.bool,
+  bottom: PropTypes.bool,
   // this will cause the sidebar to change the color from
   // props.color (see above) to changeColorOnScroll.color
   // when the window.pageYOffset is heigher or equal to

@@ -28,7 +28,7 @@ const roseBoxShadow = {
     "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(233, 30, 99, 0.4)",
 };
 
-const primaryColor = "#9c27b0";
+const primaryColor = "#37b3f9";
 const warningColor = "#ff9800";
 const dangerColor = "#f44336";
 const successColor = "#4caf50";

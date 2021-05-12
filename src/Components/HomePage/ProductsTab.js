@@ -12,7 +12,6 @@ import flour from "../../assets/HomePage/flour.jpg";
 import maggi from "../../assets/HomePage/maggi.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import "../../styles/css/LeftPaneStyle.css";
 
 const useStyles = makeStyles({
   root: {
@@ -26,6 +25,9 @@ const useStyles = makeStyles({
   carouselImage: {
     height: "20vh",
     objectFit: "cover",
+  },
+  carouselItem: {
+    marginLeft: "1.5vw !important",
   },
 });
 export default function ProductsTab() {
@@ -60,7 +62,7 @@ export default function ProductsTab() {
       transitionDuration={500}
       containerClass="carousel-container"
       removeArrowOnDeviceType={["tablet", "mobile"]}
-      itemClass="carousel-item-padding-40-px"
+      itemClass={classes.carouselItem}
     >
       <Card
         className={classes.root}

@@ -20,7 +20,15 @@ const container = {
     maxWidth: "1140px",
   },
 };
-const typographyStyle = {
+const typographyStyle = (theme) => ({
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(0, 2, 2, 2),
+    width: "85%",
+    margin: "auto",
+    borderRadius: "8px",
+  },
   searchbarPlacement: {
     position: "absolute !important",
     top: "5vh !important",
@@ -82,6 +90,9 @@ const typographyStyle = {
     border: "0",
     display: "flex",
     alignItems: "center",
+  },
+  paperAnchorLeft: {
+    width: "28.5vw",
   },
   cardPos: {
     display: "flex",
@@ -153,6 +164,7 @@ const typographyStyle = {
   reviewname: {
     fontWeight: "500 !important",
     fontSize: "1.3vw",
+    paddingTop: theme.spacing(1),
   },
   review2: {
     fontWeight: "500",
@@ -161,7 +173,7 @@ const typographyStyle = {
     lineHeight: "15px",
   },
   reviewtext: {
-    marginTop: "1.3vh",
+    marginBottom: "1.3vh",
   },
   bestdeals: {
     fontWeight: "500",
@@ -173,6 +185,6 @@ const typographyStyle = {
     fontWeight: "550",
     margin: "auto",
   },
-};
+});
 
 export default typographyStyle;

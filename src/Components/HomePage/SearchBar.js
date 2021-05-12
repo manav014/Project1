@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
@@ -10,9 +10,22 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
 import { createFilterOptions } from "@material-ui/lab/Autocomplete";
-import "../../styles/css/LeftPaneStyle.css";
 
 const filter = createFilterOptions();
+const NoPaddingAutocomplete = withStyles({
+  inputRoot: {
+    '&&[class*="MuiInput-root"]': {
+      input: {
+        "&:first-child": {
+          paddingLeft: "5px !important",
+        },
+      },
+    },
+  },
+  input: {
+    paddingLeft: "5px !important",
+  },
+})(Autocomplete);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
     height: 28,
     margin: 4,
   },
+  colorchange: {
+    "&:hover": {
+      color: "#37b3f9 !important",
+    },
+  },
+  // NNot working but is here for reference and is to be improved in future releases of the product
+  // inputRoot: { input: { "&:first-child": { paddingLeft: "5px !important" } } },
 }));
 
 export default function CustomizedInputBase() {
@@ -40,7 +60,7 @@ export default function CustomizedInputBase() {
 
   return (
     <Paper component="form" className={classes.root}>
-      <Autocomplete
+      <NoPaddingAutocomplete
         id="disable-clearable"
         disableClearable
         value={value}
@@ -92,10 +112,14 @@ export default function CustomizedInputBase() {
         style={{ width: 300 }}
         freeSolo
         renderInput={(params) => (
-          <TextField {...params} placeholder="Search Shop or Location" />
+          <TextField
+            {...params}
+            // InputProps={{ disableUnderline: true }}
+            placeholder="Search Shop or Location"
+          />
         )}
       />
-      <Tooltip title="Search" className="colorchange">
+      <Tooltip title="Search" className={classes.colorchange}>
         <IconButton
           type="submit"
           className={classes.iconButton}
@@ -105,7 +129,7 @@ export default function CustomizedInputBase() {
         </IconButton>
       </Tooltip>
       <Divider className={classes.divider} orientation="vertical" />
-      <Tooltip title="Explore Products" className="colorchange">
+      <Tooltip title="Explore Products" className={classes.colorchange}>
         <IconButton
           //   color="primary"
           type="submit"
@@ -116,7 +140,7 @@ export default function CustomizedInputBase() {
         </IconButton>
       </Tooltip>
       <Divider className={classes.divider} orientation="vertical" />
-      <Tooltip title="Explore Shops" className="colorchange">
+      <Tooltip title="Explore Shops" className={classes.colorchange}>
         <IconButton
           // color="primary"
           type="submit"
