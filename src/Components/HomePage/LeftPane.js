@@ -26,7 +26,7 @@ import MuiAccordion from "@material-ui/core/Accordion";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import RateReviewIcon from "@material-ui/icons/RateReview";
-import Chip from "@material-ui/core/Chip";
+import MuiChip from "@material-ui/core/Chip";
 import Link from "@material-ui/core/Link";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
@@ -39,7 +39,6 @@ import CustomDropdown from "./CustomDropdown";
 import SearchBar from "./SearchBar";
 import ProductsTab from "./ProductsTab";
 // Asset imports
-import "../../styles/css/LeftPaneStyle.css";
 import banner_image from "../../assets/HomePage/levis.jpg";
 import styles from "../../styles/js/HomePage/LeftPaneStyle.js";
 
@@ -80,25 +79,27 @@ const AccordionSummary = withStyles({
   },
   expanded: {},
 })(MuiAccordionSummary);
+
 const AccordionDetails = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
   },
 }))(MuiAccordionDetails);
-const usePopperStyles = makeStyles((theme) => ({
-  root: {
-    width: 500,
-  },
-  typography: {
-    padding: theme.spacing(2),
-  },
-}));
+
+const CustomDrawer = withStyles({
+  paperAnchorLeft: { width: "28.5vw" },
+})(SwipeableDrawer);
+
+const ReviewChip = withStyles({
+  icon: { color: "#37b3f9 !important" },
+})(MuiChip);
 // TODO: make category dropdown functional and working
 // TODO: Add modal and search suggestions
 // main functional component start
 function LeftPane() {
   //Accordion Style
   const preventDefault = (event) => event.preventDefault();
+
   const [count, setCount] = React.useState(0);
 
   const add = () => {
@@ -131,16 +132,17 @@ function LeftPane() {
     setState({ ...state, [anchor]: open });
   };
   const anchor = "left";
+
   return (
     <React.Fragment key={anchor}>
       <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-      <SwipeableDrawer
+      <CustomDrawer
         anchor={anchor}
         open={state[anchor]}
         onClose={toggleDrawer(anchor, false)}
         onOpen={toggleDrawer(anchor, true)}
       >
-        <List style={{ backgroundColor: "#F4F5F5" }}>
+        <div style={{ backgroundColor: "#F4F5F5" }}>
           <Card>
             <div className={classes.searchbarPlacement}>
               <SearchBar />
@@ -249,7 +251,7 @@ function LeftPane() {
               marginTop: "15px",
             }}
           />
-          <List style={{ marginTop: "2vh" }}>
+          <div style={{ marginTop: "2vh", marginBottom: "2vh" }}>
             <CustomDropdown
               buttonText="Choose a Category"
               buttonProps={{
@@ -258,7 +260,7 @@ function LeftPane() {
               }}
               dropdownList={["Breads", "Dal", "Dairy", "Flour"]}
             />
-          </List>
+          </div>
           <div>
             <Accordion>
               <AccordionSummary
@@ -277,10 +279,10 @@ function LeftPane() {
                       style={{
                         fontSize: "13px",
                         lineHeight: "15px",
-                        display: "flex",
                       }}
                     >
-                      &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+                      &#8377;
+                       <div style={{ marginLeft: "1px" }}>21</div>
                     </div>
                     <div
                       style={{
@@ -289,7 +291,6 @@ function LeftPane() {
                         textDecoration: "line-through",
                         color: "#777777",
                         marginLeft: "5px",
-                        display: "flex",
                       }}
                     >
                       &#8377; <div style={{ marginLeft: "1px" }}>25</div>
@@ -756,7 +757,7 @@ function LeftPane() {
           </div>
           <Divider variant="middle" />
           <ListItem>
-            <Chip
+            <ReviewChip
               onClick={preventDefault}
               variant="outlined"
               icon={<RateReviewIcon />}
@@ -764,33 +765,76 @@ function LeftPane() {
               className={classes.chip}
             />
           </ListItem>
-          <Box boxShadow={2} className={classes.reviewcontainer} m={1} p={1}>
-            <div className={classes.reviewname}>Avanya Wadhwa</div>
-            <div className={classes.review2}>Local Guid - 219 reviews</div>
-            <div className={classes.reviewtext}>
-              I think this is the best website ever build.
-            </div>
-          </Box>
-          <Box boxShadow={2} className={classes.reviewcontainer} m={1} p={1}>
-            <div className={classes.reviewname}>Manav Agarwal</div>
-            <div className={classes.review2}>Student - 719 reviews</div>
-            <div className={classes.reviewtext}>
-              Upar wali comment ko ignore krein.
-            </div>
-          </Box>
-          <ListItem>
-            <Typography className={classes.morereviews}>
-              <Link
-                href="#"
-                onClick={preventDefault}
-                style={{ color: "#37b3f9" }}
-              >
-                More Reviews (1,673)
-              </Link>
+          <Paper className={classes.paper} elevation={1}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              className={classes.reviewname}
+            >
+              Avanya Wadhwa
             </Typography>
-          </ListItem>
-        </List>
-      </SwipeableDrawer>
+            <Typography gutterBottom className={classes.review2}>
+              Local Guid - 219 reviews
+            </Typography>
+            <Typography gutterBottom className={classes.reviewtext}>
+              I think this is the best website ever build.
+            </Typography>
+            <Divider variant="middle" />
+            <Typography
+              variant="h6"
+              gutterBottom
+              className={classes.reviewname}
+            >
+              Manav Agarwal
+            </Typography>
+            <Typography gutterBottom className={classes.review2}>
+              Student - 719 reviews
+            </Typography>
+            <Typography gutterBottom className={classes.reviewtext}>
+              Upar wali comment ko ignore krein.
+            </Typography>
+            <Divider variant="middle" />
+            <Typography
+              variant="h6"
+              gutterBottom
+              className={classes.reviewname}
+            >
+              Avanya Wadhwa
+            </Typography>
+            <Typography gutterBottom className={classes.review2}>
+              Local Guid - 219 reviews
+            </Typography>
+            <Typography gutterBottom className={classes.reviewtext}>
+              I think this is the best website ever build.
+            </Typography>
+            <Divider variant="middle" />
+            <Typography
+              variant="h6"
+              gutterBottom
+              className={classes.reviewname}
+            >
+              Manav Agarwal
+            </Typography>
+            <Typography gutterBottom className={classes.review2}>
+              Student - 719 reviews
+            </Typography>
+            <Typography gutterBottom className={classes.reviewtext}>
+              Upar wali comment ko ignore krein.
+            </Typography>
+            <ListItem>
+              <Typography className={classes.morereviews}>
+                <Link
+                  href="#"
+                  onClick={preventDefault}
+                  style={{ color: "#37b3f9" }}
+                >
+                  More Reviews (1,673)
+                </Link>
+              </Typography>
+            </ListItem>
+          </Paper>
+        </div>
+      </CustomDrawer>
     </React.Fragment>
   );
 }
