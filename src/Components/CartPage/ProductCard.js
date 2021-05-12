@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import product1 from "../../assets/HomePage/product1.png";
+import product2 from "../../assets/HomePage/product2.png";
 import Checkbox from "@material-ui/core/Checkbox";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -131,7 +132,7 @@ export default function SimplePaper() {
               inputProps={{ "aria-label": "secondary checkbox" }}
             />
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={product1} />
+              <img className={classes.img} alt="complex" src={product2} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
@@ -305,7 +306,7 @@ export default function SimplePaper() {
               inputProps={{ "aria-label": "secondary checkbox" }}
             />
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={product1} />
+              <img className={classes.img} alt="complex" src={product2} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
