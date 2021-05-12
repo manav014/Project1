@@ -15,7 +15,7 @@ function CartPage() {
         }}
       />
       <Typography component="h1" variant="h4" style={{ marginLeft: "1.5vw" }}>
-        Shopping Basket
+        Shopping Basket (4)
       </Typography>
       <ProductCard />
     </div>

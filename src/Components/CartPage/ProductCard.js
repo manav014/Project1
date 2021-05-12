@@ -51,7 +51,11 @@ export default function SimplePaper() {
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  style={{ fontWeight: "bold" }}
+                >
                   Loose HMT Kolam Rice 1 kg
                 </Typography>
                 <Typography
@@ -62,15 +66,19 @@ export default function SimplePaper() {
                   In stock
                 </Typography>
                 <div style={{ display: "flex" }}>
-                  <Typography variant="body2" gutterBottom>
-                    &#8377;108
+                  <Typography
+                    variant="body2"
+                    gutterBottom
+                    style={{ fontWeight: "bold" }}
+                  >
+                    &#8377;200.00
                   </Typography>
                   <Typography
                     className={classNames(classes.cartText, classes.text)}
                     variant="body2"
                     color="textSecondary"
                   >
-                    &#8377;117.00
+                    &#8377;250.00
                   </Typography>
                   <Typography
                     className={classes.cartText}
@@ -78,7 +86,7 @@ export default function SimplePaper() {
                     gutterBottom
                     style={{ color: "green" }}
                   >
-                    You save &#8377;768.0
+                    You save &#8377;50.00
                   </Typography>
                 </div>
               </Grid>
@@ -138,8 +146,12 @@ export default function SimplePaper() {
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  Loose HMT Kolam Rice 1 kg
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Nestle Milkmaid Sweetened Condensed Milk 400 g (Tin)
                 </Typography>
                 <Typography
                   variant="body2"
@@ -149,15 +161,19 @@ export default function SimplePaper() {
                   In stock
                 </Typography>
                 <div style={{ display: "flex" }}>
-                  <Typography variant="body2" gutterBottom>
-                    &#8377;108
+                  <Typography
+                    variant="body2"
+                    gutterBottom
+                    style={{ fontWeight: "bold" }}
+                  >
+                    &#8377;150.00
                   </Typography>
                   <Typography
                     className={classNames(classes.cartText, classes.text)}
                     variant="body2"
                     color="textSecondary"
                   >
-                    &#8377;117.00
+                    &#8377;200.00
                   </Typography>
                   <Typography
                     className={classes.cartText}
@@ -165,7 +181,7 @@ export default function SimplePaper() {
                     gutterBottom
                     style={{ color: "green" }}
                   >
-                    You save &#8377;768.0
+                    You save &#8377;50.00
                   </Typography>
                 </div>
               </Grid>
@@ -211,180 +227,7 @@ export default function SimplePaper() {
           </Grid>
         </Grid>
         <Divider className={classes.divider} orientation="horizontal" />
-        <Grid container spacing={2}>
-          <Grid item>
-            <Checkbox
-              defaultChecked
-              color="primary"
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={product1} />
-            </ButtonBase>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  Loose HMT Kolam Rice 1 kg
-                </Typography>
-                <Typography
-                  variant="body2"
-                  gutterBottom
-                  style={{ color: "green" }}
-                >
-                  In stock
-                </Typography>
-                <div style={{ display: "flex" }}>
-                  <Typography variant="body2" gutterBottom>
-                    &#8377;108
-                  </Typography>
-                  <Typography
-                    className={classNames(classes.cartText, classes.text)}
-                    variant="body2"
-                    color="textSecondary"
-                  >
-                    &#8377;117.00
-                  </Typography>
-                  <Typography
-                    className={classes.cartText}
-                    variant="body2"
-                    gutterBottom
-                    style={{ color: "green" }}
-                  >
-                    You save &#8377;768.0
-                  </Typography>
-                </div>
-              </Grid>
-              <Grid item>
-                <Typography
-                  variant="body2"
-                  style={{ cursor: "pointer", color: "#7D808E" }}
-                >
-                  Remove | Save For Later | See More Like This
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle1"> </Typography>
-              <Typography variant="subtitle1">
-                {" "}
-                <Typography variant="subtitle1"></Typography>
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid item>
-            <ButtonGroup>
-              <RemoveCircleIcon
-                onClick={subtract}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></RemoveCircleIcon>
 
-              <div
-                style={{
-                  minWidth: "15px",
-                  marginLeft: "1px",
-                  textAlign: "center",
-                }}
-              >
-                {count}
-              </div>
-
-              <AddCircleIcon
-                onClick={add}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></AddCircleIcon>
-            </ButtonGroup>
-          </Grid>
-        </Grid>
-        <Divider className={classes.divider} orientation="horizontal" />
-        <Grid container spacing={2}>
-          <Grid item>
-            <Checkbox
-              defaultChecked
-              color="primary"
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={product2} />
-            </ButtonBase>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  Loose HMT Kolam Rice 1 kg
-                </Typography>
-                <Typography
-                  variant="body2"
-                  gutterBottom
-                  style={{ color: "green" }}
-                >
-                  In stock
-                </Typography>
-                <div style={{ display: "flex" }}>
-                  <Typography variant="body2" gutterBottom>
-                    &#8377;108
-                  </Typography>
-                  <Typography
-                    className={classNames(classes.cartText, classes.text)}
-                    variant="body2"
-                    color="textSecondary"
-                  >
-                    &#8377;117.00
-                  </Typography>
-                  <Typography
-                    className={classes.cartText}
-                    variant="body2"
-                    gutterBottom
-                    style={{ color: "green" }}
-                  >
-                    You save &#8377;768.0
-                  </Typography>
-                </div>
-              </Grid>
-              <Grid item>
-                <Typography
-                  variant="body2"
-                  style={{ cursor: "pointer", color: "#7D808E" }}
-                >
-                  Remove | Save For Later | See More Like This
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle1"> </Typography>
-              <Typography variant="subtitle1">
-                {" "}
-                <Typography variant="subtitle1"></Typography>
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid item>
-            <ButtonGroup>
-              <RemoveCircleIcon
-                onClick={subtract}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></RemoveCircleIcon>
-
-              <div
-                style={{
-                  minWidth: "15px",
-                  marginLeft: "1px",
-                  textAlign: "center",
-                }}
-              >
-                {count}
-              </div>
-
-              <AddCircleIcon
-                onClick={add}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></AddCircleIcon>
-            </ButtonGroup>
-          </Grid>
-        </Grid>
-        <Divider className={classes.divider} orientation="horizontal" />
         <Typography
           style={{
             display: "flex",
