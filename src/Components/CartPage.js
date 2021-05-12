@@ -1,6 +1,8 @@
 import React from "react";
 import HeaderBar from "./HeaderBar.js";
 import ProductCard from "./CartPage/ProductCard.js";
+import Coupon from "./CartPage/Coupon.js";
+import PaymentDetails from "./Checkout/PaymentDetails.js";
 import Typography from "@material-ui/core/Typography";
 
 function CartPage() {
@@ -18,6 +20,8 @@ function CartPage() {
         Shopping Basket (4)
       </Typography>
       <ProductCard />
+      <Coupon />
+      <PaymentDetails />
     </div>
   );
 }

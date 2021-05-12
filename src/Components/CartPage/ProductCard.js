@@ -13,6 +13,7 @@ import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import styles from "../../styles/js/CartPage/CartPageStyle.js";
 import classNames from "classnames";
 import Divider from "@material-ui/core/Divider";
+
 const useStyles = makeStyles(styles);
 
 export default function SimplePaper() {
@@ -57,6 +58,9 @@ export default function SimplePaper() {
                   style={{ fontWeight: "bold" }}
                 >
                   Loose HMT Kolam Rice 1 kg
+                </Typography>
+                <Typography gutterBottom variant="body2">
+                  Sold By: Agarwal Shop
                 </Typography>
                 <Typography
                   variant="body2"
@@ -153,6 +157,9 @@ export default function SimplePaper() {
                   style={{ fontWeight: "bold" }}
                 >
                   Loose HMT Kolam Rice 1 kg
+                </Typography>
+                <Typography gutterBottom variant="body2">
+                  Sold By: Agarwal Shop
                 </Typography>
                 <Typography
                   variant="body2"
@@ -249,6 +256,9 @@ export default function SimplePaper() {
                   style={{ fontWeight: "bold" }}
                 >
                   Nestle Milkmaid Sweetened Condensed Milk 400 g (Tin)
+                </Typography>
+                <Typography gutterBottom variant="body2">
+                  Sold By: Gupta Shop
                 </Typography>
                 <Typography
                   variant="body2"
@@ -345,6 +355,9 @@ export default function SimplePaper() {
                   style={{ fontWeight: "bold" }}
                 >
                   Nestle Milkmaid Sweetened Condensed Milk 400 g (Tin)
+                </Typography>
+                <Typography gutterBottom variant="body2">
+                  Sold By: Gupta Shop
                 </Typography>
                 <Typography
                   variant="body2"
