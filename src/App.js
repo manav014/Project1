@@ -11,7 +11,7 @@ function App() {
         <Switch>
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/" component={HomePage} />
-          {/* <Redirect from="*" to="/" /> */}
+          <Redirect from="*" to="/" />
         </Switch>
       </Router>
     </div>
