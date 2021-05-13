@@ -25,7 +25,7 @@ const typographyStyle = (theme) => ({
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(0, 2, 2, 2),
-    width: "85%",
+    width: "90%",
     margin: "auto",
     borderRadius: "8px",
   },

@@ -86,9 +86,21 @@ const AccordionDetails = withStyles((theme) => ({
   },
 }))(MuiAccordionDetails);
 
-const CustomDrawer = withStyles({
-  paperAnchorLeft: { width: "28.5vw" },
-})(SwipeableDrawer);
+const CustomDrawer = withStyles((theme) => ({
+  paperAnchorLeft: {
+    width: "28.5vw",
+
+    //   [theme.breakpoints.down(600 + theme.spacing(3) * 2)]: {
+    //     width: "100vw",
+    //   },
+    //   [theme.breakpoints.down(900 + theme.spacing(3) * 2)]: {
+    //     width: "40vw",
+    //   },
+    //   [theme.breakpoints.up(900 + theme.spacing(3) * 2)]: {
+    //     width: "28.5vw",
+    //   },
+  },
+}))(SwipeableDrawer);
 
 const ReviewChip = withStyles({
   icon: { color: "#37b3f9 !important" },
@@ -767,7 +779,16 @@ function LeftPane() {
               className={classes.chip}
             />
           </ListItem>
-          <Paper className={classes.paper} elevation={1}>
+          <Paper className={classes.paper} elevation={2}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              className={classes.reviewname}
+            >
+              From Customers
+            </Typography>
+            <Divider variant="left" />
+
             <Typography
               variant="h6"
               gutterBottom
@@ -823,6 +844,7 @@ function LeftPane() {
             <Typography gutterBottom className={classes.reviewtext}>
               Upar wali comment ko ignore krein.
             </Typography>
+            <Divider variant="middle" />
             <ListItem>
               <Typography className={classes.morereviews}>
                 <Link
