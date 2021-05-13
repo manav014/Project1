@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up(1125 + theme.spacing(3) * 2)]: {
       width: "19vw",
       padding: theme.spacing(3),
-      marginLeft: theme.spacing(3),
     },
   },
   divider: {
