@@ -1,14 +1,19 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import HeaderBar from "./HeaderBar.js";
 import ProductCard from "./CartPage/ProductCard.js";
 import Coupon from "./CartPage/Coupon.js";
 import PaymentDetails from "./Checkout/PaymentDetails.js";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import styles from "../styles/js/CartPage/CartPageStyle.js";
+
+const useStyles = makeStyles(styles);
 
 function CartPage() {
+  const classes = useStyles();
   return (
-    <div>
+    <div className={classes.papercart}>
       <HeaderBar
         brand="Blah Project"
         sticky
@@ -18,19 +23,25 @@ function CartPage() {
         }}
       />
       <Grid container>
-        <Grid item>
+        <Grid item xs="12" md="9" lg="9">
           <Typography
             component="h1"
             variant="h4"
-            style={{ marginLeft: "1.5vw" }}
+            style={{ marginLeft: "5vw", marginTop: "5vh" }}
           >
             Shopping Basket (4)
           </Typography>
-          <ProductCard />
+          <div className={classes.ProductCardStyle}>
+            <ProductCard />
+          </div>
         </Grid>
-        <Grid item>
-          <Coupon />
-          <PaymentDetails />
+        <Grid item md="3" lg="3">
+          <div className={classes.PaymentDetailsCart}>
+            <PaymentDetails />
+            <div style={{ marginTop: "5vh" }}>
+              <Coupon />
+            </div>
+          </div>
         </Grid>
       </Grid>
     </div>
