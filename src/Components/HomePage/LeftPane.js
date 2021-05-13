@@ -279,10 +279,11 @@ function LeftPane() {
                       style={{
                         fontSize: "13px",
                         lineHeight: "15px",
+                        display: "flex",
                       }}
                     >
                       &#8377;
-                       <div style={{ marginLeft: "1px" }}>21</div>
+                      <div style={{ marginLeft: "1px" }}>21</div>
                     </div>
                     <div
                       style={{
@@ -291,6 +292,7 @@ function LeftPane() {
                         textDecoration: "line-through",
                         color: "#777777",
                         marginLeft: "5px",
+                        display: "flex",
                       }}
                     >
                       &#8377; <div style={{ marginLeft: "1px" }}>25</div>
