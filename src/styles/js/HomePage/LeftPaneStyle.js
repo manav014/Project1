@@ -25,7 +25,7 @@ const typographyStyle = (theme) => ({
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(0, 2, 2, 2),
-    width: "85%",
+    width: "90%",
     margin: "auto",
     borderRadius: "8px",
   },
@@ -102,7 +102,7 @@ const typographyStyle = (theme) => ({
   shopName: {
     marginTop: " 2vh !important",
     paddingLeft: "10px",
-    fontSize: "1.5vw",
+    fontSize: "1.3rem",
     fontWeight: "500",
   },
   rating: {
@@ -117,7 +117,7 @@ const typographyStyle = (theme) => ({
   timing: {
     paddingLeft: "10px",
     color: "#777777",
-    fontSize: "0.8vw",
+    fontSize: "0.8rem",
     fontWeight: "400",
     marginBottom: "2vh",
     marginTop: "-2vh",
@@ -163,12 +163,12 @@ const typographyStyle = (theme) => ({
   },
   reviewname: {
     fontWeight: "500 !important",
-    fontSize: "1.3vw",
+    fontSize: "1.1rem",
     paddingTop: theme.spacing(1),
   },
   review2: {
     fontWeight: "500",
-    fontSize: "1vw",
+    fontSize: "0.8rem",
     color: "#777777",
     lineHeight: "15px",
   },
@@ -177,7 +177,7 @@ const typographyStyle = (theme) => ({
   },
   bestdeals: {
     fontWeight: "500",
-    fontSize: "1.5vw",
+    fontSize: "1.5rem",
     textAlign: "center",
     marginTop: "2vh",
   },

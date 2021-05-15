@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 
@@ -14,15 +14,19 @@ import Divider from "@material-ui/core/Divider";
 import Popper from "@material-ui/core/Popper";
 
 // core components
+import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
+import { authAccountsAxios } from "../../utils";
+import { userDetailsURL } from "../../constants";
 import SignIn from "./Login";
 import SignUp from "./SignUp";
-import styles from "../../styles/js/HomePage/customDropdownStyle.js";
+import styles from "../../styles/js/HomePage/customDropdownStyle";
+import * as actions from "../../store/actions/auth";
 
 const useStyles = makeStyles(styles);
 
-export default function HeaderBarDropdown(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+function HeaderBarDropdown(props) {
+  const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     if (anchorEl && anchorEl.contains(event.target)) {
       setAnchorEl(null);
@@ -43,7 +47,8 @@ export default function HeaderBarDropdown(props) {
     setAnchorEl(null);
   };
   const classes = useStyles();
-  const { dropup, caret, hoverColor, left, rtlActive, noLiPadding } = props;
+  const { dropup, caret, hoverColor, left, rtlActive, noLiPadding, token } =
+    props;
   const caretClasses = classNames({
     [classes.caret]: true,
     [classes.caretActive]: Boolean(anchorEl),
@@ -55,11 +60,12 @@ export default function HeaderBarDropdown(props) {
     [classes.noLiPadding]: noLiPadding,
     [classes.dropdownItemRTL]: rtlActive,
   });
-  const [openlogin, setOpenlogin] = React.useState(false);
-  const [opensignup, setOpensignup] = React.useState(false);
+  const [openlogin, setOpenlogin] = useState(false);
+  const [opensignup, setOpensignup] = useState(false);
   const handleClickOpenlogin = () => {
     setOpenlogin(true);
   };
+
   const handleCloseDropdownlogin = () => {
     setOpenlogin(false);
   };
@@ -70,6 +76,24 @@ export default function HeaderBarDropdown(props) {
   const handleCloseDropdownsignup = () => {
     setOpensignup(false);
   };
+  const [username, setUserName] = useState("");
+  const getUserName = async () => {
+    await authAccountsAxios
+      .get(userDetailsURL)
+      .then((res) => {
+        setUserName(res.data.fname);
+      })
+      .catch((err) => {
+        {
+          console.log(err.response);
+        }
+      });
+  };
+  useEffect(() => {
+    if (token) {
+      getUserName();
+    }
+  }, [token]);
   return (
     <div>
       <div>
@@ -80,7 +104,7 @@ export default function HeaderBarDropdown(props) {
           color="transparent"
           onClick={handleClick}
         >
-          {"My account"}
+          {username ? username : "Login/SignUp"}
           {caret ? <b className={caretClasses} /> : null}
         </Button>
       </div>
@@ -116,25 +140,51 @@ export default function HeaderBarDropdown(props) {
             <Paper className={classes.dropdown}>
               <ClickAwayListener onClickAway={handleCloseAway}>
                 <MenuList role="menu" className={classes.menuList}>
-                  <MenuItem
-                    key={1}
-                    onClick={handleClickOpenlogin}
-                    className={dropdownItem}
-                  >
-                    {"Login"}
-                  </MenuItem>
-                  <Divider
-                    key={2}
-                    // onClick={() => handleClose("divider")}
-                    className={classes.dropdownDividerItem}
-                  />
-                  <MenuItem
-                    key={3}
-                    onClick={handleClickOpensignup}
-                    className={dropdownItem}
-                  >
-                    {"Signup"}
-                  </MenuItem>
+                  {username ? (
+                    <div>
+                      <MenuItem
+                        key={1}
+                        onClick={handleClickOpenlogin}
+                        className={dropdownItem}
+                      >
+                        {"Profile"}
+                      </MenuItem>
+                      <Divider
+                        key={2}
+                        // onClick={() => handleClose("divider")}
+                        className={classes.dropdownDividerItem}
+                      />{" "}
+                      <MenuItem
+                        key={3}
+                        onClick={() => props.logout()}
+                        className={dropdownItem}
+                      >
+                        Logout
+                      </MenuItem>
+                    </div>
+                  ) : (
+                    <div>
+                      <MenuItem
+                        key={1}
+                        onClick={handleClickOpenlogin}
+                        className={dropdownItem}
+                      >
+                        {"Login"}
+                      </MenuItem>
+                      <Divider
+                        key={2}
+                        // onClick={() => handleClose("divider")}
+                        className={classes.dropdownDividerItem}
+                      />
+                      <MenuItem
+                        key={3}
+                        onClick={handleClickOpensignup}
+                        className={dropdownItem}
+                      >
+                        {"Signup"}
+                      </MenuItem>
+                    </div>
+                  )}
                 </MenuList>
               </ClickAwayListener>
             </Paper>
@@ -161,3 +211,15 @@ HeaderBarDropdown.defaultProps = {
   caret: true,
   hoverColor: "primary",
 };
+
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(actions.logout()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderBarDropdown);

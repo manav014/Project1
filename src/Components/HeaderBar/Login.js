@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,7 +9,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { authLogin } from "../../store/actions/auth";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,8 +33,38 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+function Login(props) {
+  const { error, loading, token } = props;
+  const [formData, setFormData] = useState({
+    emailmobile: "",
+    password: "",
+  });
+  const { emailmobile, password } = formData;
 
-export default function SignIn(props) {
+  const onChangeHandler = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  React.useEffect(() => {
+    if (props.token) {
+      props.handleCloseDropdownlogin();
+    }
+    if (props.error) {
+      if (props.error.response.status === 404) {
+        props.handleCloseDropdownlogin();
+        props.handleClickOpensignup();
+      }
+    }
+  }, [token, error]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { emailmobile, password } = formData;
+    props.login(emailmobile, password);
+  };
+
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
@@ -41,6 +73,10 @@ export default function SignIn(props) {
     props.handleCloseDropdownlogin();
     props.handleClickOpensignup();
   };
+
+  if (token) {
+    return <Redirect to="/" />;
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -52,19 +88,23 @@ export default function SignIn(props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Welcome Back
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            error={error && true}
+            helperText={error && "Incorrect Email/Mobile Number or Password"}
+            id="emailmobile"
+            label="Email or Mobile Number"
+            name="emailmobile"
+            autoComplete="emailmobile"
             autoFocus
+            onChange={onChangeHandler}
+            value={formData.emailmobile}
           />
           <TextField
             variant="outlined"
@@ -75,7 +115,9 @@ export default function SignIn(props) {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            autoComplete="password"
+            onChange={onChangeHandler}
+            value={formData.password}
           />
           <Button
             type="submit"
@@ -84,7 +126,7 @@ export default function SignIn(props) {
             style={{ backgroundColor: "#37b3f9", color: "#FFFFFF" }}
             className={classes.submit}
           >
-            Sign In
+            LogIn
           </Button>
           <Grid container>
             <Grid item xs>
@@ -108,3 +150,20 @@ export default function SignIn(props) {
     </Container>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+    token: state.auth.token,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (emailmobile, password) =>
+      dispatch(authLogin(emailmobile, password)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

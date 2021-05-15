@@ -1,11 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import Fade from "@material-ui/core/Fade";
-import Popper from "@material-ui/core/Popper";
+import FormControl from "@material-ui/core/FormControl";
 import Divider from "@material-ui/core/Divider";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
@@ -29,10 +27,19 @@ import RateReviewIcon from "@material-ui/icons/RateReview";
 import MuiChip from "@material-ui/core/Chip";
 import Link from "@material-ui/core/Link";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import TextField from "@material-ui/core/TextField";
 
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import Paper from "@material-ui/core/Paper";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 // HomePage imports
 import CustomDropdown from "./CustomDropdown";
@@ -86,9 +93,60 @@ const AccordionDetails = withStyles((theme) => ({
   },
 }))(MuiAccordionDetails);
 
-const CustomDrawer = withStyles({
-  paperAnchorLeft: { width: "28.5vw" },
-})(SwipeableDrawer);
+const CustomDrawer = withStyles((theme) => ({
+  paperAnchorLeft: {
+    width: "100vw",
+
+    [theme.breakpoints.up(1400 + theme.spacing(3) * 2)]: {
+      width: "28.5vw",
+    },
+    [theme.breakpoints.down(1400 + theme.spacing(3) * 2)]: {
+      width: "32vw",
+    },
+    [theme.breakpoints.down(1250 + theme.spacing(3) * 2)]: {
+      width: "35vw",
+    },
+    [theme.breakpoints.down(1200 + theme.spacing(3) * 2)]: {
+      width: "38vw",
+    },
+    [theme.breakpoints.down(1100 + theme.spacing(3) * 2)]: {
+      width: "40vw",
+    },
+    [theme.breakpoints.down(1000 + theme.spacing(3) * 2)]: {
+      width: "44vw",
+    },
+    [theme.breakpoints.down(950 + theme.spacing(3) * 2)]: {
+      width: "50vw",
+    },
+    [theme.breakpoints.down(950 + theme.spacing(3) * 2)]: {
+      width: "50vw",
+    },
+    [theme.breakpoints.down(850 + theme.spacing(3) * 2)]: {
+      width: "54vw",
+    },
+    [theme.breakpoints.down(800 + theme.spacing(3) * 2)]: {
+      width: "56vw",
+    },
+    [theme.breakpoints.down(750 + theme.spacing(3) * 2)]: {
+      width: "60vw",
+    },
+    [theme.breakpoints.down(700 + theme.spacing(3) * 2)]: {
+      width: "65vw",
+    },
+    [theme.breakpoints.down(650 + theme.spacing(3) * 2)]: {
+      width: "70vw",
+    },
+    [theme.breakpoints.down(600 + theme.spacing(3) * 2)]: {
+      width: "75vw",
+    },
+    [theme.breakpoints.down(550 + theme.spacing(3) * 2)]: {
+      width: "80vw",
+    },
+    [theme.breakpoints.down(500 + theme.spacing(3) * 2)]: {
+      width: "100vw",
+    },
+  },
+}))(Drawer);
 
 const ReviewChip = withStyles({
   icon: { color: "#37b3f9 !important" },
@@ -99,8 +157,19 @@ const ReviewChip = withStyles({
 function LeftPane() {
   //Accordion Style
   const preventDefault = (event) => event.preventDefault();
-
+  const [value, setValue] = React.useState(2);
   const [count, setCount] = React.useState(0);
+  const [openmodal, setOpenModal] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
+  };
 
   const add = () => {
     setCount(count + 1);
@@ -137,6 +206,7 @@ function LeftPane() {
     <React.Fragment key={anchor}>
       <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
       <CustomDrawer
+        disableSwipeToOpen={true}
         anchor={anchor}
         open={state[anchor]}
         onClose={toggleDrawer(anchor, false)}
@@ -166,85 +236,87 @@ function LeftPane() {
               borderColor="transparent"
               className={classes.rating}
             >
-              <Rating name="read-only" value={1} />
+              <Rating name="read-only" value={1} readOnly />
             </Box>
           </div>
           <div className={classes.timing}>Open Now - 11:00 AM - 11:00 PM</div>
           <Divider variant="middle" />
-          <Grid
-            container
-            style={{
-              alignContent: "center",
-              justifyItems: "center",
-              marginTop: "15px",
-            }}
-          >
-            <Grid item>
-              <Tooltip title="Open Now">
-                <Box
-                  borderRadius="50px"
-                  border={1}
-                  className={classes.iconStyle}
-                >
-                  <IconButton aria-label="ShopStatus" color="37b3f9">
-                    <CheckIcon style={{ color: "#37b3f9" }} />
-                  </IconButton>
-                </Box>
-              </Tooltip>
+          <div>
+            <Grid
+              container
+              style={{
+                alignContent: "center",
+                justifyItems: "center",
+                marginTop: "15px",
+              }}
+            >
+              <Grid item>
+                <Tooltip title="Open Now">
+                  <Box
+                    borderRadius="50px"
+                    border={1}
+                    className={classes.iconStyle}
+                  >
+                    <IconButton aria-label="ShopStatus" color="37b3f9">
+                      <CheckIcon style={{ color: "#37b3f9" }} />
+                    </IconButton>
+                  </Box>
+                </Tooltip>
+              </Grid>
+              <Grid item>
+                <Tooltip title="Save">
+                  <Box
+                    borderRadius="50px"
+                    border={1}
+                    className={classes.iconStyle}
+                  >
+                    <IconButton aria-label="SaveShop">
+                      <BookmarkIcon style={{ color: "#37b3f9" }} />
+                    </IconButton>
+                  </Box>
+                </Tooltip>
+              </Grid>
+              <Grid item>
+                <Tooltip title="Directions">
+                  <Box
+                    borderRadius="50px"
+                    border={1}
+                    className={classes.iconStyle}
+                  >
+                    <IconButton aria-label="Directions">
+                      <DirectionsIcon style={{ color: "#37b3f9" }} />
+                    </IconButton>
+                  </Box>
+                </Tooltip>
+              </Grid>
+              <Grid item>
+                <Tooltip title="Share">
+                  <Box
+                    borderRadius="50px"
+                    border={1}
+                    className={classes.iconStyle}
+                  >
+                    <IconButton aria-label="ShareShop">
+                      <ShareIcon style={{ color: "#37b3f9" }} />
+                    </IconButton>
+                  </Box>
+                </Tooltip>
+              </Grid>
+              <Grid item>
+                <Tooltip title="Explore all Products">
+                  <Box
+                    borderRadius="50px"
+                    border={1}
+                    className={classes.iconStyle}
+                  >
+                    <IconButton aria-label="ExploreShop">
+                      <ExploreIcon style={{ color: "#37b3f9" }} />
+                    </IconButton>
+                  </Box>
+                </Tooltip>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Tooltip title="Save">
-                <Box
-                  borderRadius="50px"
-                  border={1}
-                  className={classes.iconStyle}
-                >
-                  <IconButton aria-label="SaveShop">
-                    <BookmarkIcon style={{ color: "#37b3f9" }} />
-                  </IconButton>
-                </Box>
-              </Tooltip>
-            </Grid>
-            <Grid item>
-              <Tooltip title="Directions">
-                <Box
-                  borderRadius="50px"
-                  border={1}
-                  className={classes.iconStyle}
-                >
-                  <IconButton aria-label="Directions">
-                    <DirectionsIcon style={{ color: "#37b3f9" }} />
-                  </IconButton>
-                </Box>
-              </Tooltip>
-            </Grid>
-            <Grid item>
-              <Tooltip title="Share">
-                <Box
-                  borderRadius="50px"
-                  border={1}
-                  className={classes.iconStyle}
-                >
-                  <IconButton aria-label="ShareShop">
-                    <ShareIcon style={{ color: "#37b3f9" }} />
-                  </IconButton>
-                </Box>
-              </Tooltip>
-            </Grid>
-            <Grid item>
-              <Tooltip title="Explore all Products">
-                <Box
-                  borderRadius="50px"
-                  border={1}
-                  className={classes.iconStyle}
-                >
-                  <IconButton aria-label="ExploreShop">
-                    <ExploreIcon style={{ color: "#37b3f9" }} />
-                  </IconButton>
-                </Box>
-              </Tooltip>
-            </Grid>
-          </Grid>
+          </div>
           <Divider
             variant="middle"
             style={{
@@ -279,10 +351,11 @@ function LeftPane() {
                       style={{
                         fontSize: "13px",
                         lineHeight: "15px",
+                        display: "flex",
                       }}
                     >
                       &#8377;
-                       <div style={{ marginLeft: "1px" }}>21</div>
+                      <div style={{ marginLeft: "1px" }}>21</div>
                     </div>
                     <div
                       style={{
@@ -291,6 +364,7 @@ function LeftPane() {
                         textDecoration: "line-through",
                         color: "#777777",
                         marginLeft: "5px",
+                        display: "flex",
                       }}
                     >
                       &#8377; <div style={{ marginLeft: "1px" }}>25</div>
@@ -758,14 +832,23 @@ function LeftPane() {
           <Divider variant="middle" />
           <ListItem>
             <ReviewChip
-              onClick={preventDefault}
+              onClick={handleClickOpen}
               variant="outlined"
               icon={<RateReviewIcon />}
               label={"Write a Review"}
               className={classes.chip}
             />
           </ListItem>
-          <Paper className={classes.paper} elevation={1}>
+          <Paper className={classes.paper} elevation={2}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              className={classes.reviewname}
+            >
+              From Customers
+            </Typography>
+            <Divider variant="left" />
+
             <Typography
               variant="h6"
               gutterBottom
@@ -821,6 +904,7 @@ function LeftPane() {
             <Typography gutterBottom className={classes.reviewtext}>
               Upar wali comment ko ignore krein.
             </Typography>
+            <Divider variant="middle" />
             <ListItem>
               <Typography className={classes.morereviews}>
                 <Link
@@ -833,6 +917,57 @@ function LeftPane() {
               </Typography>
             </ListItem>
           </Paper>
+          <Dialog
+            fullScreen={fullScreen}
+            maxWidth={"sm"}
+            open={openmodal}
+            fullWidth={true}
+            onClose={handleClose}
+          >
+            <DialogTitle
+              id="responsive-dialog-title"
+              style={{ textAlign: "center" }}
+            >
+              {"Aggarwal Store"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>AVANYA WADHWA</DialogContentText>
+              <DialogContentText>Posting Publically</DialogContentText>
+              <DialogContentText>
+                <Rating
+                  name="simple-controlled"
+                  value={value}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                />
+              </DialogContentText>
+              <DialogContentText>
+                <FormControl fullWidth>
+                  <TextField
+                    id="outlined-full-width"
+                    label="Label"
+                    style={{ margin: 8 }}
+                    placeholder="Placeholder"
+                    fullWidth="true"
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                  />{" "}
+                </FormControl>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button autoFocus onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleClose} color="primary" autoFocus>
+                Post
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       </CustomDrawer>
     </React.Fragment>

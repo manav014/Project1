@@ -14,7 +14,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import List from "@material-ui/core/List";
-import CustomDropdown from "./HeaderBar/HeaderBarDropdown.js";
+import CustomDropdown from "./HeaderBar/HeaderBarDropdown";
 import { useHistory } from "react-router-dom";
 
 import styles from "../styles/js/HomePage/HeaderBarStyle.js";
@@ -31,7 +31,7 @@ const StyledBadge = withStyles((theme) => ({
 function userMenu(navlink) {
   return (
     <List>
-      <CustomDropdown dropdownList={["Profile", { divider: true }, "Logout"]} />
+      <CustomDropdown />
     </List>
   );
 }
@@ -39,6 +39,9 @@ export default function HeaderBar(props) {
   let history = useHistory();
   function handleClick() {
     history.push("/checkout");
+  }
+  function GoToHome() {
+    history.push("/");
   }
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -84,7 +87,9 @@ export default function HeaderBar(props) {
     [classes.bottom]: bottom,
   });
   const brandComponent = (
-    <Button className={classes.title}>{"Blah Project"}</Button>
+    <Button className={classes.title} onClick={GoToHome}>
+      {"Blah Project"}
+    </Button>
   );
   return (
     <AppBar className={appBarClasses}>

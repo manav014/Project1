@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -10,6 +11,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import PropTypes from "prop-types";
+import { authSignup } from "../../store/actions/auth";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,10 +35,84 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp(props) {
+function SignUp(props) {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
+  const { error, loading, token } = props;
+  const [formData, setFormData] = useState({
+    email: "",
+    firstname: "",
+    lastname: "",
+    mobileno: "",
+    password: "",
+    confirmpassword: "",
+    confirmed: true,
+  });
+  const onChangeHandler = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const confirmPasswordOnChangeHandler = (e) => {
+    let confirmed = false;
+    if (e.target.value === formData.password) {
+      confirmed = true;
+    } else {
+      confirmed = false;
+    }
+    setFormData({
+      ...formData,
+      confirmed: confirmed,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const passwordOnChangeHandler = (e) => {
+    let confirmed = false;
+    if (e.target.value === formData.confirmpassword) {
+      confirmed = true;
+    } else {
+      confirmed = false;
+    }
+    setFormData({
+      ...formData,
+      confirmed: confirmed,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const mobileOnChangeHandler = (e) => {
+    if (e.target.value.length >= 11) {
+      setFormData({
+        ...formData,
+        [e.target.name]: formData.mobileno,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+    }
+  };
 
+  React.useEffect(() => {
+    if (props.token) {
+      props.handleCloseDropdownsignup();
+    }
+  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, firstname, lastname, mobileno, password, confirmPassword } =
+      formData;
+    props.signup(
+      email,
+      firstname,
+      lastname,
+      mobileno,
+      password,
+      confirmPassword
+    );
+    <Redirect to="/" />;
+  };
   const handleSignIn = (event) => {
     preventDefault(event);
     props.handleCloseDropdownsignup();
@@ -54,18 +131,20 @@ export default function SignUp(props) {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="firstname"
                 variant="outlined"
                 required
+                value={formData.firstname}
                 fullWidth
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={onChangeHandler}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -73,10 +152,12 @@ export default function SignUp(props) {
                 variant="outlined"
                 required
                 fullWidth
-                id="lastName"
+                value={formData.lastname}
+                id="lastname"
                 label="Last Name"
-                name="lastName"
-                autoComplete="lname"
+                name="lastname"
+                autoComplete="lastname"
+                onChange={onChangeHandler}
               />
             </Grid>
             <Grid item xs={12}>
@@ -84,22 +165,75 @@ export default function SignUp(props) {
                 variant="outlined"
                 required
                 fullWidth
+                type="email"
+                error={error && true}
+                helperText={error && "Email Alreday Exists"}
+                value={formData.email}
                 id="email"
+                inputProps={{
+                  pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$",
+                }}
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={onChangeHandler}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
+                type="tel"
                 required
                 fullWidth
+                error={error && true}
+                helperText={error && "Mobile Number Alreday Exists"}
+                value={formData.mobileno}
+                id="mobileno"
+                inputProps={{
+                  pattern: "[1-9]{1}[0-9]{9}",
+                }}
+                label="Contact No"
+                name="mobileno"
+                autoComplete="mno"
+                onChange={mobileOnChangeHandler}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="password"
                 name="password"
-                label="Password"
+                variant="outlined"
+                error={!formData.confirmed && true}
+                helperText={
+                  !formData.confirmed && "Both passwords should be the same"
+                }
+                inputProps={{
+                  pattern:
+                    "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$",
+                }}
+                required
+                value={formData.password}
+                fullWidth
                 type="password"
                 id="password"
-                autoComplete="current-password"
+                label="Password"
+                autoFocus
+                onChange={passwordOnChangeHandler}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                error={!formData.confirmed && true}
+                type="password"
+                value={formData.confirmpassword}
+                id="confirmpassword"
+                label="Confirm Password"
+                name="confirmpassword"
+                autoComplete="confirmpassword"
+                onChange={confirmPasswordOnChangeHandler}
               />
             </Grid>
           </Grid>
@@ -109,6 +243,7 @@ export default function SignUp(props) {
             variant="contained"
             style={{ backgroundColor: "#37b3f9", color: "#FFFFFF" }}
             className={classes.submit}
+            disabled={!formData.confirmed || formData.password == ""}
           >
             Sign Up
           </Button>
@@ -129,3 +264,19 @@ export default function SignUp(props) {
     </Container>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+    token: state.auth.token,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signup: (email, firstname, lastname, mobileno, password) =>
+      dispatch(authSignup(email, firstname, lastname, mobileno, password)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -4,7 +4,14 @@ import { Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage.js";
 import Checkout from "./components/Checkout";
 
-function App() {
+import { connect } from "react-redux";
+import * as actions from "./store/actions/auth";
+
+function App(props) {
+  React.useEffect(() => {
+    props.onTryAutoSignup();
+  }, []);
+
   return (
     <div>
       <Router>
@@ -18,4 +25,16 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
