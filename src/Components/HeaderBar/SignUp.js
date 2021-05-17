@@ -10,9 +10,12 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import PropTypes from "prop-types";
 import { authSignup } from "../../store/actions/auth";
 import { connect } from "react-redux";
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,6 +50,8 @@ function SignUp(props) {
     password: "",
     confirmpassword: "",
     confirmed: true,
+    showPassword: false,
+    showConfirmPassword: false,
   });
   const onChangeHandler = (e) => {
     setFormData({
@@ -54,6 +59,16 @@ function SignUp(props) {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleClickShowPassword = (pass) => {
+    setFormData({ ...formData, [pass]: !formData[pass] });
+    console.log(formData[pass]);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const confirmPasswordOnChangeHandler = (e) => {
     let confirmed = false;
     if (e.target.value === formData.password) {
@@ -214,11 +229,29 @@ function SignUp(props) {
                 required
                 value={formData.password}
                 fullWidth
-                type="password"
+                type={formData.showPassword ? "text" : "password"}
                 id="password"
                 label="Password"
                 autoFocus
                 onChange={passwordOnChangeHandler}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => handleClickShowPassword("showPassword")}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {formData.showPassword ? (
+                          <Visibility />
+                        ) : (
+                          <VisibilityOff />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -227,13 +260,33 @@ function SignUp(props) {
                 required
                 fullWidth
                 error={!formData.confirmed && true}
-                type="password"
+                type={formData.showConfirmPassword ? "text" : "password"}
                 value={formData.confirmpassword}
                 id="confirmpassword"
                 label="Confirm Password"
                 name="confirmpassword"
                 autoComplete="confirmpassword"
                 onChange={confirmPasswordOnChangeHandler}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() =>
+                          handleClickShowPassword("showConfirmPassword")
+                        }
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {formData.showPassword ? (
+                          <Visibility />
+                        ) : (
+                          <VisibilityOff />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
           </Grid>

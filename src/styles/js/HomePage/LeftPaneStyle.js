@@ -35,6 +35,18 @@ const typographyStyle = (theme) => ({
     left: "50% !important",
     transform: "translate(-50%, -50%) !important",
     zIndex: "1",
+    [theme.breakpoints.down(400 + theme.spacing(3) * 2)]: {
+      // maxWidth: "90vw",
+    },
+  },
+  searchbarPlacement1: {
+    padding: "2px 4px",
+    display: "flex",
+    alignItems: "center",
+    width: 400,
+    [theme.breakpoints.down(400 + theme.spacing(3) * 2)]: {
+      maxWidth: "90vw",
+    },
   },
   section: {
     padding: "70px 0",
@@ -184,6 +196,13 @@ const typographyStyle = (theme) => ({
   morereviews: {
     fontWeight: "550",
     margin: "auto",
+  },
+  onHover: {
+    "&:hover": {
+      // backgroundColor: "#37b3f9",
+      // color: "green",
+      border: "2px solid #37b3f9",
+    },
   },
 });
 

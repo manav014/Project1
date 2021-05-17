@@ -12,6 +12,10 @@ import Container from "@material-ui/core/Container";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { authLogin } from "../../store/actions/auth";
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,15 +42,27 @@ function Login(props) {
   const [formData, setFormData] = useState({
     emailmobile: "",
     password: "",
+    showPassword: false,
   });
-  const { emailmobile, password } = formData;
-
   const onChangeHandler = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
+  const handleChange = (prop) => (event) => {
+    setFormData({ ...formData, [prop]: event.target.value });
+    console.log(formData.password);
+  };
+
+  const handleClickShowPassword = () => {
+    setFormData({ ...formData, showPassword: !formData.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   React.useEffect(() => {
     if (props.token) {
       props.handleCloseDropdownlogin();
@@ -90,7 +106,7 @@ function Login(props) {
         <Typography component="h1" variant="h5">
           Welcome Back
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -113,11 +129,25 @@ function Login(props) {
             fullWidth
             name="password"
             label="Password"
-            type="password"
+            type={formData.showPassword ? "text" : "password"}
             id="password"
             autoComplete="password"
-            onChange={onChangeHandler}
+            onChange={handleChange("password")}
             value={formData.password}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {formData.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Button
             type="submit"

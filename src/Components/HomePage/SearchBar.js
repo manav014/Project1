@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     width: 400,
+    [theme.breakpoints.down(400 + theme.spacing(3) * 2)]: {
+      maxWidth: "90vw",
+    },
   },
   input: {
     paddingLeft: "5px",

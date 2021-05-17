@@ -69,7 +69,7 @@ export default function AddressCard(props) {
           Deliver Here
         </Button>
       </CardActions>
-      <CardActions>
+      <CardActions style={{ height: "5vh" }}>
         <Button
           className={classes.onHover}
           size="small"

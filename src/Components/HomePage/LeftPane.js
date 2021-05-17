@@ -37,7 +37,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 
@@ -924,14 +923,21 @@ function LeftPane() {
             fullWidth={true}
             onClose={handleClose}
           >
-            <DialogTitle
+            <div
               id="responsive-dialog-title"
-              style={{ textAlign: "center" }}
+              style={{
+                textAlign: "center",
+                fontSize: "1.7rem",
+                fontWeight: "400",
+                marginTop: "2vh",
+              }}
             >
               {"Aggarwal Store"}
-            </DialogTitle>
+            </div>
             <DialogContent>
-              <DialogContentText>AVANYA WADHWA</DialogContentText>
+              <div style={{ fontSize: "1.1rem", fontWeight: "500" }}>
+                AVANYA WADHWA
+              </div>
               <DialogContentText>Posting Publically</DialogContentText>
               <DialogContentText>
                 <Rating
@@ -959,11 +965,21 @@ function LeftPane() {
                 </FormControl>
               </DialogContentText>
             </DialogContent>
-            <DialogActions>
-              <Button autoFocus onClick={handleClose} color="primary">
+            <DialogActions style={{ height: "5vh" }}>
+              <Button
+                autoFocus
+                className={classes.onHover}
+                onClick={handleClose}
+                style={{ color: "#37b3f9" }}
+              >
                 Cancel
               </Button>
-              <Button onClick={handleClose} color="primary" autoFocus>
+              <Button
+                onClick={handleClose}
+                className={classes.onHover}
+                autoFocus
+                style={{ color: "#37b3f9" }}
+              >
                 Post
               </Button>
             </DialogActions>

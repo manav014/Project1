@@ -63,6 +63,7 @@ function HeaderBarDropdown(props) {
   const [openlogin, setOpenlogin] = useState(false);
   const [opensignup, setOpensignup] = useState(false);
   const handleClickOpenlogin = () => {
+    handleClose();
     setOpenlogin(true);
   };
 
@@ -70,6 +71,7 @@ function HeaderBarDropdown(props) {
     setOpenlogin(false);
   };
   const handleClickOpensignup = () => {
+    handleClose();
     setOpensignup(true);
   };
 
