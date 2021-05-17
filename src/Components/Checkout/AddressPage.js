@@ -113,7 +113,7 @@ function AddressPage(props) {
           </div>
         </Grid>
       </Grid>
-      <Hidden smUp>
+      <Hidden mdUp>
         <div className={classes.root}>
           {details.map((detail) => (
             <Accordion>
