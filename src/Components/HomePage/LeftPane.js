@@ -94,6 +94,7 @@ const AccordionDetails = withStyles((theme) => ({
 
 const CustomDrawer = withStyles((theme) => ({
   paperAnchorLeft: {
+
     width: "100vw",
 
     [theme.breakpoints.up(1400 + theme.spacing(3) * 2)]: {

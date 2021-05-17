@@ -19,8 +19,15 @@ const checkoutstyle = (theme) => ({
       padding: theme.spacing(3),
     },
   },
+  PaymentDetailsCheckout: {
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(2),
+    [theme.breakpoints.up(1125 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(15),
+    },
+  },
   stepper: {
-    padding: theme.spacing(3, 0, 5),
+    padding: theme.spacing(3, 2, 5),
   },
   buttons: {
     display: "flex",
