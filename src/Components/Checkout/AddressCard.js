@@ -41,9 +41,7 @@ export default function AddressCard(props) {
     <Card className={classes.root} style={{ marginLeft: "3vw" }}>
       {/* <CardActionArea> */}
       <CardContent>
-        <Typography gutterBottom variant="h6" component="h2">
-          {title}
-        </Typography>
+        <CardHeader title={title} />
         <Typography variant="body2" color="textPrimary" component="h1">
           {apartment_address} {street_address}
           {","}
