@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     width: 400,
+    [theme.breakpoints.down(400 + theme.spacing(3) * 2)]: {
+      maxWidth: "90vw",
+    },
   },
   input: {
     paddingLeft: "5px",
@@ -57,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomizedInputBase() {
   const classes = useStyles();
   const [value, setValue] = React.useState(null);
+  const preventDefault = (event) => event.preventDefault();
 
   return (
     <Paper component="form" className={classes.root}>
@@ -124,6 +128,7 @@ export default function CustomizedInputBase() {
           type="submit"
           className={classes.iconButton}
           aria-label="search"
+          onClick={preventDefault}
         >
           <SearchIcon />
         </IconButton>

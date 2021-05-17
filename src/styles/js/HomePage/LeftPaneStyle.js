@@ -35,6 +35,18 @@ const typographyStyle = (theme) => ({
     left: "50% !important",
     transform: "translate(-50%, -50%) !important",
     zIndex: "1",
+    [theme.breakpoints.down(400 + theme.spacing(3) * 2)]: {
+      // maxWidth: "90vw",
+    },
+  },
+  searchbarPlacement1: {
+    padding: "2px 4px",
+    display: "flex",
+    alignItems: "center",
+    width: 400,
+    [theme.breakpoints.down(400 + theme.spacing(3) * 2)]: {
+      maxWidth: "90vw",
+    },
   },
   section: {
     padding: "70px 0",
@@ -102,7 +114,7 @@ const typographyStyle = (theme) => ({
   shopName: {
     marginTop: " 2vh !important",
     paddingLeft: "10px",
-    fontSize: "1.5vw",
+    fontSize: "1.3rem",
     fontWeight: "500",
   },
   rating: {
@@ -117,7 +129,7 @@ const typographyStyle = (theme) => ({
   timing: {
     paddingLeft: "10px",
     color: "#777777",
-    fontSize: "0.8vw",
+    fontSize: "0.8rem",
     fontWeight: "400",
     marginBottom: "2vh",
     marginTop: "-2vh",
@@ -163,12 +175,12 @@ const typographyStyle = (theme) => ({
   },
   reviewname: {
     fontWeight: "500 !important",
-    fontSize: "1.3vw",
+    fontSize: "1.1rem",
     paddingTop: theme.spacing(1),
   },
   review2: {
     fontWeight: "500",
-    fontSize: "1vw",
+    fontSize: "0.8rem",
     color: "#777777",
     lineHeight: "15px",
   },
@@ -177,13 +189,20 @@ const typographyStyle = (theme) => ({
   },
   bestdeals: {
     fontWeight: "500",
-    fontSize: "1.5vw",
+    fontSize: "1.5rem",
     textAlign: "center",
     marginTop: "2vh",
   },
   morereviews: {
     fontWeight: "550",
     margin: "auto",
+  },
+  onHover: {
+    "&:hover": {
+      // backgroundColor: "#37b3f9",
+      // color: "green",
+      border: "2px solid #37b3f9",
+    },
   },
 });
 

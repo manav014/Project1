@@ -20,7 +20,6 @@ const gridItemStyles = {
     width: "100%",
     minHeight: "1px",
     paddingRight: "15px",
-    paddingLeft: "15px",
     flexBasis: "auto",
   },
 };
@@ -55,14 +54,7 @@ function HomePage() {
         </div>
       </HomePageContainer>
       <div className={classNames(classes.main, classes.mainRaised)}>
-        <HeaderBar
-          sticky
-          color="blue"
-          changeColorOnScroll={{
-            height: 400,
-            color: "#37b3f9",
-          }}
-        />
+        <HeaderBar sticky />
         <br />
         <br />
         <br />

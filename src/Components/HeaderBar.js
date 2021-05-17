@@ -14,11 +14,9 @@ import { withStyles } from "@material-ui/core/styles";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import List from "@material-ui/core/List";
-import CustomDropdown from "./HeaderBar/HeaderBarDropdown.js";
+import CustomDropdown from "./HeaderBar/HeaderBarDropdown";
 import { useHistory } from "react-router-dom";
-
 import styles from "../styles/js/HomePage/HeaderBarStyle.js";
-
 const useStyles = makeStyles(styles);
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -28,10 +26,10 @@ const StyledBadge = withStyles((theme) => ({
     padding: "0 4px",
   },
 }))(Badge);
-function userMenu(navlink) {
+function userMenu() {
   return (
     <List>
-      <CustomDropdown dropdownList={["Profile", { divider: true }, "Logout"]} />
+      <CustomDropdown />
     </List>
   );
 }
@@ -40,51 +38,53 @@ export default function HeaderBar(props) {
   function handleClick() {
     history.push("/cart");
   }
+  function GoToHome() {
+    history.push("/");
+  }
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
-    if (props.changeColorOnScroll) {
-      window.addEventListener("scroll", headerColorChange);
-    }
+    window.addEventListener("scroll", headerColorChange);
     return function cleanup() {
-      if (props.changeColorOnScroll) {
-        window.removeEventListener("scroll", headerColorChange);
-      }
+      window.removeEventListener("scroll", headerColorChange);
     };
   });
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   const headerColorChange = () => {
-    const { color, changeColorOnScroll } = props;
     const windowsScrollTop = window.pageYOffset;
-    if (windowsScrollTop > changeColorOnScroll.height) {
+    if (windowsScrollTop > 1000) {
+      // console.log("hello");
+      console.log(classes[fixed]);
       document.body
         .getElementsByTagName("header")[0]
-        .classList.remove(classes[color]);
+        .classList.remove(classes.sticky);
       document.body
         .getElementsByTagName("header")[0]
-        .classList.add(classes[changeColorOnScroll.color]);
+        .classList.add(classes.fixed);
     } else {
+      console.log("hii");
       document.body
         .getElementsByTagName("header")[0]
-        .classList.add(classes[color]);
+        .classList.add(classes.sticky);
       document.body
         .getElementsByTagName("header")[0]
-        .classList.remove(classes[changeColorOnScroll.color]);
+        .classList.remove(classes.fixed);
     }
   };
-  const { color, fixed, absolute, sticky, bottom } = props;
+  const { fixed, absolute, sticky, bottom } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
-    [classes[color]]: color,
     [classes.absolute]: absolute,
     [classes.fixed]: fixed,
     [classes.sticky]: sticky,
     [classes.bottom]: bottom,
   });
   const brandComponent = (
-    <Button className={classes.title}>{"Blah Project"}</Button>
+    <Button className={classes.title} onClick={GoToHome}>
+      {"Blah Project"}
+    </Button>
   );
   return (
     <AppBar className={appBarClasses}>
@@ -130,10 +130,6 @@ export default function HeaderBar(props) {
     </AppBar>
   );
 }
-
-HeaderBar.defaultProp = {
-  color: "primary",
-};
 
 HeaderBar.propTypes = {
   color: PropTypes.oneOf([
