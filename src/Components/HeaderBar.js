@@ -36,7 +36,7 @@ function userMenu() {
 export default function HeaderBar(props) {
   let history = useHistory();
   function handleClick() {
-    history.push("/checkout");
+    history.push("/cart");
   }
   function GoToHome() {
     history.push("/");

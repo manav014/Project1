@@ -1,12 +1,10 @@
 const PaymentDetailsStyle = (theme) => ({
   paperPayment: {
     width: "auto",
-    marginBottom: theme.spacing(3),
     padding: theme.spacing(1),
     marginTop: theme.spacing(2),
     [theme.breakpoints.up(1125 + theme.spacing(3) * 2)]: {
       width: "19vw",
-      marginTop: theme.spacing(15),
       padding: theme.spacing(3),
     },
   },

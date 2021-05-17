@@ -10,7 +10,6 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 // Component imports
-
 import HeaderBar from "./HeaderBar";
 import PaymentForm from "./Checkout/PaymentForm";
 import PaymentDetails from "./Checkout/PaymentDetails";
@@ -122,7 +121,9 @@ export default function Checkout() {
           </Grid>
           <Grid item md="2" lg="2">
             <Hidden smDown>
-              <PaymentDetails />
+              <div className={classes.PaymentDetailsCheckout}>
+                <PaymentDetails />
+              </div>
             </Hidden>
           </Grid>
         </Grid>
