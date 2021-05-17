@@ -38,7 +38,7 @@ function userMenu(navlink) {
 export default function HeaderBar(props) {
   let history = useHistory();
   function handleClick() {
-    history.push("/checkout");
+    history.push("/cart");
   }
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
