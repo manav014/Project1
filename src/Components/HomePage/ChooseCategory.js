@@ -20,10 +20,8 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import Link from "@material-ui/core/Link";
 import Popper from "@material-ui/core/Popper";
-
 // core components
 import Button from "@material-ui/core/Button";
-
 import styles from "../../styles/js/HomePage/customDropdownStyle.js";
 
 const useStyles = makeStyles(styles);
@@ -89,6 +87,7 @@ export default function CustomDropdown(props) {
     setAnchorEl(null);
   };
   const dropdownList = ["Breads", "Dal", "Dairy", "Flour"];
+
   const classes = useStyles();
   const caretClasses = classNames({
     [classes.caret]: true,
@@ -103,7 +102,22 @@ export default function CustomDropdown(props) {
     } else setCount(count - 1);
   };
   const [count, setCount] = React.useState(0);
-
+  const [state, setState] = React.useState({
+    Breads: false,
+    Dal: false,
+    Dairy: false,
+    Flour: false,
+  });
+  const handleChange = (prop) => {
+    setState({ ...state, [prop]: true });
+  };
+  const handleAccordianChange = (prop) => (event, newExpanded) => {
+    if (newExpanded == true) {
+      setState({ ...state, [prop]: true });
+    } else {
+      setState({ ...state, [prop]: false });
+    }
+  };
   return (
     <div>
       <div>
@@ -131,7 +145,10 @@ export default function CustomDropdown(props) {
                     return (
                       <MenuItem
                         key={key}
-                        onClick={() => handleClose(prop)}
+                        onClick={() => {
+                          handleClose();
+                          handleChange(prop);
+                        }}
                         className={classNames(
                           classes.dropdownItem,
                           classes["primary" + "Hover"]
@@ -148,483 +165,136 @@ export default function CustomDropdown(props) {
         )}
       </Popper>
       <div>
-        <Accordion>
-          <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
-            <Typography>Breads</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              <Link href="#" onClick={preventDefault}>
-                Whole Wheat Bread
-              </Link>
-              <div style={{ display: "flex" }}>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377;
-                  <div style={{ marginLeft: "1px" }}>21</div>
-                </div>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    textDecoration: "line-through",
-                    color: "#777777",
-                    marginLeft: "5px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-                </div>
-              </div>
-            </Typography>
-
-            <ButtonGroup
-              style={{
-                position: "absolute",
-                right: "1vw",
-              }}
+        {dropdownList.map((element) => {
+          return (
+            <Accordion
+              expanded={state[element]}
+              onChange={handleAccordianChange(element)}
             >
-              <RemoveCircleIcon
-                onClick={subtract}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></RemoveCircleIcon>
-
-              <div
-                style={{
-                  minWidth: "15px",
-                  marginLeft: "1px",
-                  textAlign: "center",
-                }}
+              <AccordionSummary
+                aria-controls="panel1a-content"
+                id="panel1a-header"
               >
-                {count}
-              </div>
+                <Typography>{element}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  <Link href="#" onClick={preventDefault}>
+                    {element}
+                  </Link>
+                  <div style={{ display: "flex" }}>
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        lineHeight: "15px",
+                        display: "flex",
+                      }}
+                    >
+                      &#8377;
+                      <div style={{ marginLeft: "1px" }}>21</div>
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        lineHeight: "15px",
+                        textDecoration: "line-through",
+                        color: "#777777",
+                        marginLeft: "5px",
+                        display: "flex",
+                      }}
+                    >
+                      &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+                    </div>
+                  </div>
+                </Typography>
 
-              <AddCircleIcon
-                onClick={add}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></AddCircleIcon>
-            </ButtonGroup>
-          </AccordionDetails>
-          <AccordionDetails>
-            <Typography>
-              <Link href="#" onClick={preventDefault}>
-                Maida Wali Bread
-              </Link>
-              <div style={{ display: "flex" }}>
-                <div
+                <ButtonGroup
                   style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    display: "flex",
+                    position: "absolute",
+                    right: "1vw",
                   }}
                 >
-                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
-                </div>
-                <div
+                  <RemoveCircleIcon
+                    onClick={subtract}
+                    style={{ color: "#37b3f9", cursor: "pointer" }}
+                  ></RemoveCircleIcon>
+
+                  <div
+                    style={{
+                      minWidth: "15px",
+                      marginLeft: "1px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {count}
+                  </div>
+
+                  <AddCircleIcon
+                    onClick={add}
+                    style={{ color: "#37b3f9", cursor: "pointer" }}
+                  ></AddCircleIcon>
+                </ButtonGroup>
+              </AccordionDetails>
+              <AccordionDetails>
+                <Typography>
+                  <Link href="#" onClick={preventDefault}>
+                    Maida Wali Bread
+                  </Link>
+                  <div style={{ display: "flex" }}>
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        lineHeight: "15px",
+                        display: "flex",
+                      }}
+                    >
+                      &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        lineHeight: "15px",
+                        textDecoration: "line-through",
+                        color: "#777777",
+                        marginLeft: "5px",
+                        display: "flex",
+                      }}
+                    >
+                      &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+                    </div>
+                  </div>
+                </Typography>
+
+                <ButtonGroup
                   style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    textDecoration: "line-through",
-                    color: "#777777",
-                    marginLeft: "5px",
-                    display: "flex",
+                    position: "absolute",
+                    right: "1vw",
                   }}
                 >
-                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-                </div>
-              </div>
-            </Typography>
+                  <RemoveCircleIcon
+                    onClick={subtract}
+                    style={{ color: "#37b3f9", cursor: "pointer" }}
+                  ></RemoveCircleIcon>
 
-            <ButtonGroup
-              style={{
-                position: "absolute",
-                right: "1vw",
-              }}
-            >
-              <RemoveCircleIcon
-                onClick={subtract}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></RemoveCircleIcon>
+                  <div
+                    style={{
+                      minWidth: "15px",
+                      marginLeft: "1px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {count}
+                  </div>
 
-              <div
-                style={{
-                  minWidth: "15px",
-                  marginLeft: "1px",
-                  textAlign: "center",
-                }}
-              >
-                {count}
-              </div>
-
-              <AddCircleIcon
-                onClick={add}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></AddCircleIcon>
-            </ButtonGroup>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary aria-controls="panel2a-content" id="panel2a-header">
-            <Typography>Dal</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              <Link href="#" onClick={preventDefault}>
-                Bakwaas Daal
-              </Link>
-              <div style={{ display: "flex" }}>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
-                </div>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    textDecoration: "line-through",
-                    color: "#777777",
-                    marginLeft: "5px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-                </div>
-              </div>
-            </Typography>
-
-            <ButtonGroup
-              style={{
-                position: "absolute",
-                right: "1vw",
-              }}
-            >
-              <RemoveCircleIcon
-                onClick={subtract}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></RemoveCircleIcon>
-
-              <div
-                style={{
-                  minWidth: "15px",
-                  marginLeft: "1px",
-                  textAlign: "center",
-                }}
-              >
-                {count}
-              </div>
-
-              <AddCircleIcon
-                onClick={add}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></AddCircleIcon>
-            </ButtonGroup>
-          </AccordionDetails>
-          <AccordionDetails>
-            <Typography>
-              <Link href="#" onClick={preventDefault}>
-                Tasty Daal
-              </Link>
-              <div style={{ display: "flex" }}>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
-                </div>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    textDecoration: "line-through",
-                    color: "#777777",
-                    marginLeft: "5px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-                </div>
-              </div>
-            </Typography>
-
-            <ButtonGroup
-              style={{
-                position: "absolute",
-                right: "1vw",
-              }}
-            >
-              <RemoveCircleIcon
-                onClick={subtract}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></RemoveCircleIcon>
-
-              <div
-                style={{
-                  minWidth: "15px",
-                  marginLeft: "1px",
-                  textAlign: "center",
-                }}
-              >
-                {count}
-              </div>
-
-              <AddCircleIcon
-                onClick={add}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></AddCircleIcon>
-            </ButtonGroup>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary aria-controls="panel3a-content" id="panel3a-header">
-            <Typography>Dairy Products</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              <Link href="#" onClick={preventDefault}>
-                Gaaye ka Doodh
-              </Link>
-              <div style={{ display: "flex" }}>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
-                </div>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    textDecoration: "line-through",
-                    color: "#777777",
-                    marginLeft: "5px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-                </div>
-              </div>
-            </Typography>
-
-            <ButtonGroup
-              style={{
-                position: "absolute",
-                right: "1vw",
-              }}
-            >
-              <RemoveCircleIcon
-                onClick={subtract}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></RemoveCircleIcon>
-
-              <div
-                style={{
-                  minWidth: "15px",
-                  marginLeft: "1px",
-                  textAlign: "center",
-                }}
-              >
-                {count}
-              </div>
-
-              <AddCircleIcon
-                onClick={add}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></AddCircleIcon>
-            </ButtonGroup>
-          </AccordionDetails>
-          <AccordionDetails>
-            <Typography>
-              <Link href="#" onClick={preventDefault}>
-                Amul ButterMilk
-              </Link>
-              <div style={{ display: "flex" }}>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
-                </div>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    textDecoration: "line-through",
-                    color: "#777777",
-                    marginLeft: "5px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-                </div>
-              </div>
-            </Typography>
-
-            <ButtonGroup
-              style={{
-                position: "absolute",
-                right: "1vw",
-              }}
-            >
-              <RemoveCircleIcon
-                onClick={subtract}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></RemoveCircleIcon>
-
-              <div
-                style={{
-                  minWidth: "15px",
-                  marginLeft: "1px",
-                  textAlign: "center",
-                }}
-              >
-                {count}
-              </div>
-
-              <AddCircleIcon
-                onClick={add}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></AddCircleIcon>
-            </ButtonGroup>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary aria-controls="panel3a-content" id="panel3a-header">
-            <Typography>Electronics</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              <Link href="#" onClick={preventDefault}>
-                Gaaye ka Doodh
-              </Link>
-              <div style={{ display: "flex" }}>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
-                </div>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    textDecoration: "line-through",
-                    color: "#777777",
-                    marginLeft: "5px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-                </div>
-              </div>
-            </Typography>
-
-            <ButtonGroup
-              style={{
-                position: "absolute",
-                right: "1vw",
-              }}
-            >
-              <RemoveCircleIcon
-                onClick={subtract}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></RemoveCircleIcon>
-
-              <div
-                style={{
-                  minWidth: "15px",
-                  marginLeft: "1px",
-                  textAlign: "center",
-                }}
-              >
-                {count}
-              </div>
-
-              <AddCircleIcon
-                onClick={add}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></AddCircleIcon>
-            </ButtonGroup>
-          </AccordionDetails>
-          <AccordionDetails>
-            <Typography>
-              <Link href="#" onClick={preventDefault}>
-                Amul ButterMilk
-              </Link>
-              <div style={{ display: "flex" }}>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
-                </div>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: "15px",
-                    textDecoration: "line-through",
-                    color: "#777777",
-                    marginLeft: "5px",
-                    display: "flex",
-                  }}
-                >
-                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-                </div>
-              </div>
-            </Typography>
-
-            <ButtonGroup
-              style={{
-                position: "absolute",
-                right: "1vw",
-              }}
-            >
-              <RemoveCircleIcon
-                onClick={subtract}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></RemoveCircleIcon>
-
-              <div
-                style={{
-                  minWidth: "15px",
-                  marginLeft: "1px",
-                  textAlign: "center",
-                }}
-              >
-                {count}
-              </div>
-
-              <AddCircleIcon
-                onClick={add}
-                style={{ color: "#37b3f9", cursor: "pointer" }}
-              ></AddCircleIcon>
-            </ButtonGroup>
-          </AccordionDetails>
-        </Accordion>
+                  <AddCircleIcon
+                    onClick={add}
+                    style={{ color: "#37b3f9", cursor: "pointer" }}
+                  ></AddCircleIcon>
+                </ButtonGroup>
+              </AccordionDetails>
+            </Accordion>
+          );
+        })}
       </div>
     </div>
   );
