@@ -47,15 +47,8 @@ function HeaderBarDropdown(props) {
     setAnchorEl(null);
   };
   const classes = useStyles();
-  const {
-    dropup,
-    caret,
-    hoverColor,
-    left,
-    rtlActive,
-    noLiPadding,
-    authenticated,
-  } = props;
+  const { dropup, caret, hoverColor, left, rtlActive, noLiPadding, token } =
+    props;
   const caretClasses = classNames({
     [classes.caret]: true,
     [classes.caretActive]: Boolean(anchorEl),
@@ -86,8 +79,8 @@ function HeaderBarDropdown(props) {
     setOpensignup(false);
   };
   const [username, setUserName] = useState("");
-  const getUserName = () => {
-    authAccountsAxios
+  const getUserName = async () => {
+    await authAccountsAxios
       .get(userDetailsURL)
       .then((res) => {
         setUserName(res.data.fname);
@@ -99,10 +92,10 @@ function HeaderBarDropdown(props) {
       });
   };
   useEffect(() => {
-    if (authenticated) {
+    if (token) {
       getUserName();
     }
-  }, [authenticated]);
+  }, [token]);
   return (
     <div>
       <div>
@@ -113,7 +106,7 @@ function HeaderBarDropdown(props) {
           color="transparent"
           onClick={handleClick}
         >
-          {authenticated ? username : "Login/SignUp"}
+          {username ? username : "Login/SignUp"}
           {caret ? <b className={caretClasses} /> : null}
         </Button>
       </div>
@@ -149,7 +142,7 @@ function HeaderBarDropdown(props) {
             <Paper className={classes.dropdown}>
               <ClickAwayListener onClickAway={handleCloseAway}>
                 <MenuList role="menu" className={classes.menuList}>
-                  {authenticated ? (
+                  {username ? (
                     <div>
                       <MenuItem
                         key={1}
@@ -223,7 +216,7 @@ HeaderBarDropdown.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    authenticated: state.auth.token !== null,
+    token: state.auth.token,
   };
 };
 const mapDispatchToProps = (dispatch) => {
