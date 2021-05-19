@@ -68,7 +68,7 @@ const AccordionDetails = withStyles((theme) => ({
 }))(MuiAccordionDetails);
 export default function CustomDropdown(props) {
   const preventDefault = (event) => event.preventDefault();
-
+  // TODO make choose a category sticky and add transition on according expanding
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     if (anchorEl && anchorEl.contains(event.target)) {
