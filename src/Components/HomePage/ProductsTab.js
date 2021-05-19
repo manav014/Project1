@@ -94,42 +94,42 @@ export default function ProductsTab() {
           height: "30vh",
         }}
       >
-        {/* <CardActionArea> */}
-        <CardMedia
-          component="img"
-          alt="Shop"
-          className={(classes.media, classes.carouselImage)}
-          image={flour}
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          {" "}
-          <div>Whole Wheat Bread</div>
-          <div style={{ display: "flex" }}>
-            <div
-              style={{
-                fontSize: "13px",
-                lineHeight: "15px",
-                display: "flex",
-              }}
-            >
-              &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            alt="Shop"
+            className={(classes.media, classes.carouselImage)}
+            image={flour}
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            {" "}
+            <div>Whole Wheat Bread</div>
+            <div style={{ display: "flex" }}>
+              <div
+                style={{
+                  fontSize: "13px",
+                  lineHeight: "15px",
+                  display: "flex",
+                }}
+              >
+                &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+              </div>
+              <div
+                style={{
+                  fontSize: "13px",
+                  lineHeight: "15px",
+                  textDecoration: "line-through",
+                  color: "#777777",
+                  marginLeft: "5px",
+                  display: "flex",
+                }}
+              >
+                &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+              </div>
             </div>
-            <div
-              style={{
-                fontSize: "13px",
-                lineHeight: "15px",
-                textDecoration: "line-through",
-                color: "#777777",
-                marginLeft: "5px",
-                display: "flex",
-              }}
-            >
-              &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-            </div>
-          </div>
-        </CardContent>
-        {/* </CardActionArea> */}
+          </CardContent>
+        </CardActionArea>
       </Card>
       <Card
         className={classes.root}
