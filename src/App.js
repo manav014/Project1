@@ -4,7 +4,6 @@ import { Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage.js";
 import Checkout from "./components/Checkout";
 import CartPage from "./components/CartPage";
-import Test from "./components/Test";
 
 import { connect } from "react-redux";
 import * as actions from "./store/actions/auth";
@@ -21,7 +20,6 @@ function App(props) {
         <Switch>
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/cart" component={CartPage} />
-          <Route exact path="/test" component={Test} />
           <Route exact path="/" component={HomePage} />
           <Redirect from="*" to="/" />
         </Switch>

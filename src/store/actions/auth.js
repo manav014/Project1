@@ -46,9 +46,6 @@ export const authLogin = (emailmobile, password) => (dispatch) => {
     })
     .then((res) => {
       const token = res.data.access;
-      console.log("Start Token from login");
-      console.log(token);
-      console.log("End Token from login");
       //   TODO change the time from 3600 ti anything else
       const expirationDate = new Date(new Date().getTime() + 172800 * 1000);
       localStorage.setItem("token", token);
@@ -60,8 +57,6 @@ export const authLogin = (emailmobile, password) => (dispatch) => {
       if (err.response) {
         dispatch(authFail(err));
       } else if (err.request) {
-        err.response = { status: 404 };
-        err.response.status = 404;
         dispatch(authFail(err));
       }
     });

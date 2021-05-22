@@ -112,6 +112,7 @@ export default function HeaderBar(props) {
         </IconButton>
       </Toolbar>
       <Hidden mdUp implementation="js">
+        {/* TODO remove custom dropdown and buttons directly to the drawer */}
         <Drawer
           variant="temporary"
           anchor={"right"}

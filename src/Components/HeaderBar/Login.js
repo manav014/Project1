@@ -16,7 +16,8 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-
+// TODO add loading on al pages
+// TODO when we enter wrong email then it moves us to signup but we can not geet back to login after going there
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),
@@ -68,9 +69,12 @@ function Login(props) {
       handleCloseDropdownlogin();
     }
     if (error) {
-      if (error.response.status === 404) {
+      if (error.response && error.response.status === 404) {
         handleCloseDropdownlogin();
         handleClickOpensignup();
+      } else {
+        // TODO to print a network error
+        console.log("Network Error");
       }
     }
   }, [token, error, handleCloseDropdownlogin, handleClickOpensignup]);
@@ -112,8 +116,12 @@ function Login(props) {
             margin="normal"
             required
             fullWidth
-            error={error && true}
-            helperText={error && "Incorrect Email/Mobile Number or Password"}
+            error={error && error.response && true}
+            helperText={
+              error &&
+              error.response &&
+              "Incorrect Email/Mobile Number or Password"
+            }
             id="emailmobile"
             label="Email or Mobile Number"
             name="emailmobile"
