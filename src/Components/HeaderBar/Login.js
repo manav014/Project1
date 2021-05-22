@@ -52,7 +52,6 @@ function Login(props) {
   };
   const handleChange = (prop) => (event) => {
     setFormData({ ...formData, [prop]: event.target.value });
-    console.log(formData.password);
   };
 
   const handleClickShowPassword = () => {

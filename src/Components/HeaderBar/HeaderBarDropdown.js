@@ -4,6 +4,8 @@ import classNames from "classnames";
 
 // @material-ui/core components
 import Dialog from "@material-ui/core/Dialog";
+import axios from "axios";
+
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
@@ -47,8 +49,16 @@ function HeaderBarDropdown(props) {
     setAnchorEl(null);
   };
   const classes = useStyles();
-  const { dropup, caret, hoverColor, left, rtlActive, noLiPadding, token } =
-    props;
+  const {
+    dropup,
+    caret,
+    hoverColor,
+    left,
+    rtlActive,
+    noLiPadding,
+    authenticated,
+    token,
+  } = props;
   const caretClasses = classNames({
     [classes.caret]: true,
     [classes.caretActive]: Boolean(anchorEl),
@@ -79,9 +89,13 @@ function HeaderBarDropdown(props) {
     setOpensignup(false);
   };
   const [username, setUserName] = useState("");
-  const getUserName = async () => {
-    await authAccountsAxios
-      .get(userDetailsURL)
+  const getUserName = () => {
+    axios
+      .get(userDetailsURL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setUserName(res.data.fname);
       })
@@ -92,10 +106,10 @@ function HeaderBarDropdown(props) {
       });
   };
   useEffect(() => {
-    if (token) {
+    if (authenticated) {
       getUserName();
     }
-  }, [token]);
+  }, [authenticated]);
   return (
     <div>
       <div>
@@ -106,7 +120,7 @@ function HeaderBarDropdown(props) {
           color="transparent"
           onClick={handleClick}
         >
-          {username ? username : "Login/SignUp"}
+          {authenticated ? username : "Login/SignUp"}
           {caret ? <b className={caretClasses} /> : null}
         </Button>
       </div>
@@ -142,7 +156,7 @@ function HeaderBarDropdown(props) {
             <Paper className={classes.dropdown}>
               <ClickAwayListener onClickAway={handleCloseAway}>
                 <MenuList role="menu" className={classes.menuList}>
-                  {username ? (
+                  {authenticated ? (
                     <div>
                       <MenuItem
                         key={1}
@@ -195,6 +209,7 @@ function HeaderBarDropdown(props) {
       </Popper>
       <Dialog onClose={handleCloseDropdownlogin} open={openlogin}>
         <SignIn
+          getUserName={getUserName}
           handleCloseDropdownlogin={handleCloseDropdownlogin}
           handleClickOpensignup={handleClickOpensignup}
         />
@@ -216,12 +231,15 @@ HeaderBarDropdown.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
+    authenticated: state.auth.token !== null,
     token: state.auth.token,
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actions.logout()),
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderBarDropdown);
