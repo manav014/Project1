@@ -4,6 +4,8 @@ import classNames from "classnames";
 
 // @material-ui/core components
 import Dialog from "@material-ui/core/Dialog";
+import axios from "axios";
+
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
@@ -55,6 +57,7 @@ function HeaderBarDropdown(props) {
     rtlActive,
     noLiPadding,
     authenticated,
+    token,
   } = props;
   const caretClasses = classNames({
     [classes.caret]: true,
@@ -87,8 +90,12 @@ function HeaderBarDropdown(props) {
   };
   const [username, setUserName] = useState("");
   const getUserName = () => {
-    authAccountsAxios
-      .get(userDetailsURL)
+    axios
+      .get(userDetailsURL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setUserName(res.data.fname);
       })
@@ -202,6 +209,7 @@ function HeaderBarDropdown(props) {
       </Popper>
       <Dialog onClose={handleCloseDropdownlogin} open={openlogin}>
         <SignIn
+          getUserName={getUserName}
           handleCloseDropdownlogin={handleCloseDropdownlogin}
           handleClickOpensignup={handleClickOpensignup}
         />
@@ -224,11 +232,14 @@ HeaderBarDropdown.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     authenticated: state.auth.token !== null,
+    token: state.auth.token,
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actions.logout()),
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderBarDropdown);
