@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 // Material UI imports
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
@@ -39,9 +40,10 @@ function getStepContent(step, handleNext) {
   }
 }
 
-export default function Checkout() {
+function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const token = localStorage.getItem("token");
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -49,6 +51,10 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  if (!token) {
+    console.log(token);
+    return <Redirect to="/" />;
+  }
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
@@ -131,3 +137,4 @@ export default function Checkout() {
     </React.Fragment>
   );
 }
+export default Checkout;
