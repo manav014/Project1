@@ -64,7 +64,6 @@ export default function HeaderBar(props) {
         .getElementsByTagName("header")[0]
         .classList.add(classes.fixed);
     } else {
-      console.log("hii");
       document.body
         .getElementsByTagName("header")[0]
         .classList.add(classes.sticky);
@@ -155,16 +154,5 @@ HeaderBar.propTypes = {
   // props.color (see above)
   changeColorOnScroll: PropTypes.shape({
     height: PropTypes.number.isRequired,
-    color: PropTypes.oneOf([
-      "primary",
-      "info",
-      "success",
-      "warning",
-      "danger",
-      "transparent",
-      "white",
-      "rose",
-      "dark",
-    ]).isRequired,
   }),
 };

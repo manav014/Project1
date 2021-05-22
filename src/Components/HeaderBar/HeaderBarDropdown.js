@@ -18,7 +18,6 @@ import Popper from "@material-ui/core/Popper";
 // core components
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import { authAccountsAxios } from "../../utils";
 import { userDetailsURL } from "../../constants";
 import SignIn from "./Login";
 import SignUp from "./SignUp";
@@ -89,27 +88,22 @@ function HeaderBarDropdown(props) {
     setOpensignup(false);
   };
   const [username, setUserName] = useState("");
-  const getUserName = () => {
-    axios
-      .get(userDetailsURL, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setUserName(res.data.fname);
-      })
-      .catch((err) => {
-        {
-          console.log(err.response);
-        }
-      });
-  };
   useEffect(() => {
     if (authenticated) {
-      getUserName();
+      axios
+        .get(userDetailsURL, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setUserName(res.data.fname);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
     }
-  }, [authenticated]);
+  }, [authenticated, token]);
   return (
     <div>
       <div>
@@ -117,7 +111,6 @@ function HeaderBarDropdown(props) {
           aria-label="Notifications"
           aria-owns={anchorEl ? "menu-list" : null}
           aria-haspopup="true"
-          color="transparent"
           onClick={handleClick}
         >
           {authenticated ? username : "Login/SignUp"}
@@ -209,7 +202,6 @@ function HeaderBarDropdown(props) {
       </Popper>
       <Dialog onClose={handleCloseDropdownlogin} open={openlogin}>
         <SignIn
-          getUserName={getUserName}
           handleCloseDropdownlogin={handleCloseDropdownlogin}
           handleClickOpensignup={handleClickOpensignup}
         />

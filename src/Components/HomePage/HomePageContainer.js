@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,7 +16,7 @@ export default function HomePageContainer(props) {
   const [transform, setTransform] = React.useState(
     "translate3d(0," + windowScrollTop + "px,0)"
   );
-  React.useEffect(() => {
+  useEffect(() => {
     if (window.innerWidth >= 768) {
       window.addEventListener("scroll", resetTransform);
     }
@@ -30,7 +30,7 @@ export default function HomePageContainer(props) {
     var windowScrollTop = window.pageYOffset / 3;
     setTransform("translate3d(0," + windowScrollTop + "px,0)");
   };
-  const { filter, className, children, style, image, small } = props;
+  const { filter, className, children, style, small } = props;
   const classes = useStyles();
   const parallaxClasses = classNames({
     [classes.parallax]: true,

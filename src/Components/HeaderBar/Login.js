@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Login(props) {
-  const { error, loading, token } = props;
+  const { error, token, handleCloseDropdownlogin, handleClickOpensignup } =
+    props;
   const [formData, setFormData] = useState({
     emailmobile: "",
     password: "",
@@ -63,16 +64,16 @@ function Login(props) {
   };
 
   React.useEffect(() => {
-    if (props.token) {
-      props.handleCloseDropdownlogin();
+    if (token) {
+      handleCloseDropdownlogin();
     }
-    if (props.error) {
-      if (props.error.response.status === 404) {
-        props.handleCloseDropdownlogin();
-        props.handleClickOpensignup();
+    if (error) {
+      if (error.response.status === 404) {
+        handleCloseDropdownlogin();
+        handleClickOpensignup();
       }
     }
-  }, [token, error]);
+  }, [token, error, handleCloseDropdownlogin, handleClickOpensignup]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

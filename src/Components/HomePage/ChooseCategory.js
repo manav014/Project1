@@ -2,7 +2,6 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
-import PropTypes from "prop-types";
 
 // @material-ui/core components
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -14,7 +13,6 @@ import Grow from "@material-ui/core/Grow";
 import MuiAccordion from "@material-ui/core/Accordion";
 import Typography from "@material-ui/core/Typography";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
-import Box from "@material-ui/core/Box";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -114,7 +112,7 @@ export default function CustomDropdown(props) {
     setState({ ...state, [prop]: true });
   };
   const handleAccordianChange = (prop) => (event, newExpanded) => {
-    if (newExpanded == true) {
+    if (newExpanded === true) {
       setState({ ...state, [prop]: true });
     } else {
       setState({ ...state, [prop]: false });
@@ -124,7 +122,6 @@ export default function CustomDropdown(props) {
     <div>
       <Paper
         style={{
-          position: "-webkit-sticky",
           position: "sticky",
           top: 0,
           zIndex: 1,
@@ -162,7 +159,7 @@ export default function CustomDropdown(props) {
                         }}
                         className={classNames(
                           classes.dropdownItem,
-                          classes["primary" + "Hover"]
+                          classes["primaryHover"]
                         )}
                       >
                         {prop}

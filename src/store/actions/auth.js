@@ -57,7 +57,13 @@ export const authLogin = (emailmobile, password) => (dispatch) => {
       dispatch(checkAuthTimeout(172800));
     })
     .catch((err) => {
-      dispatch(authFail(err));
+      if (err.response) {
+        dispatch(authFail(err));
+      } else if (err.request) {
+        err.response = { status: 404 };
+        err.response.status = 404;
+        dispatch(authFail(err));
+      }
     });
 };
 

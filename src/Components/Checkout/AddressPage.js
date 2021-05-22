@@ -1,22 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AddressCard from "./AddressCard";
 import AddressForm from "./AddressForm";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-// import Collapse from "@material-ui/core/Collapse";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import axios from "axios";
+import { connect } from "react-redux";
+import { addressListURL } from "../../constants";
 import Hidden from "@material-ui/core/Hidden";
-import Portal from "@material-ui/core/Portal";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const details = [
   {
@@ -38,13 +35,6 @@ const details = [
   },
 ];
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#37b3f9",
-    },
-  },
-});
 const useStyles = makeStyles((theme) => ({
   buttons: {
     display: "flex",
@@ -85,6 +75,25 @@ function AddressPage(props) {
       behavior: "smooth",
     });
   };
+  const { token } = props;
+
+  const getAddresses = () => {
+    axios
+      .get(addressListURL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+  useEffect(() => {
+    getAddresses();
+  });
 
   const formRef = React.useRef(null);
   return (
@@ -115,8 +124,8 @@ function AddressPage(props) {
       </Grid>
       <Hidden mdUp>
         <div className={classes.root}>
-          {details.map((detail) => (
-            <Accordion>
+          {details.map((detail, key) => (
+            <Accordion key={key}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1bh-content"
@@ -178,6 +187,7 @@ function AddressPage(props) {
         <Hidden smDown>
           <Grid item xs={10} sm={4}>
             <AddressCard
+              key={1}
               title="Avanya Wadhwa"
               apartment_address="J Block 65"
               street_address="Govind Puram , Ghaziabad"
@@ -188,6 +198,7 @@ function AddressPage(props) {
           </Grid>
           <Grid item xs={10} sm={4}>
             <AddressCard
+              key={2}
               title="Khushi Rauniyar"
               apartment_address="J Block 65"
               street_address="Shrinagar , Gurgaon"
@@ -198,6 +209,7 @@ function AddressPage(props) {
           </Grid>
           <Grid item xs={10} sm={4}>
             <AddressCard
+              key={3}
               title="Aashutosh Agrawal"
               apartment_address="J Block 65"
               street_address="Govind Puram , Ghaziabad"
@@ -208,6 +220,7 @@ function AddressPage(props) {
           </Grid>
           <Grid item xs={10} sm={4}>
             <AddressCard
+              key={4}
               title="Manav Agarwal"
               apartment_address="J Block 65"
               street_address="Govind Puram , Ghaziabad"
@@ -218,7 +231,7 @@ function AddressPage(props) {
           </Grid>
         </Hidden>
         <Grid item xs={12}>
-          <div ref={formRef}>
+          <div ref={formRef} key={1}>
             <AddressForm />
           </div>
         </Grid>
@@ -226,9 +239,13 @@ function AddressPage(props) {
     </React.Fragment>
   );
 }
-
-export default AddressPage;
-
 AddressPage.propTypes = {
   handleNext: PropTypes.func,
 };
+
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+export default connect(mapStateToProps)(AddressPage);
