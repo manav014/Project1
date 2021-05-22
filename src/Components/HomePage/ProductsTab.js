@@ -99,7 +99,7 @@ export default function ProductsTab() {
             component="img"
             alt="Shop"
             className={(classes.media, classes.carouselImage)}
-            image={flour}
+            image={maggi}
             title="Contemplative Reptile"
           />
           <CardContent>

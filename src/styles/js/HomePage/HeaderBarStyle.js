@@ -187,7 +187,7 @@ const headerStyle = {
     right: "0",
     left: "auto",
     visibility: "visible",
-    overflowY: "visible",
+    // overflowY: "visible",
     borderTop: "none",
     textAlign: "left",
     paddingRight: "0px",

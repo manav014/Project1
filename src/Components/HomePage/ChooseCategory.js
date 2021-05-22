@@ -14,6 +14,7 @@ import Grow from "@material-ui/core/Grow";
 import MuiAccordion from "@material-ui/core/Accordion";
 import Typography from "@material-ui/core/Typography";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
+import Box from "@material-ui/core/Box";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -33,6 +34,7 @@ const Accordion = withStyles({
     "&:not(:last-child)": {
       borderBottom: 0,
     },
+    position: "static",
     "&:before": {
       display: "none",
     },
@@ -120,12 +122,21 @@ export default function CustomDropdown(props) {
   };
   return (
     <div>
-      <div>
+      <Paper
+        style={{
+          position: "-webkit-sticky",
+          position: "sticky",
+          top: 0,
+          zIndex: 1,
+        }}
+        color="primary"
+        elevation={0}
+      >
         <Button onClick={handleClick}>
           Choose a Category
           <b className={caretClasses} />
         </Button>
-      </div>
+      </Paper>
       <Popper
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
