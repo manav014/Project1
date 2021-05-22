@@ -62,7 +62,6 @@ function SignUp(props) {
 
   const handleClickShowPassword = (pass) => {
     setFormData({ ...formData, [pass]: !formData[pass] });
-    console.log(formData[pass]);
   };
 
   const handleMouseDownPassword = (event) => {

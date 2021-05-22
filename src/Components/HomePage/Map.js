@@ -239,12 +239,10 @@ mapboxgl.accessToken =
 //   function successLocation(position) {
 //     setLng(position.coords.longitude);
 //     setLat(position.coords.latitude);
-//     console.log("he11llo");
 //   }
 //   function errorLocation() {
 //     setLng(lng);
 //     setLat(lat);
-//     console.log("hello");
 //   }
 //   navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
 //     enableHighAccuracy: true,

@@ -52,7 +52,6 @@ function Checkout() {
   };
 
   if (!token) {
-    console.log(token);
     return <Redirect to="/" />;
   }
   return (

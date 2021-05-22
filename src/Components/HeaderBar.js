@@ -55,8 +55,6 @@ export default function HeaderBar(props) {
   const headerColorChange = () => {
     const windowsScrollTop = window.pageYOffset;
     if (windowsScrollTop > 1000) {
-      // console.log("hello");
-      console.log(classes[fixed]);
       document.body
         .getElementsByTagName("header")[0]
         .classList.remove(classes.sticky);
