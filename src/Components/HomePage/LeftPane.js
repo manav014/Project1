@@ -198,7 +198,7 @@ function LeftPane() {
                     border={1}
                     className={classes.iconStyle}
                   >
-                    <IconButton aria-label="ShopStatus" color="37b3f9">
+                    <IconButton aria-label="ShopStatus">
                       <CheckIcon style={{ color: "#37b3f9" }} />
                     </IconButton>
                   </Box>

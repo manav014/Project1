@@ -2,7 +2,6 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
-import PropTypes from "prop-types";
 
 // @material-ui/core components
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -33,6 +32,7 @@ const Accordion = withStyles({
     "&:not(:last-child)": {
       borderBottom: 0,
     },
+    position: "static",
     "&:before": {
       display: "none",
     },
@@ -112,7 +112,7 @@ export default function CustomDropdown(props) {
     setState({ ...state, [prop]: true });
   };
   const handleAccordianChange = (prop) => (event, newExpanded) => {
-    if (newExpanded == true) {
+    if (newExpanded === true) {
       setState({ ...state, [prop]: true });
     } else {
       setState({ ...state, [prop]: false });
@@ -120,12 +120,20 @@ export default function CustomDropdown(props) {
   };
   return (
     <div>
-      <div>
+      <Paper
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 1,
+        }}
+        color="primary"
+        elevation={0}
+      >
         <Button onClick={handleClick}>
           Choose a Category
           <b className={caretClasses} />
         </Button>
-      </div>
+      </Paper>
       <Popper
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
@@ -151,7 +159,7 @@ export default function CustomDropdown(props) {
                         }}
                         className={classNames(
                           classes.dropdownItem,
-                          classes["primary" + "Hover"]
+                          classes["primaryHover"]
                         )}
                       >
                         {prop}

@@ -1,11 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import dairy from "../../assets/HomePage/dairy.jpg";
 import dals from "../../assets/HomePage/dals.jpg";
 import flour from "../../assets/HomePage/flour.jpg";
@@ -94,42 +91,42 @@ export default function ProductsTab() {
           height: "30vh",
         }}
       >
-        {/* <CardActionArea> */}
-        <CardMedia
-          component="img"
-          alt="Shop"
-          className={(classes.media, classes.carouselImage)}
-          image={flour}
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          {" "}
-          <div>Whole Wheat Bread</div>
-          <div style={{ display: "flex" }}>
-            <div
-              style={{
-                fontSize: "13px",
-                lineHeight: "15px",
-                display: "flex",
-              }}
-            >
-              &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            alt="Shop"
+            className={(classes.media, classes.carouselImage)}
+            image={maggi}
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            {" "}
+            <div>Whole Wheat Bread</div>
+            <div style={{ display: "flex" }}>
+              <div
+                style={{
+                  fontSize: "13px",
+                  lineHeight: "15px",
+                  display: "flex",
+                }}
+              >
+                &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+              </div>
+              <div
+                style={{
+                  fontSize: "13px",
+                  lineHeight: "15px",
+                  textDecoration: "line-through",
+                  color: "#777777",
+                  marginLeft: "5px",
+                  display: "flex",
+                }}
+              >
+                &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+              </div>
             </div>
-            <div
-              style={{
-                fontSize: "13px",
-                lineHeight: "15px",
-                textDecoration: "line-through",
-                color: "#777777",
-                marginLeft: "5px",
-                display: "flex",
-              }}
-            >
-              &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-            </div>
-          </div>
-        </CardContent>
-        {/* </CardActionArea> */}
+          </CardContent>
+        </CardActionArea>
       </Card>
       <Card
         className={classes.root}

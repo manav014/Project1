@@ -16,7 +16,8 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-
+// TODO add loading on al pages
+// TODO when we enter wrong email then it moves us to signup but we can not geet back to login after going there
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),
@@ -38,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Login(props) {
-  const { error, loading, token } = props;
+  const { error, token, handleCloseDropdownlogin, handleClickOpensignup } =
+    props;
   const [formData, setFormData] = useState({
     emailmobile: "",
     password: "",
@@ -52,7 +54,6 @@ function Login(props) {
   };
   const handleChange = (prop) => (event) => {
     setFormData({ ...formData, [prop]: event.target.value });
-    console.log(formData.password);
   };
 
   const handleClickShowPassword = () => {
@@ -64,16 +65,19 @@ function Login(props) {
   };
 
   React.useEffect(() => {
-    if (props.token) {
-      props.handleCloseDropdownlogin();
+    if (token) {
+      handleCloseDropdownlogin();
     }
-    if (props.error) {
-      if (props.error.response.status === 404) {
-        props.handleCloseDropdownlogin();
-        props.handleClickOpensignup();
+    if (error) {
+      if (error.response && error.response.status === 404) {
+        handleCloseDropdownlogin();
+        handleClickOpensignup();
+      } else {
+        // TODO to print a network error
+        console.log("Network Error");
       }
     }
-  }, [token, error]);
+  }, [token, error, handleCloseDropdownlogin, handleClickOpensignup]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -112,8 +116,12 @@ function Login(props) {
             margin="normal"
             required
             fullWidth
-            error={error && true}
-            helperText={error && "Incorrect Email/Mobile Number or Password"}
+            error={error && error.response && true}
+            helperText={
+              error &&
+              error.response &&
+              "Incorrect Email/Mobile Number or Password"
+            }
             id="emailmobile"
             label="Email or Mobile Number"
             name="emailmobile"

@@ -32,7 +32,7 @@ function CartPage() {
           }}
         />
         <Grid container>
-          <Grid item xs="12" md="9" lg="9">
+          <Grid item xs={12} md={9} lg={9}>
             <Typography
               component="h1"
               variant="h4"
@@ -44,7 +44,7 @@ function CartPage() {
               <ProductCard />
             </div>
           </Grid>
-          <Grid item md="3" lg="3">
+          <Grid item md={3} lg={3}>
             <div className={classes.PaymentDetailsCart}>
               <PaymentDetails />
               <div style={{ marginTop: "5vh" }}>

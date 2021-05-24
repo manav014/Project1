@@ -27,14 +27,11 @@ export default function AddressCard(props) {
   const classes = useStyles();
   const {
     title,
-    contact,
     apartment_address,
     street_address,
     area_pincode,
     state,
     address_type,
-    default_shipping,
-    default_billing,
   } = props;
   return (
     <Card className={classes.root} style={{ marginLeft: "3vw" }}>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 // Material UI imports
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
@@ -39,9 +40,10 @@ function getStepContent(step, handleNext) {
   }
 }
 
-export default function Checkout() {
+function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const token = localStorage.getItem("token");
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -49,6 +51,9 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  if (!token) {
+    return <Redirect to="/" />;
+  }
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
@@ -61,7 +66,7 @@ export default function Checkout() {
           }}
         />
         <Grid container>
-          <Grid item xs="12" md="9" lg="9">
+          <Grid item xs={12} md={9} lg={9}>
             <main className={classes.layout}>
               <div className={classes.paper}>
                 <Typography component="h1" variant="h4" align="center">
@@ -119,7 +124,7 @@ export default function Checkout() {
               </div>
             </main>
           </Grid>
-          <Grid item md="2" lg="2">
+          <Grid item md={2} lg={2}>
             <Hidden smDown>
               <div className={classes.PaymentDetailsCheckout}>
                 <PaymentDetails />
@@ -131,3 +136,4 @@ export default function Checkout() {
     </React.Fragment>
   );
 }
+export default Checkout;

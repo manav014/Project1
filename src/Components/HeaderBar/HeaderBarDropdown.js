@@ -4,6 +4,8 @@ import classNames from "classnames";
 
 // @material-ui/core components
 import Dialog from "@material-ui/core/Dialog";
+import axios from "axios";
+
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
@@ -16,8 +18,7 @@ import Popper from "@material-ui/core/Popper";
 // core components
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import { authAccountsAxios } from "../../utils";
-import { userDetailsURL } from "../../constants";
+import { userDetailsURL } from "../../consts/constants";
 import SignIn from "./Login";
 import SignUp from "./SignUp";
 import styles from "../../styles/js/HomePage/customDropdownStyle";
@@ -47,8 +48,16 @@ function HeaderBarDropdown(props) {
     setAnchorEl(null);
   };
   const classes = useStyles();
-  const { dropup, caret, hoverColor, left, rtlActive, noLiPadding, token } =
-    props;
+  const {
+    dropup,
+    caret,
+    hoverColor,
+    left,
+    rtlActive,
+    noLiPadding,
+    authenticated,
+    token,
+  } = props;
   const caretClasses = classNames({
     [classes.caret]: true,
     [classes.caretActive]: Boolean(anchorEl),
@@ -79,23 +88,22 @@ function HeaderBarDropdown(props) {
     setOpensignup(false);
   };
   const [username, setUserName] = useState("");
-  const getUserName = async () => {
-    await authAccountsAxios
-      .get(userDetailsURL)
-      .then((res) => {
-        setUserName(res.data.fname);
-      })
-      .catch((err) => {
-        {
-          console.log(err.response);
-        }
-      });
-  };
   useEffect(() => {
-    if (token) {
-      getUserName();
+    if (authenticated) {
+      axios
+        .get(userDetailsURL, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setUserName(res.data.fname);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
     }
-  }, [token]);
+  }, [authenticated, token]);
   return (
     <div>
       <div>
@@ -103,10 +111,9 @@ function HeaderBarDropdown(props) {
           aria-label="Notifications"
           aria-owns={anchorEl ? "menu-list" : null}
           aria-haspopup="true"
-          color="transparent"
           onClick={handleClick}
         >
-          {username ? username : "Login/SignUp"}
+          {authenticated ? username : "Login/SignUp"}
           {caret ? <b className={caretClasses} /> : null}
         </Button>
       </div>
@@ -142,7 +149,7 @@ function HeaderBarDropdown(props) {
             <Paper className={classes.dropdown}>
               <ClickAwayListener onClickAway={handleCloseAway}>
                 <MenuList role="menu" className={classes.menuList}>
-                  {username ? (
+                  {authenticated ? (
                     <div>
                       <MenuItem
                         key={1}
@@ -216,12 +223,15 @@ HeaderBarDropdown.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
+    authenticated: state.auth.token !== null,
     token: state.auth.token,
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actions.logout()),
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderBarDropdown);

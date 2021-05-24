@@ -27,11 +27,6 @@ export default function SimplePaper() {
       setCount(0);
     } else setCount(count - 1);
   };
-  const [checked, setChecked] = React.useState(true);
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
 
   const classes = useStyles();
 

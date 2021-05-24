@@ -11,7 +11,6 @@ const CartPageStyle = (theme) => ({
     },
   },
   PaymentDetailsCart: {
-    position: "-webkit-sticky",
     position: "sticky",
     top: "15vh",
     marginBottom: theme.spacing(3),

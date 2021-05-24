@@ -61,7 +61,7 @@ const customDropdownStyle = (theme) => ({
     zIndex: "1200",
     [theme.breakpoints.down("sm")]: {
       zIndex: "1640",
-      position: "static",
+      // position: "static",
       float: "none",
       width: "auto",
       marginTop: "0",
@@ -77,7 +77,7 @@ const customDropdownStyle = (theme) => ({
     padding: "10px 20px",
     margin: "0 5px",
     borderRadius: "2px",
-    position: "relative",
+    // position: " !important",
     transition: "all 150ms linear",
     display: "block",
     clear: "both",
@@ -144,7 +144,7 @@ const customDropdownStyle = (theme) => ({
     margin: "5px 0",
     backgroundColor: "rgba(0, 0, 0, 0.12)",
     height: "1px",
-    overflow: "hidden",
+    // overflow: "hidden",
   },
   buttonIcon: {
     width: "20px",

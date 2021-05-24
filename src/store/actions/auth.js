@@ -37,16 +37,15 @@ export const checkAuthTimeout = (expirationTime) => {
   };
 };
 
-export const authLogin = (emailmobile, password) => async (dispatch) => {
+export const authLogin = (emailmobile, password) => (dispatch) => {
   dispatch(authStart());
-  await axios
+  axios
     .post("http://127.0.0.1:8000/accounts/login/", {
       userid: emailmobile,
       pass: password,
     })
     .then((res) => {
       const token = res.data.access;
-      console.log(res.status);
       //   TODO change the time from 3600 ti anything else
       const expirationDate = new Date(new Date().getTime() + 172800 * 1000);
       localStorage.setItem("token", token);
@@ -55,7 +54,11 @@ export const authLogin = (emailmobile, password) => async (dispatch) => {
       dispatch(checkAuthTimeout(172800));
     })
     .catch((err) => {
-      dispatch(authFail(err));
+      if (err.response) {
+        dispatch(authFail(err));
+      } else if (err.request) {
+        dispatch(authFail(err));
+      }
     });
 };
 

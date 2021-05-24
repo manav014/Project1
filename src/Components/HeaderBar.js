@@ -55,8 +55,6 @@ export default function HeaderBar(props) {
   const headerColorChange = () => {
     const windowsScrollTop = window.pageYOffset;
     if (windowsScrollTop > 1000) {
-      // console.log("hello");
-      console.log(classes[fixed]);
       document.body
         .getElementsByTagName("header")[0]
         .classList.remove(classes.sticky);
@@ -64,7 +62,6 @@ export default function HeaderBar(props) {
         .getElementsByTagName("header")[0]
         .classList.add(classes.fixed);
     } else {
-      console.log("hii");
       document.body
         .getElementsByTagName("header")[0]
         .classList.add(classes.sticky);
@@ -113,6 +110,7 @@ export default function HeaderBar(props) {
         </IconButton>
       </Toolbar>
       <Hidden mdUp implementation="js">
+        {/* TODO remove custom dropdown and buttons directly to the drawer */}
         <Drawer
           variant="temporary"
           anchor={"right"}
@@ -155,16 +153,5 @@ HeaderBar.propTypes = {
   // props.color (see above)
   changeColorOnScroll: PropTypes.shape({
     height: PropTypes.number.isRequired,
-    color: PropTypes.oneOf([
-      "primary",
-      "info",
-      "success",
-      "warning",
-      "danger",
-      "transparent",
-      "white",
-      "rose",
-      "dark",
-    ]).isRequired,
   }),
 };

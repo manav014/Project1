@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 function SignUp(props) {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
-  const { error, loading, token } = props;
+  const { error } = props;
   const [formData, setFormData] = useState({
     email: "",
     firstname: "",
@@ -62,7 +62,6 @@ function SignUp(props) {
 
   const handleClickShowPassword = (pass) => {
     setFormData({ ...formData, [pass]: !formData[pass] });
-    console.log(formData[pass]);
   };
 
   const handleMouseDownPassword = (event) => {
@@ -109,7 +108,7 @@ function SignUp(props) {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (props.token) {
       props.handleCloseDropdownsignup();
     }
@@ -296,7 +295,7 @@ function SignUp(props) {
             variant="contained"
             style={{ backgroundColor: "#37b3f9", color: "#FFFFFF" }}
             className={classes.submit}
-            disabled={!formData.confirmed || formData.password == ""}
+            disabled={!formData.confirmed || formData.password === ""}
           >
             Sign Up
           </Button>
