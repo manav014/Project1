@@ -10,6 +10,12 @@ import { addressListURL } from "../../consts/constants";
 import { states } from "../../consts/states";
 import { connect } from "react-redux";
 import MenuItem from "@material-ui/core/MenuItem";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function AddressForm(props) {
   const { token } = props;
@@ -28,6 +34,18 @@ function AddressForm(props) {
       ...addressData,
       [e.target.name]: e.target.value,
     });
+  };
+  const [openSuccess, setOpenSuccess] = React.useState(false);
+  const [openerror, setOpenerror] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSuccess(false);
+    setOpenerror(false);
+
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,11 +73,28 @@ function AddressForm(props) {
       )
       .then((res) => {
         //TODO Print the response using snackBar
-        console.log("Added Successfully");
+        console.log("Added Successfully");   
+        setAddressData({
+          name: "",
+          contact: "",
+          contact2: "",
+          apartment_address: "",
+          street_address: "",
+          city: "",
+          state: "",
+          area_pincode: "",
+  
+        });
+        setOpenSuccess(true);
+        
+        // setAddressData({ details });
       })
+     
       .catch((err) => {
         //TODO Print the response using snackBar
         console.log(err.response);
+        setOpenerror(true);
+
       });
   };
   return (
@@ -76,6 +111,7 @@ function AddressForm(props) {
               name="name"
               label="Full name"
               fullWidth
+              value={addressData.name}
               autoComplete="given-name"
               onChange={onChangeHandler}
             />
@@ -86,6 +122,7 @@ function AddressForm(props) {
               id="contact"
               name="contact"
               label="Contact No 1"
+              value={addressData.contact}
               placeholder="10 digit mobile number without prefixes"
               fullWidth
               onChange={onChangeHandler}
@@ -96,6 +133,7 @@ function AddressForm(props) {
               id="contact2"
               name="contact2"
               label="Contact No 2 (optional)"
+              value={addressData.contact2}
               placeholder="10 digit mobile number without prefixes"
               fullWidth
               onChange={onChangeHandler}
@@ -108,6 +146,7 @@ function AddressForm(props) {
               name="apartment_address"
               label="Flat,House no.,Building,Company,Apartment"
               fullWidth
+              value={addressData.apartment_address}
               autoComplete="shipping address-line2"
               onChange={onChangeHandler}
             />
@@ -119,6 +158,8 @@ function AddressForm(props) {
               name="street_address"
               label="Area,Colony,Street,Sector,Village"
               fullWidth
+              value={addressData.street_address}
+
               autoComplete="shipping address-level2"
               onChange={onChangeHandler}
             />
@@ -131,6 +172,7 @@ function AddressForm(props) {
               label="Town/City"
               fullWidth
               autoComplete="city"
+              value={addressData.city}
               onChange={onChangeHandler}
             />
           </Grid>
@@ -162,6 +204,8 @@ function AddressForm(props) {
               required
               id="zip"
               name="area_pincode"
+              value={addressData.area_pincode}
+
               label="Zip / Postal code"
               fullWidth
               autoComplete="shipping postal-code"
@@ -182,15 +226,27 @@ function AddressForm(props) {
           type="submit"
           fullWidth
           variant="contained"
+          variant="outlined"
           style={{
             backgroundColor: "#37b3f9",
             color: "#FFFFFF",
             marginBottom: "4vh",
+           
           }}
         >
           Add Address
         </Button>
       </form>
+      <Snackbar open={openSuccess} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Address Added Successfully!
+        </Alert>
+      </Snackbar>
+      <Snackbar open={openerror} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+         Unable to process your request!
+        </Alert>
+      </Snackbar>
     </React.Fragment>
   );
 }
