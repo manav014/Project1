@@ -18,7 +18,7 @@ import Popper from "@material-ui/core/Popper";
 // core components
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import { userDetailsURL } from "../../constants";
+import { userDetailsURL } from "../../consts/constants";
 import SignIn from "./Login";
 import SignUp from "./SignUp";
 import styles from "../../styles/js/HomePage/customDropdownStyle";

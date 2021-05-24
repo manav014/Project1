@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AddressCard from "./AddressCard";
 import AddressForm from "./AddressForm";
 import Grid from "@material-ui/core/Grid";
@@ -12,28 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import axios from "axios";
 import { connect } from "react-redux";
-import { addressListURL } from "../../constants";
+import { addressListURL } from "../../consts/constants";
 import Hidden from "@material-ui/core/Hidden";
-
-const details = [
-  {
-    name: "Ashutosh Aggarwal",
-    address: "I-87 Shastri Nagar Jaipur , Rajasthan 201054",
-  },
-  {
-    name: "Khushi Rauniyar",
-    address: "K Block Kavi Nagar Gurugram UttarPradesh , 205410",
-  },
-  {
-    name: "Manav Aggarwal",
-    address:
-      "50 D/B Slice 4  Scheme-78 Vijay Nagar Indore ,Madhya Pradesh 401235",
-  },
-  {
-    name: "Avanya Wadhwa",
-    address: "34 E/N Powder Gali Goregaon East , Mumbai , Maharashtra 301254",
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   buttons: {
@@ -76,7 +56,8 @@ function AddressPage(props) {
     });
   };
   const { token } = props;
-
+  console.log(token);
+  const [details, setdetails] = useState([]);
   const getAddresses = () => {
     axios
       .get(addressListURL, {
@@ -85,28 +66,28 @@ function AddressPage(props) {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        setdetails(res.data);
+        console.log(details);
       })
       .catch((err) => {
         console.log(err.response);
       });
   };
   useEffect(() => {
-    getAddresses();
-  });
-
+    if (token) getAddresses();
+  }, [token]);
   const formRef = React.useRef(null);
   return (
     <React.Fragment>
       {/* <ThemeProvider theme={theme}> */}
 
       <Grid container>
-        <Grid item xs="6">
+        <Grid item xs={6}>
           <Typography component="h2" variant="h5" className={classes.shipping}>
             Shipping Address
           </Typography>
         </Grid>
-        <Grid item xs="6">
+        <Grid item xs={6}>
           <div className={classes.buttons}>
             <Button
               variant="contained"
@@ -138,7 +119,8 @@ function AddressPage(props) {
                 <AccordionDetails>
                   <Typography className={classes.secondaryHeading}>
                     {" "}
-                    {detail.address}
+                    {/* {console.log(detail.apartment_address)} */}
+                    {detail.apartment_address}
                   </Typography>
                 </AccordionDetails>
               </AccordionSummary>
@@ -185,50 +167,19 @@ function AddressPage(props) {
       </Hidden>
       <Grid container spacing={3} style={{ marginTop: "2vh" }}>
         <Hidden smDown>
-          <Grid item xs={10} sm={4}>
-            <AddressCard
-              key={1}
-              title="Avanya Wadhwa"
-              apartment_address="J Block 65"
-              street_address="Govind Puram , Ghaziabad"
-              area_pincode="245192"
-              state="Uttar Pradesh"
-              handleNext={props.handleNext}
-            />
-          </Grid>
-          <Grid item xs={10} sm={4}>
-            <AddressCard
-              key={2}
-              title="Khushi Rauniyar"
-              apartment_address="J Block 65"
-              street_address="Shrinagar , Gurgaon"
-              area_pincode="245192"
-              state="Uttar Pradesh"
-              handleNext={props.handleNext}
-            />
-          </Grid>
-          <Grid item xs={10} sm={4}>
-            <AddressCard
-              key={3}
-              title="Aashutosh Agrawal"
-              apartment_address="J Block 65"
-              street_address="Govind Puram , Ghaziabad"
-              area_pincode="245192"
-              state="Uttar Pradesh"
-              handleNext={props.handleNext}
-            />
-          </Grid>
-          <Grid item xs={10} sm={4}>
-            <AddressCard
-              key={4}
-              title="Manav Agarwal"
-              apartment_address="J Block 65"
-              street_address="Govind Puram , Ghaziabad"
-              area_pincode="245192"
-              state="Uttar Pradesh"
-              handleNext={props.handleNext}
-            />
-          </Grid>
+          {details.map((detail, key) => (
+            <Grid item xs={10} sm={4}>
+              <AddressCard
+                key={key}
+                title={detail.name}
+                apartment_address={detail.apartment_address}
+                street_address={detail.street_address}
+                area_pincode={detail.area_pincode}
+                state={detail.state}
+                handleNext={props.handleNext}
+              />
+            </Grid>
+          ))}
         </Hidden>
         <Grid item xs={12}>
           <div ref={formRef} key={1}>

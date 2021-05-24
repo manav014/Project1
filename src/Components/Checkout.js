@@ -66,7 +66,7 @@ function Checkout() {
           }}
         />
         <Grid container>
-          <Grid item xs="12" md="9" lg="9">
+          <Grid item xs={12} md={9} lg={9}>
             <main className={classes.layout}>
               <div className={classes.paper}>
                 <Typography component="h1" variant="h4" align="center">
@@ -124,7 +124,7 @@ function Checkout() {
               </div>
             </main>
           </Grid>
-          <Grid item md="2" lg="2">
+          <Grid item md={2} lg={2}>
             <Hidden smDown>
               <div className={classes.PaymentDetailsCheckout}>
                 <PaymentDetails />
