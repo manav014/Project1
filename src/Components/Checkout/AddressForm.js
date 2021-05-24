@@ -12,12 +12,19 @@ import { connect } from "react-redux";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles } from "@material-ui/core/styles";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 function AddressForm(props) {
+  const useStyles = makeStyles((theme) => ({
+    buttons: {
+      display: "flex",
+      justifyContent: "flex-end",
+    },
+  }));
   const { token } = props;
   const [addressData, setAddressData] = useState({
     name: "",
@@ -47,6 +54,8 @@ function AddressForm(props) {
     setOpenerror(false);
 
   };
+  const classes = useStyles();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -212,7 +221,7 @@ function AddressForm(props) {
               onChange={onChangeHandler}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs>
             <FormControlLabel
               control={
                 <Checkbox color="secondary" name="saveAddress" value="yes" />
@@ -220,13 +229,12 @@ function AddressForm(props) {
               label="Use this address for payment details"
             />
           </Grid>
-        </Grid>
+        <Grid item xs className={classes.buttons}>
 
         <Button
           type="submit"
-          fullWidth
+          
           variant="contained"
-          variant="outlined"
           style={{
             backgroundColor: "#37b3f9",
             color: "#FFFFFF",
@@ -234,8 +242,11 @@ function AddressForm(props) {
            
           }}
         >
-          Add Address
+          Submit
         </Button>
+        </Grid>
+        </Grid>
+
       </form>
       <Snackbar open={openSuccess} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
