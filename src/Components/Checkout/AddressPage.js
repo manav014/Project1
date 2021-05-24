@@ -56,7 +56,6 @@ function AddressPage(props) {
     });
   };
   const { token } = props;
-  console.log(token);
   const [details, setdetails] = useState([]);
   const getAddresses = () => {
     axios
@@ -67,10 +66,10 @@ function AddressPage(props) {
       })
       .then((res) => {
         setdetails(res.data);
-        console.log(details);
       })
       .catch((err) => {
         console.log(err.response);
+        //TODOD Error
       });
   };
   useEffect(() => {
@@ -79,8 +78,6 @@ function AddressPage(props) {
   const formRef = React.useRef(null);
   return (
     <React.Fragment>
-      {/* <ThemeProvider theme={theme}> */}
-
       <Grid container>
         <Grid item xs={6}>
           <Typography component="h2" variant="h5" className={classes.shipping}>
@@ -119,7 +116,6 @@ function AddressPage(props) {
                 <AccordionDetails>
                   <Typography className={classes.secondaryHeading}>
                     {" "}
-                    {/* {console.log(detail.apartment_address)} */}
                     {detail.apartment_address}
                   </Typography>
                 </AccordionDetails>
