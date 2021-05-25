@@ -41,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
 function SignUp(props) {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
-  const { error } = props;
+  const { error, token } = props;
+
   const [formData, setFormData] = useState({
     email: "",
     firstname: "",
@@ -217,14 +218,14 @@ function SignUp(props) {
                 autoComplete="password"
                 name="password"
                 variant="outlined"
-                error={!formData.confirmed && true}
+                error={!formData.confirmed}
                 helperText={
                   !formData.confirmed && "Both passwords should be the same"
                 }
-                inputProps={{
-                  pattern:
-                    "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$",
-                }}
+                // inputProps={{
+                //   pattern:
+                //     "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$",
+                // }}
                 required
                 value={formData.password}
                 fullWidth
@@ -277,7 +278,7 @@ function SignUp(props) {
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
                       >
-                        {formData.showPassword ? (
+                        {formData.showConfirmPassword ? (
                           <Visibility />
                         ) : (
                           <VisibilityOff />
