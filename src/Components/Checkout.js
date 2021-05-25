@@ -57,14 +57,7 @@ function Checkout() {
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <HeaderBar
-          brand="Blah Project"
-          sticky
-          changeColorOnScroll={{
-            height: 400,
-            color: "#37b3f9",
-          }}
-        />
+        <HeaderBar />
         <Grid container>
           <Grid item xs={12} md={9} lg={9}>
             <main className={classes.layout}>

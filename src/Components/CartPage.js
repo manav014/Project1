@@ -22,15 +22,8 @@ function CartPage() {
   const classes = useStyles();
   return (
     <ThemeProvider theme={theme}>
+      <HeaderBar />
       <div className={classes.papercart}>
-        <HeaderBar
-          brand="Blah Project"
-          sticky
-          changeColorOnScroll={{
-            height: 400,
-            color: "#37b3f9",
-          }}
-        />
         <Grid container>
           <Grid item xs={12} md={9} lg={9}>
             <Typography
