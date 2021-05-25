@@ -56,6 +56,10 @@ function AddressPage(props) {
   const classes = useStyles();
   const [openSuccess, setOpenSuccess] = React.useState(false);
   const [openerror, setOpenerror] = React.useState(false);
+
+  const [openEditSuccess, setEditSuccess] = React.useState(false);
+  const [openEditerror, setOpenEditerror] = React.useState(false);
+
   const handleForm = () => {
     formRef.current.scrollIntoView({
       behavior: "smooth",
@@ -69,6 +73,8 @@ function AddressPage(props) {
 
     setOpenSuccess(false);
     setOpenerror(false);
+    setEditSuccess(false);
+    setOpenEditerror(false);
 
   };
   const { token } = props;
@@ -83,6 +89,7 @@ function AddressPage(props) {
       })
       .catch((err) => {
         console.log(err.response);
+        setOpenerror(true);
         //TODO Error
       });
   
@@ -94,16 +101,17 @@ function AddressPage(props) {
     const [updateDetails, setUpdateDetails] = useState(null);
     const editAddress=(detail)=>{
       // axios.post("")
-      // // const newDetails = details.filter((item) => item!==detail);
-      // // setdetails(newDetails);
-      // // setOpenSuccess(true);
-      // // axios.delete("")
+      // const newDetails = details.filter((item) => item!==detail);
+      // setdetails(newDetails);
+      // setOpenSuccess(true);
+
       // .then((res)=>{
       //      alert(detail)
+      // setEditSuccess(true);
       //   })
       //   .catch((err) => {
       //     console.log(err.response);
-      //     //TODOD Error
+      //     setEditerror(true);
       //   });
       setUpdateDetails(detail)
         // console.log(updateDetails)
@@ -241,12 +249,15 @@ function AddressPage(props) {
           </div>
         </Grid>
       </Grid>
-      <Snackbar open={openSuccess} autoHideDuration={4000} onClose={handleClose}>
+      <Snackbar open={openSuccess,openEditSuccess} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
           Address Deleted Successfully!
         </Alert>
+        <Alert onClose={handleClose} severity="success">
+          Address Edited Successfully!
+        </Alert>
       </Snackbar>
-      <Snackbar open={openerror} autoHideDuration={4000} onClose={handleClose}>
+      <Snackbar open={openerror,openEditerror} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
          Unable to process your request!
         </Alert>
