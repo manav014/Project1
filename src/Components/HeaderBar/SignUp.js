@@ -110,7 +110,7 @@ function SignUp(props) {
   };
 
   useEffect(() => {
-    if (props.token) {
+    if (token) {
       props.handleCloseDropdownsignup();
     }
   });
