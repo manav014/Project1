@@ -14,7 +14,12 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { addressListURL } from "../../consts/constants";
 import Hidden from "@material-ui/core/Hidden";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 const useStyles = makeStyles((theme) => ({
   buttons: {
     display: "flex",
@@ -49,14 +54,39 @@ const useStyles = makeStyles((theme) => ({
 
 function AddressPage(props) {
   const classes = useStyles();
-
+  const [openSuccess, setOpenSuccess] = React.useState(false);
+  const [openerror, setOpenerror] = React.useState(false);
   const handleForm = () => {
     formRef.current.scrollIntoView({
       behavior: "smooth",
     });
   };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSuccess(false);
+    setOpenerror(false);
+
+  };
   const { token } = props;
   const [details, setdetails] = useState([]);
+  const deleteAddress=(detail)=>{
+    const newDetails = details.filter((item) => item!==detail);
+    setdetails(newDetails);
+    setOpenSuccess(true);
+    axios.delete("")
+    .then((res)=>{
+     
+      })
+      .catch((err) => {
+        console.log(err.response);
+        //TODOD Error
+      });
+  
+    };
   const getAddresses = () => {
     axios
       .get(addressListURL, {
@@ -147,6 +177,7 @@ function AddressPage(props) {
                 </Button>
 
                 <Button
+                onClick={()=>deleteAddress(detail)}
                   className={classes.onHover}
                   size="small"
                   style={{
@@ -167,12 +198,9 @@ function AddressPage(props) {
             <Grid item xs={10} sm={4}>
               <AddressCard
                 key={key}
-                title={detail.name}
-                apartment_address={detail.apartment_address}
-                street_address={detail.street_address}
-                area_pincode={detail.area_pincode}
-                state={detail.state}
                 handleNext={props.handleNext}
+                deleteAddress={deleteAddress}
+                detail={detail}
               />
             </Grid>
           ))}
@@ -183,6 +211,16 @@ function AddressPage(props) {
           </div>
         </Grid>
       </Grid>
+      <Snackbar open={openSuccess} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Address Deleted Successfully!
+        </Alert>
+      </Snackbar>
+      <Snackbar open={openerror} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+         Unable to process your request!
+        </Alert>
+      </Snackbar>
     </React.Fragment>
   );
 }

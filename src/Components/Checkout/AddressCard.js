@@ -26,10 +26,6 @@ const useStyles = makeStyles({
 export default function AddressCard(props) {
   const classes = useStyles();
   const {
-    title,
-    apartment_address,
-    street_address,
-    area_pincode,
     state,
     address_type,
   } = props;
@@ -37,12 +33,12 @@ export default function AddressCard(props) {
     <Card className={classes.root} style={{ marginLeft: "3vw" }}>
       {/* <CardActionArea> */}
       <CardContent>
-        <CardHeader title={title} />
+        <CardHeader title={props.detail.name} />
         <Typography variant="body2" color="textPrimary" component="h1">
-          {apartment_address} {street_address}
+          {props.detail.apartment_address} {props.detail.street_address}
           {","}
           <br />
-          {area_pincode}
+          {props.detail.area_pincode}
           <br />
           {state}
           {address_type}
@@ -77,10 +73,12 @@ export default function AddressCard(props) {
         <Divider orientation="horizontal" />
         <Button
           className={classes.onHover}
+          onClick={()=>props.deleteAddress(props.detail)}
           size="small"
           style={{
             color: "#00A3FF",
             width: "50%",
+
           }}
         >
           Delete
@@ -91,14 +89,9 @@ export default function AddressCard(props) {
 }
 
 AddressCard.propTypes = {
-  title: PropTypes.string,
-  contact: PropTypes.string,
-  apartment_address: PropTypes.string,
-  street_address: PropTypes.string,
-  area_pincode: PropTypes.string,
-  state: PropTypes.string,
-  address_type: PropTypes.string,
   default_shipping: PropTypes.bool,
+  detail: PropTypes.object,
   handleNext: PropTypes.func,
+  deleteAddress: PropTypes.func,
   default_billing: PropTypes.bool,
 };
