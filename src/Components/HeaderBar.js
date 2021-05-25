@@ -14,7 +14,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import List from "@material-ui/core/List";
-import CustomDropdown from "./HeaderBar/HeaderBarDropdown";
+import HeaderBarDropdown from "./HeaderBar/HeaderBarDropdown";
 import { useHistory } from "react-router-dom";
 import styles from "../styles/js/HomePage/HeaderBarStyle.js";
 const useStyles = makeStyles(styles);
@@ -26,10 +26,10 @@ const StyledBadge = withStyles((theme) => ({
     padding: "0 4px",
   },
 }))(Badge);
-function userMenu() {
+function userMenu(view) {
   return (
     <List>
-      <CustomDropdown />
+      <HeaderBarDropdown view={view} />
     </List>
   );
 }
@@ -91,7 +91,7 @@ export default function HeaderBar(props) {
         </IconButton>
         <div className={classes.flex}>{brandComponent}</div>
         <Hidden smDown implementation="css">
-          {userMenu(classes.navlink)}
+          {userMenu("smDown")}
         </Hidden>
         <Hidden mdUp>
           <IconButton
@@ -121,7 +121,7 @@ export default function HeaderBar(props) {
           onClose={handleDrawerToggle}
         >
           <div className={classes.appResponsive}>
-            {userMenu(classes.navlink)}
+            {userMenu("mdUp")}
           </div>
         </Drawer>
       </Hidden>
