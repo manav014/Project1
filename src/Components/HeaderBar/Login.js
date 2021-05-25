@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { authLogin } from "../../store/actions/auth";
+import { authLogin, authSetError } from "../../store/actions/auth";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
@@ -70,6 +70,7 @@ function Login(props) {
     }
     if (error) {
       if (error.response && error.response.status === 404) {
+        props.setError();
         handleCloseDropdownlogin();
         handleClickOpensignup();
       } else {
@@ -77,7 +78,7 @@ function Login(props) {
         console.log("Network Error");
       }
     }
-  }, [token, error, handleCloseDropdownlogin, handleClickOpensignup]);
+  }, [token, error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -201,6 +202,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     login: (emailmobile, password) =>
       dispatch(authLogin(emailmobile, password)),
+    setError: () => dispatch(authSetError()),
   };
 };
 
