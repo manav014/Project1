@@ -83,10 +83,32 @@ function AddressPage(props) {
       })
       .catch((err) => {
         console.log(err.response);
-        //TODOD Error
+        //TODO Error
       });
   
     };
+    const addToDetails = (detail) => {
+      const newDetails = details.concat(detail);
+      setdetails(newDetails);
+    }
+    const [updateDetails, setUpdateDetails] = useState(null);
+    const editAddress=(detail)=>{
+      // axios.post("")
+      // // const newDetails = details.filter((item) => item!==detail);
+      // // setdetails(newDetails);
+      // // setOpenSuccess(true);
+      // // axios.delete("")
+      // .then((res)=>{
+      //      alert(detail)
+      //   })
+      //   .catch((err) => {
+      //     console.log(err.response);
+      //     //TODOD Error
+      //   });
+      setUpdateDetails(detail)
+        // console.log(updateDetails)
+      };
+
   const getAddresses = () => {
     axios
       .get(addressListURL, {
@@ -99,7 +121,7 @@ function AddressPage(props) {
       })
       .catch((err) => {
         console.log(err.response);
-        //TODOD Error
+        //TODO Error
       });
   };
   useEffect(() => {
@@ -167,6 +189,10 @@ function AddressPage(props) {
               <AccordionDetails>
                 <Button
                   className={classes.onHover}
+                  onClick={() => {
+                    handleForm();
+                    editAddress(detail);
+                  }}
                   size="small"
                   style={{
                     color: "#00A3FF",
@@ -199,6 +225,10 @@ function AddressPage(props) {
               <AddressCard
                 key={key}
                 handleNext={props.handleNext}
+                handleEdit={() => {
+                  handleForm();
+                  editAddress(detail);
+                }}
                 deleteAddress={deleteAddress}
                 detail={detail}
               />
@@ -207,7 +237,7 @@ function AddressPage(props) {
         </Hidden>
         <Grid item xs={12}>
           <div ref={formRef} key={1}>
-            <AddressForm />
+            <AddressForm updateDetails={updateDetails} addToDetails={addToDetails}/>
           </div>
         </Grid>
       </Grid>

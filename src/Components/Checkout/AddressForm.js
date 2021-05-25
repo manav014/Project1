@@ -81,8 +81,8 @@ function AddressForm(props) {
         }
       )
       .then((res) => {
-        //TODO Print the response using snackBar
         console.log("Added Successfully");   
+        props.addToDetails(addressData);
         setAddressData({
           name: "",
           contact: "",
@@ -95,21 +95,24 @@ function AddressForm(props) {
   
         });
         setOpenSuccess(true);
-        
-        // setAddressData({ details });
       })
      
       .catch((err) => {
-        //TODO Print the response using snackBar
         console.log(err.response);
         setOpenerror(true);
 
       });
   };
+    React.useEffect(() => {
+    if(props.updateDetails!=null)
+    { 
+      setAddressData(props.updateDetails);
+    }
+  },[props.updateDetails])
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom align="center">
-        Add a new Address
+        {(props.updateDetails==null)?"Add a new Address":"Update the Address"}
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
@@ -230,8 +233,7 @@ function AddressForm(props) {
             />
           </Grid>
         <Grid item xs className={classes.buttons}>
-
-        <Button
+        {(props.updateDetails==null)?<Button
           type="submit"
           
           variant="contained"
@@ -243,7 +245,20 @@ function AddressForm(props) {
           }}
         >
           Submit
-        </Button>
+        </Button>:<Button
+          
+          variant="contained"
+          style={{
+            backgroundColor: "#37b3f9",
+            color: "#FFFFFF",
+            marginBottom: "4vh",
+           
+          }}
+        >
+          Update
+        </Button>}
+
+        
         </Grid>
         </Grid>
 
