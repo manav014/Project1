@@ -15,7 +15,6 @@ export const states = [
     abbreviation: "AS",
     name: "Assam",
   },
-  ,
   {
     abbreviation: "BR",
     name: "Bihar",
