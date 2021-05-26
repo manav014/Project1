@@ -6,6 +6,9 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Accordion from "@material-ui/core/Accordion";
+import Box from '@material-ui/core/Box';
+import Skeleton from '@material-ui/lab/Skeleton';
+
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
@@ -56,7 +59,7 @@ function AddressPage(props) {
   const classes = useStyles();
   const [openSuccess, setOpenSuccess] = React.useState(false);
   const [openerror, setOpenerror] = React.useState(false);
-
+  const skeletons=[1,2,3]
   const [openEditSuccess, setEditSuccess] = React.useState(false);
   const [openEditerror, setOpenEditerror] = React.useState(false);
 
@@ -116,8 +119,9 @@ function AddressPage(props) {
       setUpdateDetails(detail)
         // console.log(updateDetails)
       };
-
+      const [addressLoading, setAddressloading] = React.useState(true);
   const getAddresses = () => {
+    setAddressloading(true);
     axios
       .get(addressListURL, {
         headers: {
@@ -125,6 +129,7 @@ function AddressPage(props) {
         },
       })
       .then((res) => {
+        setAddressloading(false);
         setdetails(res.data);
       })
       .catch((err) => {
@@ -228,8 +233,9 @@ function AddressPage(props) {
       </Hidden>
       <Grid container spacing={3} style={{ marginTop: "2vh" }}>
         <Hidden smDown>
-          {details.map((detail, key) => (
-            <Grid item xs={10} sm={4}>
+        { !addressLoading ?
+          details.map((detail, key) => (
+            <Grid item xs={10} sm={4}>         
               <AddressCard
                 key={key}
                 handleNext={props.handleNext}
@@ -241,7 +247,19 @@ function AddressPage(props) {
                 detail={detail}
               />
             </Grid>
-          ))}
+          )): 
+          <div style={{display:"flex"}}>
+           {  skeletons.map((index)=>(
+             
+        <Box key={index} width={210} marginLeft={6} marginRight={12} my={5}>
+          <Skeleton variant="rect" width={280} height={150} />
+        <Box pt={0.5}>       
+          <Skeleton />
+          <Skeleton width="60%" />
+        </Box>
+        </Box>))}   
+       </div>
+        }
         </Hidden>
         <Grid item xs={12}>
           <div ref={formRef} key={1}>

@@ -30,8 +30,8 @@ export default function AddressCard(props) {
     address_type,
   } = props;
   return (
-    <Card className={classes.root} style={{ marginLeft: "3vw" }}>
-      {/* <CardActionArea> */}
+    <div>
+     <Card className={classes.root} style={{ marginLeft: "3vw" }}>
       <CardContent>
         <CardHeader title={props.detail.name} />
         <Typography variant="body2" color="textPrimary" component="h1">
@@ -44,7 +44,6 @@ export default function AddressCard(props) {
           {address_type}
         </Typography>
       </CardContent>
-      {/* </CardActionArea> */}
       <CardActions>
         <Button
           style={{
@@ -86,7 +85,9 @@ export default function AddressCard(props) {
         </Button>
       </CardActions>
     </Card>
-  );
+
+    </div>
+  )
 }
 
 AddressCard.propTypes = {
