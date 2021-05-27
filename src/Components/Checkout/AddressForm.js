@@ -108,7 +108,20 @@ function AddressForm(props) {
     { 
       setAddressData(props.updateDetails);
     }
-  },[props.updateDetails])
+    if (props.turnEmpty)
+    {setAddressData({
+      name: "",
+      contact: "",
+      contact2: "",
+      apartment_address: "",
+      street_address: "",
+      city: "",
+      state: "",
+      area_pincode: "",
+
+    });
+    props.setTurnEmpty(false)}
+  },[props.updateDetails , props.turnEmpty])
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom align="center">

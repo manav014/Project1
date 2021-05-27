@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button";
 import Accordion from "@material-ui/core/Accordion";
 import Box from '@material-ui/core/Box';
 import Skeleton from '@material-ui/lab/Skeleton';
-
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
@@ -67,6 +66,8 @@ function AddressPage(props) {
     formRef.current.scrollIntoView({
       behavior: "smooth",
     });
+    if (updateDetails!==null)
+      {setUpdateDetails(null); setTurnEmpty(true);}
   };
 
   const handleClose = (event, reason) => {
@@ -82,6 +83,7 @@ function AddressPage(props) {
   };
   const { token } = props;
   const [details, setdetails] = useState([]);
+  const [turnEmpty, setTurnEmpty] =useState(false);
   const deleteAddress=(detail)=>{
     const newDetails = details.filter((item) => item!==detail);
     setdetails(newDetails);
@@ -134,6 +136,7 @@ function AddressPage(props) {
       })
       .catch((err) => {
         console.log(err.response);
+        setAddressloading(false);
         //TODO Error
       });
   };
@@ -165,9 +168,10 @@ function AddressPage(props) {
           </div>
         </Grid>
       </Grid>
-      <Hidden mdUp>
+      <Hidden mdUp>    
         <div className={classes.root}>
-          {details.map((detail, key) => (
+        { !addressLoading ?
+          details.map((detail, key) => (
             <Accordion key={key}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -214,7 +218,6 @@ function AddressPage(props) {
                 >
                   Edit
                 </Button>
-
                 <Button
                 onClick={()=>deleteAddress(detail)}
                   className={classes.onHover}
@@ -228,9 +231,19 @@ function AddressPage(props) {
                 </Button>
               </AccordionDetails>
             </Accordion>
-          ))}
-        </div>
-      </Hidden>
+          )):
+          <div>
+          {  skeletons.map((index)=>(
+           <Box key={index} width={300} marginLeft={6} marginRight={12} my={5}>
+            <Box pt={0.5}>       
+            <Skeleton />
+            <Skeleton width="60%" />
+           </Box>
+            </Box>))}   
+          </div>
+         }
+      </div>
+     </Hidden>
       <Grid container spacing={3} style={{ marginTop: "2vh" }}>
         <Hidden smDown>
         { !addressLoading ?
@@ -263,7 +276,7 @@ function AddressPage(props) {
         </Hidden>
         <Grid item xs={12}>
           <div ref={formRef} key={1}>
-            <AddressForm updateDetails={updateDetails} addToDetails={addToDetails}/>
+            <AddressForm updateDetails={updateDetails} addToDetails={addToDetails} turnEmpty={turnEmpty} setTurnEmpty={setTurnEmpty}/>
           </div>
         </Grid>
       </Grid>
