@@ -4,7 +4,6 @@ import { Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage.js";
 import Checkout from "./components/Checkout";
 import CartPage from "./components/CartPage";
-
 import { connect } from "react-redux";
 import * as actions from "./store/actions/auth";
 

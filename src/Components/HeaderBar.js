@@ -17,7 +17,9 @@ import List from "@material-ui/core/List";
 import HeaderBarDropdown from "./HeaderBar/HeaderBarDropdown";
 import { useHistory } from "react-router-dom";
 import styles from "../styles/js/HomePage/HeaderBarStyle.js";
+
 const useStyles = makeStyles(styles);
+
 const StyledBadge = withStyles((theme) => ({
   badge: {
     right: -3,
@@ -110,7 +112,6 @@ export default function HeaderBar(props) {
         </IconButton>
       </Toolbar>
       <Hidden mdUp implementation="js">
-        {/* TODO remove custom dropdown and buttons directly to the drawer */}
         <Drawer
           variant="temporary"
           anchor={"right"}

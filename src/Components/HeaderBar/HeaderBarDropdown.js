@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import axios from "axios";
 
 // @material-ui/core components
 import Dialog from "@material-ui/core/Dialog";
-import axios from "axios";
-
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
@@ -14,10 +14,10 @@ import Paper from "@material-ui/core/Paper";
 import Grow from "@material-ui/core/Grow";
 import Divider from "@material-ui/core/Divider";
 import Popper from "@material-ui/core/Popper";
+import Button from "@material-ui/core/Button";
 
 // core components
 import { connect } from "react-redux";
-import Button from "@material-ui/core/Button";
 import { userDetailsURL } from "../../consts/constants";
 import SignIn from "./Login";
 import SignUp from "./SignUp";

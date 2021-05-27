@@ -18,9 +18,10 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import Link from "@material-ui/core/Link";
-import Popper from "@material-ui/core/Popper";
-// core components
 import Button from "@material-ui/core/Button";
+import Popper from "@material-ui/core/Popper";
+
+// core components
 import styles from "../../styles/js/HomePage/customDropdownStyle.js";
 
 const useStyles = makeStyles(styles);
@@ -68,7 +69,7 @@ const AccordionDetails = withStyles((theme) => ({
 }))(MuiAccordionDetails);
 export default function CustomDropdown(props) {
   const preventDefault = (event) => event.preventDefault();
-  // TODO make choose a category sticky and add transition on according expanding
+  // TODO add transition on according expanding
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     if (anchorEl && anchorEl.contains(event.target)) {
