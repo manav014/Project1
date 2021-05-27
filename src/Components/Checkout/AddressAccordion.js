@@ -8,7 +8,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(13),
@@ -24,10 +28,26 @@ const useStyles = makeStyles((theme) => ({
 
 function AddressAccordion(props) {
   const classes = useStyles();
-
+  const [openDeleteConfirm, setOpenDeleteConfirm] = React.useState(false);
   const { detail } = props;
+  const handleClickOpen = () => {
+    setOpenDeleteConfirm(true);
+  };
+
+  const handleDeleteClose = (from) => {
+    if(from==="no"){
+    setOpenDeleteConfirm(false);
+    }
+    else if(from==="yes")
+    {
+      setOpenDeleteConfirm(false);
+      props.handleDelete(props.detail);
+    }
+  };
+
   return (
-    <Accordion>
+    <React.Fragment>
+          <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography className={classes.heading}> {detail.name}</Typography>
         <AccordionDetails>
@@ -67,7 +87,7 @@ function AddressAccordion(props) {
           Edit
         </Button>
         <Button
-          onClick={() => props.handleDelete(detail)}
+          onClick={handleClickOpen}
           className={classes.onHover}
           size="small"
           style={{
@@ -79,6 +99,30 @@ function AddressAccordion(props) {
         </Button>
       </AccordionDetails>
     </Accordion>
+     <Dialog open={openDeleteConfirm} onClose={handleDeleteClose}>
+        <DialogTitle>
+          {"Do you want to delete the address permanently?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            The address would be deleted permanently.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="outlined"
+            onClick={() => handleDeleteClose("no")}
+            color="primary"
+          >
+            No
+          </Button>
+          <Button onClick={() => handleDeleteClose("yes")} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+      </React.Fragment>
+
   );
 }
 

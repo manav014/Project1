@@ -8,6 +8,11 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import Divider from "@material-ui/core/Divider";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const useStyles = makeStyles({
   root: {
@@ -25,7 +30,24 @@ const useStyles = makeStyles({
 
 export default function AddressCard(props) {
   const classes = useStyles();
+  const [openDeleteConfirm, setOpenDeleteConfirm] = React.useState(false);
   const { state, address_type } = props;
+
+  const handleClickOpen = () => {
+    setOpenDeleteConfirm(true);
+  };
+
+  const handleDeleteClose = (from) => {
+    if(from==="no"){
+    setOpenDeleteConfirm(false);
+    }
+    else if(from==="yes")
+    {
+      props.handleDelete(props.detail);
+      setOpenDeleteConfirm(false);
+    }
+  };
+
   return (
     <div>
       <Card className={classes.root} style={{ marginLeft: "3vw" }}>
@@ -70,7 +92,7 @@ export default function AddressCard(props) {
           <Divider orientation="horizontal" />
           <Button
             className={classes.onHover}
-            onClick={() => props.handleDelete(props.detail)}
+            onClick={handleClickOpen}
             size="small"
             style={{
               color: "#00A3FF",
@@ -81,6 +103,28 @@ export default function AddressCard(props) {
           </Button>
         </CardActions>
       </Card>
+      <Dialog open={openDeleteConfirm} onClose={handleDeleteClose}>
+        <DialogTitle>
+          {"Do you want to delete the address permanently?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            The address would be deleted permanently.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="outlined"
+            onClick={() => handleDeleteClose("no")}
+            color="primary"
+          >
+            No
+          </Button>
+          <Button onClick={() => handleDeleteClose("yes")} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
@@ -89,6 +133,6 @@ AddressCard.propTypes = {
   default_shipping: PropTypes.bool,
   detail: PropTypes.object,
   handleNext: PropTypes.func,
-  handleDelete: PropTypes.func,
+  handleClickOpen: PropTypes.func,
   default_billing: PropTypes.bool,
 };

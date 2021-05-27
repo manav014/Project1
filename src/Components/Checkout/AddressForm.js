@@ -6,7 +6,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import { addressListURL } from "../../consts/constants";
+import { addressURL } from "../../consts/constants";
 import { states } from "../../consts/states";
 import { connect } from "react-redux";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -59,7 +59,7 @@ function AddressForm(props) {
     e.preventDefault();
     axios
       .post(
-        addressListURL + "?query=add",
+        addressURL,
         {
           name: addressData.name,
           contact: addressData.contact,
@@ -80,8 +80,9 @@ function AddressForm(props) {
         }
       )
       .then((res) => {
-        console.log("Added Successfully");
-        props.addToDetails(addressData);
+        if(res.status===200)
+        {
+        props.addToDetails(res.data);
         setAddressData({
           name: "",
           contact: "",
@@ -92,11 +93,10 @@ function AddressForm(props) {
           state: "",
           area_pincode: "",
         });
-        setOpenSuccess(true);
+        setOpenSuccess(true);}
       })
 
       .catch((err) => {
-        console.log(err.response);
         setOpenerror(true);
       });
   };
@@ -108,7 +108,7 @@ function AddressForm(props) {
       setAddressData({
         name: "",
         contact: "",
-        contact2: "",
+        contact2: "", 
         apartment_address: "",
         street_address: "",
         city: "",
@@ -151,6 +151,7 @@ function AddressForm(props) {
               value={addressData.contact}
               placeholder="10 digit mobile number without prefixes"
               fullWidth
+              onChange={onChangeHandler}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -164,6 +165,7 @@ function AddressForm(props) {
               value={addressData.contact2}
               placeholder="10 digit mobile number without prefixes"
               fullWidth
+              onChange={onChangeHandler}
               // TODO add onchage checks
             />
           </Grid>
@@ -236,6 +238,7 @@ function AddressForm(props) {
               value={addressData.area_pincode}
               label="Zip / Postal code"
               fullWidth
+              onChange={onChangeHandler}
               autoComplete="shipping postal-code"
             />
           </Grid>

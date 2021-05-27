@@ -6,6 +6,6 @@ const accountsApiURL = "/accounts";
 export const core_endpoint = `${serverURL}${coreApiURL}`;
 export const accounts_endpoint = `${serverURL}${accountsApiURL}`;
 export const userDetailsURL = `${accounts_endpoint}/account_details/`;
-export const addressListURL = `${core_endpoint}/address/`;
+export const addressURL = `${core_endpoint}/address/`;
 
 // TODO to define color constant here

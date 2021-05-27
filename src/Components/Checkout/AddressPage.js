@@ -14,16 +14,12 @@ import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+
 
 // component imports
 import AddressCard from "./AddressCard";
 import AddressForm from "./AddressForm";
-import { addressListURL } from "../../consts/constants";
+import { addressURL } from "../../consts/constants";
 import AddressAccordion from "./AddressAccordion";
 import styles from "../../styles/js/Checkout/AddressPageStyle";
 
@@ -37,7 +33,7 @@ function AddressPage(props) {
 
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openerror, setOpenerror] = useState(false);
-  const [openDeleteConfirm, setOpenDeleteConfirm] = React.useState(false);
+
   const [openEditSuccess, setEditSuccess] = useState(false);
   const [openEditerror, setOpenEditerror] = useState(false);
   const [details, setdetails] = useState([]);
@@ -71,27 +67,25 @@ function AddressPage(props) {
 
   const handleDelete = (detail) => {
     axios
-      .delete("")
+      .delete(addressURL+"?slug="+detail.slug, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
+        if(res.status===200){
         const newDetails = details.filter((item) => item !== detail);
         setdetails(newDetails);
-        setOpenSuccess(true);
+        setOpenSuccess(true);}
       })
       .catch((err) => {
         console.log(err.response);
         setOpenerror(true);
         //TODO Error
       });
-    handleClickOpen();
   };
 
-  const handleClickOpen = () => {
-    setOpenDeleteConfirm(true);
-  };
-
-  const handleDeleteClose = () => {
-    setOpenDeleteConfirm(false);
-  };
+  
 
   const addToDetails = (detail) => {
     const newDetails = details.concat(detail);
@@ -118,7 +112,7 @@ function AddressPage(props) {
   const getAddresses = () => {
     setAddressloading(true);
     axios
-      .get(addressListURL, {
+      .get(addressURL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -207,7 +201,7 @@ function AddressPage(props) {
                     handleForm();
                     handleEdit(detail);
                   }}
-                  handleDelete={handleDelete}
+                handleDelete={handleDelete}
                   detail={detail}
                 />
               </Grid>
@@ -266,28 +260,7 @@ function AddressPage(props) {
         </Alert>
       </Snackbar>
 
-      <Dialog open={openDeleteConfirm} onClose={handleDeleteClose}>
-        <DialogTitle>
-          {"Do you want to delete the address permanently?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            The address would be deleted permanently.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="outlined"
-            onClick={handleDeleteClose}
-            color="primary"
-          >
-            No
-          </Button>
-          <Button onClick={handleDeleteClose} color="primary" autoFocus>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
+     
     </React.Fragment>
   );
 }
