@@ -15,7 +15,6 @@ import Hidden from "@material-ui/core/Hidden";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
-
 // component imports
 import AddressCard from "./AddressCard";
 import AddressForm from "./AddressForm";
@@ -67,16 +66,17 @@ function AddressPage(props) {
 
   const handleDelete = (detail) => {
     axios
-      .delete(addressURL+"?slug="+detail.slug, {
+      .delete(addressURL + "?slug=" + detail.slug, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        if(res.status===200){
-        const newDetails = details.filter((item) => item !== detail);
-        setdetails(newDetails);
-        setOpenSuccess(true);}
+        if (res.status === 200) {
+          const newDetails = details.filter((item) => item !== detail);
+          setdetails(newDetails);
+          setOpenSuccess(true);
+        }
       })
       .catch((err) => {
         console.log(err.response);
@@ -84,8 +84,6 @@ function AddressPage(props) {
         //TODO Error
       });
   };
-
-  
 
   const addToDetails = (detail) => {
     const newDetails = details.concat(detail);
@@ -201,7 +199,7 @@ function AddressPage(props) {
                     handleForm();
                     handleEdit(detail);
                   }}
-                handleDelete={handleDelete}
+                  handleDelete={handleDelete}
                   detail={detail}
                 />
               </Grid>
@@ -259,8 +257,6 @@ function AddressPage(props) {
           Unable to process your request!
         </Alert>
       </Snackbar>
-
-     
     </React.Fragment>
   );
 }

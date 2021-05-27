@@ -106,155 +106,155 @@ function HeaderBarDropdown(props) {
   }, [authenticated, token]);
   return (
     <div>
-    { (props.view === "smDown") ?
-    <div>
-      <div>
-        <Button
-          aria-label="Notifications"
-          aria-owns={anchorEl ? "menu-list" : null}
-          aria-haspopup="true"
-          onClick={handleClick}
-        >
-          {authenticated ? username : "Login/SignUp"}
-          {caret ? <b className={caretClasses} /> : null}
-        </Button>
-      </div>
-      <Popper
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        transition
-        disablePortal
-        placement={
-          dropup
-            ? left
-              ? "top-start"
-              : "top"
-            : left
-            ? "bottom-start"
-            : "bottom"
-        }
-        className={classNames({
-          [classes.popperClose]: !anchorEl,
-          [classes.popperResponsive]: true,
-        })}
-      >
-        {() => (
-          <Grow
-            in={Boolean(anchorEl)}
-            id="menu-list"
-            style={
+      {props.view === "smDown" ? (
+        <div>
+          <div>
+            <Button
+              aria-label="Notifications"
+              aria-owns={anchorEl ? "menu-list" : null}
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              {authenticated ? username : "Login/SignUp"}
+              {caret ? <b className={caretClasses} /> : null}
+            </Button>
+          </div>
+          <Popper
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
+            transition
+            disablePortal
+            placement={
               dropup
-                ? { transformOrigin: "0 100% 0" }
-                : { transformOrigin: "0 0 0" }
+                ? left
+                  ? "top-start"
+                  : "top"
+                : left
+                ? "bottom-start"
+                : "bottom"
             }
+            className={classNames({
+              [classes.popperClose]: !anchorEl,
+              [classes.popperResponsive]: true,
+            })}
           >
-            <Paper className={classes.dropdown}>
-              <ClickAwayListener onClickAway={handleCloseAway}>
-                <MenuList role="menu" className={classes.menuList}>
-                  {authenticated ? (
-                    <div>
-                      <MenuItem
-                        key={1}
-                        // onClick={handleClickOpenlogin}
-                        className={dropdownItem}
-                      >
-                        {"Profile"}
-                      </MenuItem>
-                      <Divider
-                        key={2}
-                        // onClick={() => handleClose("divider")}
-                        className={classes.dropdownDividerItem}
-                      />{" "}
-                      <MenuItem
-                        key={3}
-                        onClick={() => props.logout()}
-                        className={dropdownItem}
-                      >
-                        {"Logout"}
-                      </MenuItem>
-                    </div>
-                  ) : (
-                    <div>
-                      <MenuItem
-                        key={1}
-                        onClick={handleClickOpenlogin}
-                        className={dropdownItem}
-                      >
-                        {"Login"}
-                      </MenuItem>
-                      <Divider
-                        key={2}
-                        // onClick={() => handleClose("divider")}
-                        className={classes.dropdownDividerItem}
-                      />
-                      <MenuItem
-                        key={3}
-                        onClick={handleClickOpensignup}
-                        className={dropdownItem}
-                      >
-                        {"Signup"}
-                      </MenuItem>
-                    </div>
-                  )}
-                </MenuList>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>
-     </div>
-    :
-  <div>
-     <MenuList role="menu" className={classes.menuList}>
-                  {authenticated ? (
-                    <div>
-                      <MenuItem
-                        key={1}
-                        // onClick={handleClickOpenlogin}
-                        className={dropdownItem}
-                      >
-                        {"PROFILE"}
-                      </MenuItem>
-                      <Divider
-                        key={2}
-                        // onClick={() => handleClose("divider")}
-                        className={classes.dropdownDividerItem}
-                      />{" "}
-                      <MenuItem
-                        key={3}
-                        onClick={() => props.logout()}
-                        className={dropdownItem}
-                      >
-                        {"LOGOUT"}
-                      </MenuItem>
-                    </div>
-                  ) : (
-                    <div>
-                      <MenuItem
-                        key={1}
-                        onClick={handleClickOpenlogin}
-                        className={dropdownItem}
-                      >
-                        {"LOGIN"}
-                      </MenuItem>
-                      <Divider
-                        key={2}
-                        // onClick={() => handleClose("divider")}
-                        className={classes.dropdownDividerItem}
-                      />
-                      <MenuItem
-                        key={3}
-                        onClick={handleClickOpensignup}
-                        className={dropdownItem}
-                      >
-                        {"SIGNUP"}
-                      </MenuItem>
-                    </div>
-                  )}
-                </MenuList>
-  </div>
-  }
-   <Dialog onClose={handleCloseDropdownlogin} open={openlogin}>
+            {() => (
+              <Grow
+                in={Boolean(anchorEl)}
+                id="menu-list"
+                style={
+                  dropup
+                    ? { transformOrigin: "0 100% 0" }
+                    : { transformOrigin: "0 0 0" }
+                }
+              >
+                <Paper className={classes.dropdown}>
+                  <ClickAwayListener onClickAway={handleCloseAway}>
+                    <MenuList role="menu" className={classes.menuList}>
+                      {authenticated ? (
+                        <div>
+                          <MenuItem
+                            key={1}
+                            // onClick={handleClickOpenlogin}
+                            className={dropdownItem}
+                          >
+                            {"Profile"}
+                          </MenuItem>
+                          <Divider
+                            key={2}
+                            // onClick={() => handleClose("divider")}
+                            className={classes.dropdownDividerItem}
+                          />{" "}
+                          <MenuItem
+                            key={3}
+                            onClick={() => props.logout()}
+                            className={dropdownItem}
+                          >
+                            {"Logout"}
+                          </MenuItem>
+                        </div>
+                      ) : (
+                        <div>
+                          <MenuItem
+                            key={1}
+                            onClick={handleClickOpenlogin}
+                            className={dropdownItem}
+                          >
+                            {"Login"}
+                          </MenuItem>
+                          <Divider
+                            key={2}
+                            // onClick={() => handleClose("divider")}
+                            className={classes.dropdownDividerItem}
+                          />
+                          <MenuItem
+                            key={3}
+                            onClick={handleClickOpensignup}
+                            className={dropdownItem}
+                          >
+                            {"Signup"}
+                          </MenuItem>
+                        </div>
+                      )}
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
+        </div>
+      ) : (
+        <div>
+          <MenuList role="menu" className={classes.menuList}>
+            {authenticated ? (
+              <div>
+                <MenuItem
+                  key={1}
+                  // onClick={handleClickOpenlogin}
+                  className={dropdownItem}
+                >
+                  {"PROFILE"}
+                </MenuItem>
+                <Divider
+                  key={2}
+                  // onClick={() => handleClose("divider")}
+                  className={classes.dropdownDividerItem}
+                />{" "}
+                <MenuItem
+                  key={3}
+                  onClick={() => props.logout()}
+                  className={dropdownItem}
+                >
+                  {"LOGOUT"}
+                </MenuItem>
+              </div>
+            ) : (
+              <div>
+                <MenuItem
+                  key={1}
+                  onClick={handleClickOpenlogin}
+                  className={dropdownItem}
+                >
+                  {"LOGIN"}
+                </MenuItem>
+                <Divider
+                  key={2}
+                  // onClick={() => handleClose("divider")}
+                  className={classes.dropdownDividerItem}
+                />
+                <MenuItem
+                  key={3}
+                  onClick={handleClickOpensignup}
+                  className={dropdownItem}
+                >
+                  {"SIGNUP"}
+                </MenuItem>
+              </div>
+            )}
+          </MenuList>
+        </div>
+      )}
+      <Dialog onClose={handleCloseDropdownlogin} open={openlogin}>
         <SignIn
           handleCloseDropdownlogin={handleCloseDropdownlogin}
           handleClickOpensignup={handleClickOpensignup}

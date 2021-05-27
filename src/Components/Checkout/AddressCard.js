@@ -38,11 +38,9 @@ export default function AddressCard(props) {
   };
 
   const handleDeleteClose = (from) => {
-    if(from==="no"){
-    setOpenDeleteConfirm(false);
-    }
-    else if(from==="yes")
-    {
+    if (from === "no") {
+      setOpenDeleteConfirm(false);
+    } else if (from === "yes") {
       props.handleDelete(props.detail);
       setOpenDeleteConfirm(false);
     }
@@ -120,7 +118,11 @@ export default function AddressCard(props) {
           >
             No
           </Button>
-          <Button onClick={() => handleDeleteClose("yes")} color="primary" autoFocus>
+          <Button
+            onClick={() => handleDeleteClose("yes")}
+            color="primary"
+            autoFocus
+          >
             Yes
           </Button>
         </DialogActions>

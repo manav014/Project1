@@ -80,20 +80,20 @@ function AddressForm(props) {
         }
       )
       .then((res) => {
-        if(res.status===200)
-        {
-        props.addToDetails(res.data);
-        setAddressData({
-          name: "",
-          contact: "",
-          contact2: "",
-          apartment_address: "",
-          street_address: "",
-          city: "",
-          state: "",
-          area_pincode: "",
-        });
-        setOpenSuccess(true);}
+        if (res.status === 200) {
+          props.addToDetails(res.data);
+          setAddressData({
+            name: "",
+            contact: "",
+            contact2: "",
+            apartment_address: "",
+            street_address: "",
+            city: "",
+            state: "",
+            area_pincode: "",
+          });
+          setOpenSuccess(true);
+        }
       })
 
       .catch((err) => {
@@ -108,7 +108,7 @@ function AddressForm(props) {
       setAddressData({
         name: "",
         contact: "",
-        contact2: "", 
+        contact2: "",
         apartment_address: "",
         street_address: "",
         city: "",

@@ -121,9 +121,7 @@ export default function HeaderBar(props) {
           }}
           onClose={handleDrawerToggle}
         >
-          <div className={classes.appResponsive}>
-            {userMenu("mdUp")}
-          </div>
+          <div className={classes.appResponsive}>{userMenu("mdUp")}</div>
         </Drawer>
       </Hidden>
     </AppBar>

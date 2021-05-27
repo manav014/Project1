@@ -35,11 +35,9 @@ function AddressAccordion(props) {
   };
 
   const handleDeleteClose = (from) => {
-    if(from==="no"){
-    setOpenDeleteConfirm(false);
-    }
-    else if(from==="yes")
-    {
+    if (from === "no") {
+      setOpenDeleteConfirm(false);
+    } else if (from === "yes") {
       setOpenDeleteConfirm(false);
       props.handleDelete(props.detail);
     }
@@ -47,59 +45,59 @@ function AddressAccordion(props) {
 
   return (
     <React.Fragment>
-          <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography className={classes.heading}> {detail.name}</Typography>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography className={classes.heading}> {detail.name}</Typography>
+          <AccordionDetails>
+            <Typography className={classes.secondaryHeading}>
+              {" "}
+              {detail.apartment_address}
+            </Typography>
+          </AccordionDetails>
+        </AccordionSummary>
         <AccordionDetails>
-          <Typography className={classes.secondaryHeading}>
-            {" "}
-            {detail.apartment_address}
-          </Typography>
+          <Button
+            style={{
+              backgroundColor: "#00A3FF",
+              color: "white",
+              width: "100vh",
+            }}
+            variant="contained"
+            size="large"
+            onClick={props.handleNext}
+          >
+            Deliver Here
+          </Button>
         </AccordionDetails>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Button
-          style={{
-            backgroundColor: "#00A3FF",
-            color: "white",
-            width: "100vh",
-          }}
-          variant="contained"
-          size="large"
-          onClick={props.handleNext}
-        >
-          Deliver Here
-        </Button>
-      </AccordionDetails>
-      <AccordionDetails>
-        <Button
-          className={classes.onHover}
-          onClick={() => {
-            props.handleForm();
-            props.handleEdit(detail);
-          }}
-          size="small"
-          style={{
-            color: "#00A3FF",
-            width: "50%",
-          }}
-        >
-          Edit
-        </Button>
-        <Button
-          onClick={handleClickOpen}
-          className={classes.onHover}
-          size="small"
-          style={{
-            color: "#00A3FF",
-            width: "50%",
-          }}
-        >
-          Delete
-        </Button>
-      </AccordionDetails>
-    </Accordion>
-     <Dialog open={openDeleteConfirm} onClose={handleDeleteClose}>
+        <AccordionDetails>
+          <Button
+            className={classes.onHover}
+            onClick={() => {
+              props.handleForm();
+              props.handleEdit(detail);
+            }}
+            size="small"
+            style={{
+              color: "#00A3FF",
+              width: "50%",
+            }}
+          >
+            Edit
+          </Button>
+          <Button
+            onClick={handleClickOpen}
+            className={classes.onHover}
+            size="small"
+            style={{
+              color: "#00A3FF",
+              width: "50%",
+            }}
+          >
+            Delete
+          </Button>
+        </AccordionDetails>
+      </Accordion>
+      <Dialog open={openDeleteConfirm} onClose={handleDeleteClose}>
         <DialogTitle>
           {"Do you want to delete the address permanently?"}
         </DialogTitle>
@@ -116,13 +114,16 @@ function AddressAccordion(props) {
           >
             No
           </Button>
-          <Button onClick={() => handleDeleteClose("yes")} color="primary" autoFocus>
+          <Button
+            onClick={() => handleDeleteClose("yes")}
+            color="primary"
+            autoFocus
+          >
             Yes
           </Button>
         </DialogActions>
       </Dialog>
-      </React.Fragment>
-
+    </React.Fragment>
   );
 }
 
