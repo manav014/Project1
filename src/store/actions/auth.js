@@ -21,6 +21,12 @@ export const authFail = (error) => {
   };
 };
 
+export const authSetError = () => {
+  return {
+    type: actionTypes.AUTH_REMOVE_ERROR,
+  };
+};
+
 export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("expirationDate");
@@ -46,10 +52,7 @@ export const authLogin = (emailmobile, password) => (dispatch) => {
     })
     .then((res) => {
       const token = res.data.access;
-      console.log("Start Token from login");
-      console.log(token);
-      console.log("End Token from login");
-      //   TODO change the time from 3600 ti anything else
+      //   TODO change the time from 3600 to anything else
       const expirationDate = new Date(new Date().getTime() + 172800 * 1000);
       localStorage.setItem("token", token);
       localStorage.setItem("expirationDate", expirationDate);
@@ -57,7 +60,11 @@ export const authLogin = (emailmobile, password) => (dispatch) => {
       dispatch(checkAuthTimeout(172800));
     })
     .catch((err) => {
-      dispatch(authFail(err));
+      if (err.response) {
+        dispatch(authFail(err));
+      } else if (err.request) {
+        dispatch(authFail(err));
+      }
     });
 };
 

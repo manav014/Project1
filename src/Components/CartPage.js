@@ -22,17 +22,10 @@ function CartPage() {
   const classes = useStyles();
   return (
     <ThemeProvider theme={theme}>
+      <HeaderBar />
       <div className={classes.papercart}>
-        <HeaderBar
-          brand="Blah Project"
-          sticky
-          changeColorOnScroll={{
-            height: 400,
-            color: "#37b3f9",
-          }}
-        />
         <Grid container>
-          <Grid item xs="12" md="9" lg="9">
+          <Grid item xs={12} md={9} lg={9}>
             <Typography
               component="h1"
               variant="h4"
@@ -44,7 +37,7 @@ function CartPage() {
               <ProductCard />
             </div>
           </Grid>
-          <Grid item md="3" lg="3">
+          <Grid item md={3} lg={3}>
             <div className={classes.PaymentDetailsCart}>
               <PaymentDetails />
               <div style={{ marginTop: "5vh" }}>

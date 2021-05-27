@@ -29,6 +29,12 @@ const authFail = (state, action) => {
   });
 };
 
+const setError = (state) => {
+  return updateObject(state, {
+    error: null,
+  });
+};
+
 const authLogout = (state, action) => {
   return updateObject(state, {
     token: null,
@@ -45,6 +51,8 @@ const reducer = (state = initialState, action) => {
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);
+    case actionTypes.AUTH_REMOVE_ERROR:
+      return setError(state);
     default:
       return state;
   }

@@ -14,10 +14,12 @@ import { withStyles } from "@material-ui/core/styles";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import List from "@material-ui/core/List";
-import CustomDropdown from "./HeaderBar/HeaderBarDropdown";
+import HeaderBarDropdown from "./HeaderBar/HeaderBarDropdown";
 import { useHistory } from "react-router-dom";
 import styles from "../styles/js/HomePage/HeaderBarStyle.js";
+
 const useStyles = makeStyles(styles);
+
 const StyledBadge = withStyles((theme) => ({
   badge: {
     right: -3,
@@ -26,10 +28,10 @@ const StyledBadge = withStyles((theme) => ({
     padding: "0 4px",
   },
 }))(Badge);
-function userMenu() {
+function userMenu(view) {
   return (
     <List>
-      <CustomDropdown />
+      <HeaderBarDropdown view={view} />
     </List>
   );
 }
@@ -55,8 +57,6 @@ export default function HeaderBar(props) {
   const headerColorChange = () => {
     const windowsScrollTop = window.pageYOffset;
     if (windowsScrollTop > 1000) {
-      // console.log("hello");
-      console.log(classes[fixed]);
       document.body
         .getElementsByTagName("header")[0]
         .classList.remove(classes.sticky);
@@ -64,7 +64,6 @@ export default function HeaderBar(props) {
         .getElementsByTagName("header")[0]
         .classList.add(classes.fixed);
     } else {
-      console.log("hii");
       document.body
         .getElementsByTagName("header")[0]
         .classList.add(classes.sticky);
@@ -94,7 +93,7 @@ export default function HeaderBar(props) {
         </IconButton>
         <div className={classes.flex}>{brandComponent}</div>
         <Hidden smDown implementation="css">
-          {userMenu(classes.navlink)}
+          {userMenu("smDown")}
         </Hidden>
         <Hidden mdUp>
           <IconButton
@@ -123,7 +122,7 @@ export default function HeaderBar(props) {
           onClose={handleDrawerToggle}
         >
           <div className={classes.appResponsive}>
-            {userMenu(classes.navlink)}
+            {userMenu("mdUp")}
           </div>
         </Drawer>
       </Hidden>
@@ -155,16 +154,5 @@ HeaderBar.propTypes = {
   // props.color (see above)
   changeColorOnScroll: PropTypes.shape({
     height: PropTypes.number.isRequired,
-    color: PropTypes.oneOf([
-      "primary",
-      "info",
-      "success",
-      "warning",
-      "danger",
-      "transparent",
-      "white",
-      "rose",
-      "dark",
-    ]).isRequired,
   }),
 };

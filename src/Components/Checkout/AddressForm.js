@@ -1,103 +1,303 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import axios from "axios";
+import { addressURL } from "../../consts/constants";
+import { states } from "../../consts/states";
+import { connect } from "react-redux";
+import MenuItem from "@material-ui/core/MenuItem";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { makeStyles } from "@material-ui/core/styles";
 
-export default function AddressForm() {
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+function AddressForm(props) {
+  const useStyles = makeStyles((theme) => ({
+    buttons: {
+      display: "flex",
+      justifyContent: "flex-end",
+    },
+  }));
+  const { token } = props;
+  const [addressData, setAddressData] = useState({
+    name: "",
+    contact: "",
+    contact2: "",
+    apartment_address: "",
+    street_address: "",
+    city: "",
+    state: "",
+    area_pincode: "",
+  });
+  const onChangeHandler = (e) => {
+    setAddressData({
+      ...addressData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const [openSuccess, setOpenSuccess] = React.useState(false);
+  const [openerror, setOpenerror] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSuccess(false);
+    setOpenerror(false);
+  };
+  const classes = useStyles();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post(
+        addressURL,
+        {
+          name: addressData.name,
+          contact: addressData.contact,
+          contact2: addressData.contact2,
+          apartment_address: addressData.apartment_address,
+          street_address: addressData.street_address,
+          city: addressData.city,
+          state: addressData.state,
+          area_pincode: addressData.area_pincode,
+          address_type: "W",
+          default_shipping: false,
+          default_billing: false,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if(res.status===200)
+        {
+        props.addToDetails(res.data);
+        setAddressData({
+          name: "",
+          contact: "",
+          contact2: "",
+          apartment_address: "",
+          street_address: "",
+          city: "",
+          state: "",
+          area_pincode: "",
+        });
+        setOpenSuccess(true);}
+      })
+
+      .catch((err) => {
+        setOpenerror(true);
+      });
+  };
+  React.useEffect(() => {
+    if (props.updateDetails != null) {
+      setAddressData(props.updateDetails);
+    }
+    if (props.turnEmpty) {
+      setAddressData({
+        name: "",
+        contact: "",
+        contact2: "", 
+        apartment_address: "",
+        street_address: "",
+        city: "",
+        state: "",
+        area_pincode: "",
+      });
+      props.setTurnEmpty(false);
+    }
+  }, [props.updateDetails, props.turnEmpty]);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom align="center">
-        Add a new Address
+        {props.updateDetails == null
+          ? "Add a new Address"
+          : "Update the Address"}
       </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="firstName"
-            name="firstName"
-            label="First name"
-            fullWidth
-            autoComplete="given-name"
-          />
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={12}>
+            <TextField
+              required
+              id="name"
+              name="name"
+              label="Full name"
+              fullWidth
+              value={addressData.name}
+              autoComplete="given-name"
+              onChange={onChangeHandler}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="contact"
+              name="contact"
+              label="Contact No 1"
+              inputProps={{
+                pattern: "[1-9]{1}[0-9]{9}",
+              }}
+              value={addressData.contact}
+              placeholder="10 digit mobile number without prefixes"
+              fullWidth
+              onChange={onChangeHandler}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="contact2"
+              name="contact2"
+              label="Contact No 2 (optional)"
+              inputProps={{
+                pattern: "[1-9]{1}[0-9]{9}",
+              }}
+              value={addressData.contact2}
+              placeholder="10 digit mobile number without prefixes"
+              fullWidth
+              onChange={onChangeHandler}
+              // TODO add onchage checks
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="apartment_address"
+              name="apartment_address"
+              label="Flat,House no.,Building,Company,Apartment"
+              fullWidth
+              value={addressData.apartment_address}
+              autoComplete="shipping address-line2"
+              onChange={onChangeHandler}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="street_address"
+              name="street_address"
+              label="Area,Colony,Street,Sector,Village"
+              fullWidth
+              value={addressData.street_address}
+              autoComplete="shipping address-level2"
+              onChange={onChangeHandler}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="city"
+              name="city"
+              label="Town/City"
+              fullWidth
+              autoComplete="city"
+              value={addressData.city}
+              onChange={onChangeHandler}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="state"
+              select
+              name="state"
+              label="State/Province/Region"
+              fullWidth
+              onChange={onChangeHandler}
+              value={addressData.state}
+            >
+              {states.map((option, key) => (
+                <MenuItem
+                  key={key}
+                  value={option.name}
+                  name={option.name}
+                  onclick={onChangeHandler}
+                >
+                  {option.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="zip"
+              name="area_pincode"
+              inputProps={{
+                pattern: "[1-9]{1}[0-9]{5}",
+              }}
+              value={addressData.area_pincode}
+              label="Zip / Postal code"
+              fullWidth
+              onChange={onChangeHandler}
+              autoComplete="shipping postal-code"
+            />
+          </Grid>
+          <Grid item xs>
+            <FormControlLabel
+              control={
+                <Checkbox color="secondary" name="saveAddress" value="yes" />
+              }
+              label="Use this address for payment details"
+            />
+          </Grid>
+          <Grid item xs className={classes.buttons}>
+            {props.updateDetails == null ? (
+              <Button
+                type="submit"
+                variant="contained"
+                style={{
+                  backgroundColor: "#37b3f9",
+                  color: "#FFFFFF",
+                  marginBottom: "4vh",
+                }}
+              >
+                Submit
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#37b3f9",
+                  color: "#FFFFFF",
+                  marginBottom: "4vh",
+                }}
+              >
+                Update
+              </Button>
+            )}
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="family-name"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="address1"
-            name="address1"
-            label="Address line 1"
-            fullWidth
-            autoComplete="shipping address-line1"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
-            fullWidth
-            autoComplete="shipping address-line2"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="city"
-            name="city"
-            label="City"
-            fullWidth
-            autoComplete="shipping address-level2"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="state"
-            name="state"
-            label="State/Province/Region"
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
-            fullWidth
-            autoComplete="shipping postal-code"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox color="secondary" name="saveAddress" value="yes" />
-            }
-            label="Use this address for payment details"
-          />
-        </Grid>
-      </Grid>
+      </form>
+      <Snackbar
+        open={openSuccess}
+        autoHideDuration={4000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success">
+          Address Added Successfully!
+        </Alert>
+      </Snackbar>
+      <Snackbar open={openerror} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Unable to process your request!
+        </Alert>
+      </Snackbar>
     </React.Fragment>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+export default connect(mapStateToProps)(AddressForm);

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-// nodejs library that concatenates classes
+
+// nodejs libraries
 import classNames from "classnames";
-
-// @material-ui/core components
-import Dialog from "@material-ui/core/Dialog";
 import axios from "axios";
+import { connect } from "react-redux";
 
+// @material-ui components
+import Dialog from "@material-ui/core/Dialog";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
@@ -14,12 +15,10 @@ import Paper from "@material-ui/core/Paper";
 import Grow from "@material-ui/core/Grow";
 import Divider from "@material-ui/core/Divider";
 import Popper from "@material-ui/core/Popper";
-
-// core components
-import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import { authAccountsAxios } from "../../utils";
-import { userDetailsURL } from "../../constants";
+
+// local components
+import { userDetailsURL } from "../../consts/constants";
 import SignIn from "./Login";
 import SignUp from "./SignUp";
 import styles from "../../styles/js/HomePage/customDropdownStyle";
@@ -89,35 +88,31 @@ function HeaderBarDropdown(props) {
     setOpensignup(false);
   };
   const [username, setUserName] = useState("");
-  const getUserName = () => {
-    axios
-      .get(userDetailsURL, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setUserName(res.data.fname);
-      })
-      .catch((err) => {
-        {
-          console.log(err.response);
-        }
-      });
-  };
   useEffect(() => {
     if (authenticated) {
-      getUserName();
+      axios
+        .get(userDetailsURL, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setUserName(res.data.fname);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
     }
-  }, [authenticated]);
+  }, [authenticated, token]);
   return (
+    <div>
+    { (props.view === "smDown") ?
     <div>
       <div>
         <Button
           aria-label="Notifications"
           aria-owns={anchorEl ? "menu-list" : null}
           aria-haspopup="true"
-          color="transparent"
           onClick={handleClick}
         >
           {authenticated ? username : "Login/SignUp"}
@@ -160,7 +155,7 @@ function HeaderBarDropdown(props) {
                     <div>
                       <MenuItem
                         key={1}
-                        onClick={handleClickOpenlogin}
+                        // onClick={handleClickOpenlogin}
                         className={dropdownItem}
                       >
                         {"Profile"}
@@ -175,7 +170,7 @@ function HeaderBarDropdown(props) {
                         onClick={() => props.logout()}
                         className={dropdownItem}
                       >
-                        Logout
+                        {"Logout"}
                       </MenuItem>
                     </div>
                   ) : (
@@ -207,9 +202,60 @@ function HeaderBarDropdown(props) {
           </Grow>
         )}
       </Popper>
-      <Dialog onClose={handleCloseDropdownlogin} open={openlogin}>
+     </div>
+    :
+  <div>
+     <MenuList role="menu" className={classes.menuList}>
+                  {authenticated ? (
+                    <div>
+                      <MenuItem
+                        key={1}
+                        // onClick={handleClickOpenlogin}
+                        className={dropdownItem}
+                      >
+                        {"PROFILE"}
+                      </MenuItem>
+                      <Divider
+                        key={2}
+                        // onClick={() => handleClose("divider")}
+                        className={classes.dropdownDividerItem}
+                      />{" "}
+                      <MenuItem
+                        key={3}
+                        onClick={() => props.logout()}
+                        className={dropdownItem}
+                      >
+                        {"LOGOUT"}
+                      </MenuItem>
+                    </div>
+                  ) : (
+                    <div>
+                      <MenuItem
+                        key={1}
+                        onClick={handleClickOpenlogin}
+                        className={dropdownItem}
+                      >
+                        {"LOGIN"}
+                      </MenuItem>
+                      <Divider
+                        key={2}
+                        // onClick={() => handleClose("divider")}
+                        className={classes.dropdownDividerItem}
+                      />
+                      <MenuItem
+                        key={3}
+                        onClick={handleClickOpensignup}
+                        className={dropdownItem}
+                      >
+                        {"SIGNUP"}
+                      </MenuItem>
+                    </div>
+                  )}
+                </MenuList>
+  </div>
+  }
+   <Dialog onClose={handleCloseDropdownlogin} open={openlogin}>
         <SignIn
-          getUserName={getUserName}
           handleCloseDropdownlogin={handleCloseDropdownlogin}
           handleClickOpensignup={handleClickOpensignup}
         />

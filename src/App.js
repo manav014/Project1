@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage.js";
 import Checkout from "./components/Checkout";
 import CartPage from "./components/CartPage";
-
 import { connect } from "react-redux";
 import * as actions from "./store/actions/auth";
 
 function App(props) {
-  React.useEffect(() => {
-    props.onTryAutoSignup();
-  }, []);
+  const { onTryAutoSignup } = props;
+  useEffect(() => {
+    onTryAutoSignup();
+  }, [onTryAutoSignup]);
 
   return (
     <div>

@@ -98,7 +98,6 @@ export default function CustomizedInputBase() {
         selectOnFocus
         clearOnBlur
         handleHomeEndKeys
-        id="free-solo-with-text-demo"
         options={top100Films}
         getOptionLabel={(option) => {
           // Value selected with enter, right from the input

@@ -1,103 +1,146 @@
-import React from "react";
+// React Library Imports
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import { connect } from "react-redux";
+
+// Material ui imports
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import Skeleton from "@material-ui/lab/Skeleton";
+import Typography from "@material-ui/core/Typography";
+import Hidden from "@material-ui/core/Hidden";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
+
+// component imports
 import AddressCard from "./AddressCard";
 import AddressForm from "./AddressForm";
-import Grid from "@material-ui/core/Grid";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-// import Collapse from "@material-ui/core/Collapse";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import Hidden from "@material-ui/core/Hidden";
-import Portal from "@material-ui/core/Portal";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { addressURL } from "../../consts/constants";
+import AddressAccordion from "./AddressAccordion";
+import styles from "../../styles/js/Checkout/AddressPageStyle";
 
-const details = [
-  {
-    name: "Ashutosh Aggarwal",
-    address: "I-87 Shastri Nagar Jaipur , Rajasthan 201054",
-  },
-  {
-    name: "Khushi Rauniyar",
-    address: "K Block Kavi Nagar Gurugram UttarPradesh , 205410",
-  },
-  {
-    name: "Manav Aggarwal",
-    address:
-      "50 D/B Slice 4  Scheme-78 Vijay Nagar Indore ,Madhya Pradesh 401235",
-  },
-  {
-    name: "Avanya Wadhwa",
-    address: "34 E/N Powder Gali Goregaon East , Mumbai , Maharashtra 301254",
-  },
-];
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#37b3f9",
-    },
-  },
-});
-const useStyles = makeStyles((theme) => ({
-  buttons: {
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-  button: {
-    marginBottom: theme.spacing(2),
-    marginLeft: theme.spacing(1),
-  },
-  root: {
-    width: "100%",
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(13),
-    flexBasis: "33.33%",
-    flexShrink: 0,
-    fontWeight: "700",
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(12),
-    color: theme.palette.text.secondary,
-  },
-  shipping: {
-    marginLeft: "3vw",
-    fontSize: "3.5vw",
-    fontWeight: "500",
-    [theme.breakpoints.up(1000 + theme.spacing(2) * 2)]: {
-      fontSize: "1.8vw",
-    },
-  },
-}));
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+const useStyles = makeStyles(styles);
 
 function AddressPage(props) {
   const classes = useStyles();
+
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openerror, setOpenerror] = useState(false);
+
+  const [openEditSuccess, setEditSuccess] = useState(false);
+  const [openEditerror, setOpenEditerror] = useState(false);
+  const [details, setdetails] = useState([]);
+  const [turnEmpty, setTurnEmpty] = useState(false);
+  const [updateDetails, setUpdateDetails] = useState(null);
+  const [addressLoading, setAddressloading] = useState(true);
+
+  const skeletons = [1, 2, 3];
+  const { token } = props;
+  const formRef = React.useRef(null);
 
   const handleForm = () => {
     formRef.current.scrollIntoView({
       behavior: "smooth",
     });
+    if (updateDetails !== null) {
+      setUpdateDetails(null);
+      setTurnEmpty(true);
+    }
   };
 
-  const formRef = React.useRef(null);
+  const handleSnackClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSuccess(false);
+    setOpenerror(false);
+    setEditSuccess(false);
+    setOpenEditerror(false);
+  };
+
+  const handleDelete = (detail) => {
+    axios
+      .delete(addressURL+"?slug="+detail.slug, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if(res.status===200){
+        const newDetails = details.filter((item) => item !== detail);
+        setdetails(newDetails);
+        setOpenSuccess(true);}
+      })
+      .catch((err) => {
+        console.log(err.response);
+        setOpenerror(true);
+        //TODO Error
+      });
+  };
+
+  
+
+  const addToDetails = (detail) => {
+    const newDetails = details.concat(detail);
+    setdetails(newDetails);
+  };
+  const handleEdit = (detail) => {
+    // axios.post("")
+    // const newDetails = details.filter((item) => item!==detail);
+    // setdetails(newDetails);
+    // setOpenSuccess(true);
+
+    // .then((res)=>{
+    //      alert(detail)
+    // setEditSuccess(true);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.response);
+    //     setEditerror(true);
+    //   });
+    setUpdateDetails(detail);
+    // console.log(updateDetails)
+  };
+
+  const getAddresses = () => {
+    setAddressloading(true);
+    axios
+      .get(addressURL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setAddressloading(false);
+        setdetails(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+        setAddressloading(false);
+        //TODO Error
+      });
+  };
+
+  useEffect(() => {
+    if (token) getAddresses();
+  }, [token]);
+
   return (
     <React.Fragment>
-      {/* <ThemeProvider theme={theme}> */}
-
       <Grid container>
-        <Grid item xs="6">
+        <Grid item xs={6}>
           <Typography component="h2" variant="h5" className={classes.shipping}>
             Shipping Address
           </Typography>
         </Grid>
-        <Grid item xs="6">
+        <Grid item xs={6}>
           <div className={classes.buttons}>
             <Button
               variant="contained"
@@ -115,120 +158,119 @@ function AddressPage(props) {
       </Grid>
       <Hidden mdUp>
         <div className={classes.root}>
-          {details.map((detail) => (
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
-                <Typography className={classes.heading}>
-                  {" "}
-                  {detail.name}
-                </Typography>
-                <AccordionDetails>
-                  <Typography className={classes.secondaryHeading}>
-                    {" "}
-                    {detail.address}
-                  </Typography>
-                </AccordionDetails>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Button
-                  style={{
-                    backgroundColor: "#00A3FF",
-                    color: "white",
-                    width: "100vh",
-                  }}
-                  variant="contained"
-                  size="large"
-                  onClick={props.handleNext}
+          {!addressLoading ? (
+            details.map((detail, key) => (
+              <AddressAccordion
+                detail={detail}
+                key={key}
+                handleNext={props.handleNext}
+                handleForm={handleForm}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            ))
+          ) : (
+            <div>
+              {skeletons.map((index) => (
+                <Box
+                  key={index}
+                  width={300}
+                  marginLeft={6}
+                  marginRight={12}
+                  my={5}
                 >
-                  Deliver Here
-                </Button>
-              </AccordionDetails>
-              <AccordionDetails>
-                <Button
-                  className={classes.onHover}
-                  size="small"
-                  style={{
-                    color: "#00A3FF",
-                    width: "50%",
-                  }}
-                >
-                  Edit
-                </Button>
-
-                <Button
-                  className={classes.onHover}
-                  size="small"
-                  style={{
-                    color: "#00A3FF",
-                    width: "50%",
-                  }}
-                >
-                  Delete
-                </Button>
-              </AccordionDetails>
-            </Accordion>
-          ))}
+                  <Box pt={0.5}>
+                    <Skeleton />
+                    <Skeleton width="60%" />
+                  </Box>
+                </Box>
+              ))}
+            </div>
+          )}
         </div>
       </Hidden>
       <Grid container spacing={3} style={{ marginTop: "2vh" }}>
         <Hidden smDown>
-          <Grid item xs={10} sm={4}>
-            <AddressCard
-              title="Avanya Wadhwa"
-              apartment_address="J Block 65"
-              street_address="Govind Puram , Ghaziabad"
-              area_pincode="245192"
-              state="Uttar Pradesh"
-              handleNext={props.handleNext}
-            />
-          </Grid>
-          <Grid item xs={10} sm={4}>
-            <AddressCard
-              title="Khushi Rauniyar"
-              apartment_address="J Block 65"
-              street_address="Shrinagar , Gurgaon"
-              area_pincode="245192"
-              state="Uttar Pradesh"
-              handleNext={props.handleNext}
-            />
-          </Grid>
-          <Grid item xs={10} sm={4}>
-            <AddressCard
-              title="Aashutosh Agrawal"
-              apartment_address="J Block 65"
-              street_address="Govind Puram , Ghaziabad"
-              area_pincode="245192"
-              state="Uttar Pradesh"
-              handleNext={props.handleNext}
-            />
-          </Grid>
-          <Grid item xs={10} sm={4}>
-            <AddressCard
-              title="Manav Agarwal"
-              apartment_address="J Block 65"
-              street_address="Govind Puram , Ghaziabad"
-              area_pincode="245192"
-              state="Uttar Pradesh"
-              handleNext={props.handleNext}
-            />
-          </Grid>
+          {!addressLoading ? (
+            details.map((detail, key) => (
+              <Grid item xs={10} sm={4}>
+                <AddressCard
+                  key={key}
+                  handleNext={props.handleNext}
+                  handleEdit={() => {
+                    handleForm();
+                    handleEdit(detail);
+                  }}
+                handleDelete={handleDelete}
+                  detail={detail}
+                />
+              </Grid>
+            ))
+          ) : (
+            <div style={{ display: "flex" }}>
+              {skeletons.map((index) => (
+                <Box
+                  key={index}
+                  width={210}
+                  marginLeft={6}
+                  marginRight={12}
+                  my={5}
+                >
+                  <Skeleton variant="rect" width={280} height={150} />
+                  <Box pt={0.5}>
+                    <Skeleton />
+                    <Skeleton width="60%" />
+                  </Box>
+                </Box>
+              ))}
+            </div>
+          )}
         </Hidden>
         <Grid item xs={12}>
-          <div ref={formRef}>
-            <AddressForm />
+          <div ref={formRef} key={1}>
+            <AddressForm
+              updateDetails={updateDetails}
+              addToDetails={addToDetails}
+              turnEmpty={turnEmpty}
+              setTurnEmpty={setTurnEmpty}
+            />
           </div>
         </Grid>
       </Grid>
+
+      <Snackbar
+        open={(openSuccess, openEditSuccess)}
+        autoHideDuration={4000}
+        onClose={handleSnackClose}
+      >
+        <Alert onClose={handleSnackClose} severity="success">
+          Address Deleted Successfully!
+        </Alert>
+        <Alert onClose={handleSnackClose} severity="success">
+          Address Edited Successfully!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={(openerror, openEditerror)}
+        autoHideDuration={4000}
+        onClose={handleSnackClose}
+      >
+        <Alert onClose={handleSnackClose} severity="error">
+          Unable to process your request!
+        </Alert>
+      </Snackbar>
+
+     
     </React.Fragment>
   );
 }
-
-export default AddressPage;
-
 AddressPage.propTypes = {
   handleNext: PropTypes.func,
 };
+
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+export default connect(mapStateToProps)(AddressPage);

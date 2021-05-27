@@ -11,11 +11,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { authLogin } from "../../store/actions/auth";
+import { authLogin, authSetError } from "../../store/actions/auth";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+// TODO add loading on all pages
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Login(props) {
-  const { error, loading, token } = props;
+  const { error, token, handleCloseDropdownlogin, handleClickOpensignup } =
+    props;
   const [formData, setFormData] = useState({
     emailmobile: "",
     password: "",
@@ -63,13 +65,17 @@ function Login(props) {
   };
 
   React.useEffect(() => {
-    if (props.token) {
-      props.handleCloseDropdownlogin();
+    if (token) {
+      handleCloseDropdownlogin();
     }
-    if (props.error) {
-      if (props.error.response.status === 404) {
-        props.handleCloseDropdownlogin();
-        props.handleClickOpensignup();
+    if (error) {
+      if (error.response && error.response.status === 404) {
+        props.setError();
+        handleCloseDropdownlogin();
+        handleClickOpensignup();
+      } else {
+        // TODO to print a network error
+        console.log("Network Error");
       }
     }
   }, [token, error]);
@@ -111,8 +117,12 @@ function Login(props) {
             margin="normal"
             required
             fullWidth
-            error={error && true}
-            helperText={error && "Incorrect Email/Mobile Number or Password"}
+            error={error && error.response && true}
+            helperText={
+              error &&
+              error.response &&
+              "Incorrect Email/Mobile Number or Password"
+            }
             id="emailmobile"
             label="Email or Mobile Number"
             name="emailmobile"
@@ -192,6 +202,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     login: (emailmobile, password) =>
       dispatch(authLogin(emailmobile, password)),
+    setError: () => dispatch(authSetError()),
   };
 };
 

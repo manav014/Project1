@@ -7,7 +7,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import styles from "../../styles/js/Checkout/PaymentDetailsStyle.js";
-import { createMuiTheme } from "@material-ui/core/styles";
 
 const products = [
   { name: "Price (2 Items)", price: "$9.99" },
@@ -15,13 +14,7 @@ const products = [
   { name: "Coupon Discount", price: "$6.51" },
   { name: "Delivery Charges", price: "Free" },
 ];
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#37b3f9",
-    },
-  },
-});
+
 const useStyles = makeStyles(styles);
 function PaymentDetails() {
   const classes = useStyles();
