@@ -134,10 +134,12 @@ function AddressForm(props) {
               id="contact"
               name="contact"
               label="Contact No 1"
+              inputProps={{
+                pattern: "[1-9]{1}[0-9]{9}",
+              }}
               value={addressData.contact}
               placeholder="10 digit mobile number without prefixes"
               fullWidth
-              onChange={onChangeHandler}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -145,11 +147,13 @@ function AddressForm(props) {
               id="contact2"
               name="contact2"
               label="Contact No 2 (optional)"
+              inputProps={{
+                pattern: "[1-9]{1}[0-9]{9}",
+              }}
               value={addressData.contact2}
               placeholder="10 digit mobile number without prefixes"
               fullWidth
-              onChange={onChangeHandler}
-              //TODO Add Checks
+              // TODO add onchage checks
             />
           </Grid>
           <Grid item xs={12}>
@@ -171,7 +175,6 @@ function AddressForm(props) {
               label="Area,Colony,Street,Sector,Village"
               fullWidth
               value={addressData.street_address}
-
               autoComplete="shipping address-level2"
               onChange={onChangeHandler}
             />
@@ -216,12 +219,13 @@ function AddressForm(props) {
               required
               id="zip"
               name="area_pincode"
+              inputProps={{
+                pattern: "[1-9]{1}[0-9]{5}",
+              }}
               value={addressData.area_pincode}
-
               label="Zip / Postal code"
               fullWidth
               autoComplete="shipping postal-code"
-              onChange={onChangeHandler}
             />
           </Grid>
           <Grid item xs>
