@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-// nodejs library that concatenates classes
+// nodejs libraries
 import classNames from "classnames";
 import axios from "axios";
+import { connect } from "react-redux";
 
-// @material-ui/core components
+// @material-ui components
 import Dialog from "@material-ui/core/Dialog";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -16,8 +17,7 @@ import Divider from "@material-ui/core/Divider";
 import Popper from "@material-ui/core/Popper";
 import Button from "@material-ui/core/Button";
 
-// core components
-import { connect } from "react-redux";
+// local components
 import { userDetailsURL } from "../../consts/constants";
 import SignIn from "./Login";
 import SignUp from "./SignUp";

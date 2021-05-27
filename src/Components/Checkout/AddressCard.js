@@ -25,75 +25,70 @@ const useStyles = makeStyles({
 
 export default function AddressCard(props) {
   const classes = useStyles();
-  const {
-    state,
-    address_type,
-  } = props;
+  const { state, address_type } = props;
   return (
     <div>
-     <Card className={classes.root} style={{ marginLeft: "3vw" }}>
-      <CardContent>
-        <CardHeader title={props.detail.name} />
-        <Typography variant="body2" color="textPrimary" component="h1">
-          {props.detail.apartment_address} {props.detail.street_address}
-          {","}
-          <br />
-          {props.detail.area_pincode}
-          <br />
-          {state}
-          {address_type}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button
-          style={{
-            backgroundColor: "#00A3FF",
-            color: "white",
-            width: "100vh",
-          }}
-          variant="contained"
-          size="large"
-          onClick={props.handleNext}
-        >
-          Deliver Here
-        </Button>
-      </CardActions>
-      <CardActions style={{ height: "5vh" }}>
-        <Button
-          className={classes.onHover}
-          onClick={props.handleEdit}
-          size="small"
-          style={{
-            color: "#00A3FF",
-            width: "50%",
-          }}
-        >
-          Edit
-        </Button>
-        <Divider orientation="horizontal" />
-        <Button
-          className={classes.onHover}
-          onClick={()=>props.deleteAddress(props.detail)}
-          size="small"
-          style={{
-            color: "#00A3FF",
-            width: "50%",
-
-          }}
-        >
-          Delete
-        </Button>
-      </CardActions>
-    </Card>
-
+      <Card className={classes.root} style={{ marginLeft: "3vw" }}>
+        <CardContent>
+          <CardHeader title={props.detail.name} />
+          <Typography variant="body2" color="textPrimary" component="h1">
+            {props.detail.apartment_address} {props.detail.street_address}
+            {","}
+            <br />
+            {props.detail.area_pincode}
+            <br />
+            {state}
+            {address_type}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button
+            style={{
+              backgroundColor: "#00A3FF",
+              color: "white",
+              width: "100vh",
+            }}
+            variant="contained"
+            size="large"
+            onClick={props.handleNext}
+          >
+            Deliver Here
+          </Button>
+        </CardActions>
+        <CardActions style={{ height: "5vh" }}>
+          <Button
+            className={classes.onHover}
+            onClick={props.handleEdit}
+            size="small"
+            style={{
+              color: "#00A3FF",
+              width: "50%",
+            }}
+          >
+            Edit
+          </Button>
+          <Divider orientation="horizontal" />
+          <Button
+            className={classes.onHover}
+            onClick={() => props.handleDelete(props.detail)}
+            size="small"
+            style={{
+              color: "#00A3FF",
+              width: "50%",
+            }}
+          >
+            Delete
+          </Button>
+        </CardActions>
+      </Card>
     </div>
-  )
+  );
 }
 
 AddressCard.propTypes = {
   default_shipping: PropTypes.bool,
   detail: PropTypes.object,
   handleNext: PropTypes.func,
-  deleteAddress: PropTypes.func,
+  handleDelete: PropTypes.func,
   default_billing: PropTypes.bool,
 };

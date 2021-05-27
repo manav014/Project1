@@ -1,127 +1,120 @@
+// React Library Imports
 import React, { useEffect, useState } from "react";
-import AddressCard from "./AddressCard";
-import AddressForm from "./AddressForm";
-import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Accordion from "@material-ui/core/Accordion";
-import Box from '@material-ui/core/Box';
-import Skeleton from '@material-ui/lab/Skeleton';
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import axios from "axios";
 import { connect } from "react-redux";
-import { addressListURL } from "../../consts/constants";
+
+// Material ui imports
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import Skeleton from "@material-ui/lab/Skeleton";
+import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
+// component imports
+import AddressCard from "./AddressCard";
+import AddressForm from "./AddressForm";
+import { addressListURL } from "../../consts/constants";
+import AddressAccordion from "./AddressAccordion";
+import styles from "../../styles/js/Checkout/AddressPageStyle";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-const useStyles = makeStyles((theme) => ({
-  buttons: {
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-  button: {
-    marginBottom: theme.spacing(2),
-    marginLeft: theme.spacing(1),
-  },
-  root: {
-    width: "100%",
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(13),
-    flexBasis: "33.33%",
-    flexShrink: 0,
-    fontWeight: "700",
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(12),
-    color: theme.palette.text.secondary,
-  },
-  shipping: {
-    marginLeft: "3vw",
-    fontSize: "3.5vw",
-    fontWeight: "500",
-    [theme.breakpoints.up(1000 + theme.spacing(2) * 2)]: {
-      fontSize: "1.8vw",
-    },
-  },
-}));
+const useStyles = makeStyles(styles);
 
 function AddressPage(props) {
   const classes = useStyles();
-  const [openSuccess, setOpenSuccess] = React.useState(false);
-  const [openerror, setOpenerror] = React.useState(false);
-  const skeletons=[1,2,3]
-  const [openEditSuccess, setEditSuccess] = React.useState(false);
-  const [openEditerror, setOpenEditerror] = React.useState(false);
+
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openerror, setOpenerror] = useState(false);
+  const [openDeleteConfirm, setOpenDeleteConfirm] = React.useState(false);
+  const [openEditSuccess, setEditSuccess] = useState(false);
+  const [openEditerror, setOpenEditerror] = useState(false);
+  const [details, setdetails] = useState([]);
+  const [turnEmpty, setTurnEmpty] = useState(false);
+  const [updateDetails, setUpdateDetails] = useState(null);
+  const [addressLoading, setAddressloading] = useState(true);
+
+  const skeletons = [1, 2, 3];
+  const { token } = props;
+  const formRef = React.useRef(null);
 
   const handleForm = () => {
     formRef.current.scrollIntoView({
       behavior: "smooth",
     });
-    if (updateDetails!==null)
-      {setUpdateDetails(null); setTurnEmpty(true);}
+    if (updateDetails !== null) {
+      setUpdateDetails(null);
+      setTurnEmpty(true);
+    }
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+  const handleSnackClose = (event, reason) => {
+    if (reason === "clickaway") {
       return;
     }
-
     setOpenSuccess(false);
     setOpenerror(false);
     setEditSuccess(false);
     setOpenEditerror(false);
-
   };
-  const { token } = props;
-  const [details, setdetails] = useState([]);
-  const [turnEmpty, setTurnEmpty] =useState(false);
-  const deleteAddress=(detail)=>{
-    const newDetails = details.filter((item) => item!==detail);
-    setdetails(newDetails);
-    setOpenSuccess(true);
-    axios.delete("")
-    .then((res)=>{
-     
+
+  const handleDelete = (detail) => {
+    axios
+      .delete("")
+      .then((res) => {
+        const newDetails = details.filter((item) => item !== detail);
+        setdetails(newDetails);
+        setOpenSuccess(true);
       })
       .catch((err) => {
         console.log(err.response);
         setOpenerror(true);
         //TODO Error
       });
-  
-    };
-    const addToDetails = (detail) => {
-      const newDetails = details.concat(detail);
-      setdetails(newDetails);
-    }
-    const [updateDetails, setUpdateDetails] = useState(null);
-    const editAddress=(detail)=>{
-      // axios.post("")
-      // const newDetails = details.filter((item) => item!==detail);
-      // setdetails(newDetails);
-      // setOpenSuccess(true);
+    handleClickOpen();
+  };
 
-      // .then((res)=>{
-      //      alert(detail)
-      // setEditSuccess(true);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err.response);
-      //     setEditerror(true);
-      //   });
-      setUpdateDetails(detail)
-        // console.log(updateDetails)
-      };
-      const [addressLoading, setAddressloading] = React.useState(true);
+  const handleClickOpen = () => {
+    setOpenDeleteConfirm(true);
+  };
+
+  const handleDeleteClose = () => {
+    setOpenDeleteConfirm(false);
+  };
+
+  const addToDetails = (detail) => {
+    const newDetails = details.concat(detail);
+    setdetails(newDetails);
+  };
+  const handleEdit = (detail) => {
+    // axios.post("")
+    // const newDetails = details.filter((item) => item!==detail);
+    // setdetails(newDetails);
+    // setOpenSuccess(true);
+
+    // .then((res)=>{
+    //      alert(detail)
+    // setEditSuccess(true);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.response);
+    //     setEditerror(true);
+    //   });
+    setUpdateDetails(detail);
+    // console.log(updateDetails)
+  };
+
   const getAddresses = () => {
     setAddressloading(true);
     axios
@@ -140,10 +133,11 @@ function AddressPage(props) {
         //TODO Error
       });
   };
+
   useEffect(() => {
     if (token) getAddresses();
   }, [token]);
-  const formRef = React.useRef(null);
+
   return (
     <React.Fragment>
       <Grid container>
@@ -168,131 +162,132 @@ function AddressPage(props) {
           </div>
         </Grid>
       </Grid>
-      <Hidden mdUp>    
+      <Hidden mdUp>
         <div className={classes.root}>
-        { !addressLoading ?
-          details.map((detail, key) => (
-            <Accordion key={key}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
-                <Typography className={classes.heading}>
-                  {" "}
-                  {detail.name}
-                </Typography>
-                <AccordionDetails>
-                  <Typography className={classes.secondaryHeading}>
-                    {" "}
-                    {detail.apartment_address}
-                  </Typography>
-                </AccordionDetails>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Button
-                  style={{
-                    backgroundColor: "#00A3FF",
-                    color: "white",
-                    width: "100vh",
-                  }}
-                  variant="contained"
-                  size="large"
-                  onClick={props.handleNext}
-                >
-                  Deliver Here
-                </Button>
-              </AccordionDetails>
-              <AccordionDetails>
-                <Button
-                  className={classes.onHover}
-                  onClick={() => {
-                    handleForm();
-                    editAddress(detail);
-                  }}
-                  size="small"
-                  style={{
-                    color: "#00A3FF",
-                    width: "50%",
-                  }}
-                >
-                  Edit
-                </Button>
-                <Button
-                onClick={()=>deleteAddress(detail)}
-                  className={classes.onHover}
-                  size="small"
-                  style={{
-                    color: "#00A3FF",
-                    width: "50%",
-                  }}
-                >
-                  Delete
-                </Button>
-              </AccordionDetails>
-            </Accordion>
-          )):
-          <div>
-          {  skeletons.map((index)=>(
-           <Box key={index} width={300} marginLeft={6} marginRight={12} my={5}>
-            <Box pt={0.5}>       
-            <Skeleton />
-            <Skeleton width="60%" />
-           </Box>
-            </Box>))}   
-          </div>
-         }
-      </div>
-     </Hidden>
-      <Grid container spacing={3} style={{ marginTop: "2vh" }}>
-        <Hidden smDown>
-        { !addressLoading ?
-          details.map((detail, key) => (
-            <Grid item xs={10} sm={4}>         
-              <AddressCard
+          {!addressLoading ? (
+            details.map((detail, key) => (
+              <AddressAccordion
+                detail={detail}
                 key={key}
                 handleNext={props.handleNext}
-                handleEdit={() => {
-                  handleForm();
-                  editAddress(detail);
-                }}
-                deleteAddress={deleteAddress}
-                detail={detail}
+                handleForm={handleForm}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
               />
-            </Grid>
-          )): 
-          <div style={{display:"flex"}}>
-           {  skeletons.map((index)=>(
-             
-        <Box key={index} width={210} marginLeft={6} marginRight={12} my={5}>
-          <Skeleton variant="rect" width={280} height={150} />
-        <Box pt={0.5}>       
-          <Skeleton />
-          <Skeleton width="60%" />
-        </Box>
-        </Box>))}   
-       </div>
-        }
+            ))
+          ) : (
+            <div>
+              {skeletons.map((index) => (
+                <Box
+                  key={index}
+                  width={300}
+                  marginLeft={6}
+                  marginRight={12}
+                  my={5}
+                >
+                  <Box pt={0.5}>
+                    <Skeleton />
+                    <Skeleton width="60%" />
+                  </Box>
+                </Box>
+              ))}
+            </div>
+          )}
+        </div>
+      </Hidden>
+      <Grid container spacing={3} style={{ marginTop: "2vh" }}>
+        <Hidden smDown>
+          {!addressLoading ? (
+            details.map((detail, key) => (
+              <Grid item xs={10} sm={4}>
+                <AddressCard
+                  key={key}
+                  handleNext={props.handleNext}
+                  handleEdit={() => {
+                    handleForm();
+                    handleEdit(detail);
+                  }}
+                  handleDelete={handleDelete}
+                  detail={detail}
+                />
+              </Grid>
+            ))
+          ) : (
+            <div style={{ display: "flex" }}>
+              {skeletons.map((index) => (
+                <Box
+                  key={index}
+                  width={210}
+                  marginLeft={6}
+                  marginRight={12}
+                  my={5}
+                >
+                  <Skeleton variant="rect" width={280} height={150} />
+                  <Box pt={0.5}>
+                    <Skeleton />
+                    <Skeleton width="60%" />
+                  </Box>
+                </Box>
+              ))}
+            </div>
+          )}
         </Hidden>
         <Grid item xs={12}>
           <div ref={formRef} key={1}>
-            <AddressForm updateDetails={updateDetails} addToDetails={addToDetails} turnEmpty={turnEmpty} setTurnEmpty={setTurnEmpty}/>
+            <AddressForm
+              updateDetails={updateDetails}
+              addToDetails={addToDetails}
+              turnEmpty={turnEmpty}
+              setTurnEmpty={setTurnEmpty}
+            />
           </div>
         </Grid>
       </Grid>
-      <Snackbar open={openSuccess,openEditSuccess} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
+
+      <Snackbar
+        open={(openSuccess, openEditSuccess)}
+        autoHideDuration={4000}
+        onClose={handleSnackClose}
+      >
+        <Alert onClose={handleSnackClose} severity="success">
           Address Deleted Successfully!
         </Alert>
-        <Alert onClose={handleClose} severity="success">
+        <Alert onClose={handleSnackClose} severity="success">
           Address Edited Successfully!
         </Alert>
       </Snackbar>
-      <Snackbar open={openerror,openEditerror} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-         Unable to process your request!
+      <Snackbar
+        open={(openerror, openEditerror)}
+        autoHideDuration={4000}
+        onClose={handleSnackClose}
+      >
+        <Alert onClose={handleSnackClose} severity="error">
+          Unable to process your request!
         </Alert>
       </Snackbar>
+
+      <Dialog open={openDeleteConfirm} onClose={handleDeleteClose}>
+        <DialogTitle>
+          {"Do you want to delete the address permanently?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            The address would be deleted permanently.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="outlined"
+            onClick={handleDeleteClose}
+            color="primary"
+          >
+            No
+          </Button>
+          <Button onClick={handleDeleteClose} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   );
 }

@@ -10,8 +10,8 @@ import { addressListURL } from "../../consts/constants";
 import { states } from "../../consts/states";
 import { connect } from "react-redux";
 import MenuItem from "@material-ui/core/MenuItem";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 
 function Alert(props) {
@@ -46,13 +46,12 @@ function AddressForm(props) {
   const [openerror, setOpenerror] = React.useState(false);
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpenSuccess(false);
     setOpenerror(false);
-
   };
   const classes = useStyles();
 
@@ -81,7 +80,7 @@ function AddressForm(props) {
         }
       )
       .then((res) => {
-        console.log("Added Successfully");   
+        console.log("Added Successfully");
         props.addToDetails(addressData);
         setAddressData({
           name: "",
@@ -92,40 +91,39 @@ function AddressForm(props) {
           city: "",
           state: "",
           area_pincode: "",
-  
         });
         setOpenSuccess(true);
       })
-     
+
       .catch((err) => {
         console.log(err.response);
         setOpenerror(true);
-
       });
   };
-    React.useEffect(() => {
-    if(props.updateDetails!=null)
-    { 
+  React.useEffect(() => {
+    if (props.updateDetails != null) {
       setAddressData(props.updateDetails);
     }
-    if (props.turnEmpty)
-    {setAddressData({
-      name: "",
-      contact: "",
-      contact2: "",
-      apartment_address: "",
-      street_address: "",
-      city: "",
-      state: "",
-      area_pincode: "",
-
-    });
-    props.setTurnEmpty(false)}
-  },[props.updateDetails , props.turnEmpty])
+    if (props.turnEmpty) {
+      setAddressData({
+        name: "",
+        contact: "",
+        contact2: "",
+        apartment_address: "",
+        street_address: "",
+        city: "",
+        state: "",
+        area_pincode: "",
+      });
+      props.setTurnEmpty(false);
+    }
+  }, [props.updateDetails, props.turnEmpty]);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom align="center">
-        {(props.updateDetails==null)?"Add a new Address":"Update the Address"}
+        {props.updateDetails == null
+          ? "Add a new Address"
+          : "Update the Address"}
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
@@ -249,45 +247,46 @@ function AddressForm(props) {
               label="Use this address for payment details"
             />
           </Grid>
-        <Grid item xs className={classes.buttons}>
-        {(props.updateDetails==null)?<Button
-          type="submit"
-          
-          variant="contained"
-          style={{
-            backgroundColor: "#37b3f9",
-            color: "#FFFFFF",
-            marginBottom: "4vh",
-           
-          }}
-        >
-          Submit
-        </Button>:<Button
-          
-          variant="contained"
-          style={{
-            backgroundColor: "#37b3f9",
-            color: "#FFFFFF",
-            marginBottom: "4vh",
-           
-          }}
-        >
-          Update
-        </Button>}
-
-        
+          <Grid item xs className={classes.buttons}>
+            {props.updateDetails == null ? (
+              <Button
+                type="submit"
+                variant="contained"
+                style={{
+                  backgroundColor: "#37b3f9",
+                  color: "#FFFFFF",
+                  marginBottom: "4vh",
+                }}
+              >
+                Submit
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#37b3f9",
+                  color: "#FFFFFF",
+                  marginBottom: "4vh",
+                }}
+              >
+                Update
+              </Button>
+            )}
+          </Grid>
         </Grid>
-        </Grid>
-
       </form>
-      <Snackbar open={openSuccess} autoHideDuration={4000} onClose={handleClose}>
+      <Snackbar
+        open={openSuccess}
+        autoHideDuration={4000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="success">
           Address Added Successfully!
         </Alert>
       </Snackbar>
       <Snackbar open={openerror} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-         Unable to process your request!
+          Unable to process your request!
         </Alert>
       </Snackbar>
     </React.Fragment>
