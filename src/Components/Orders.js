@@ -1,7 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-
-// import HomePageContainer from "./HomePage/HomePageContainer.js";
+import { connect } from "react-redux";
 
 // Material UI imports
 import TextField from "@material-ui/core/TextField";
@@ -37,9 +36,11 @@ const currencies = [
   },
 ];
 
-function Orders() {
+function Orders(props) {
   const [currency, setCurrency] = React.useState("EUR");
-  const token = localStorage.getItem("token");
+
+  const { token } = props;
+
   if (!token) {
     return <Redirect to="/" />;
   }
@@ -132,5 +133,10 @@ function Orders() {
     </ThemeProvider>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
 
-export default Orders;
+export default connect(mapStateToProps)(Orders);
