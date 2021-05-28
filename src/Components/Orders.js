@@ -1,4 +1,6 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
+
 // import HomePageContainer from "./HomePage/HomePageContainer.js";
 
 // Material UI imports
@@ -37,7 +39,10 @@ const currencies = [
 
 function Orders() {
   const [currency, setCurrency] = React.useState("EUR");
-
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return <Redirect to="/" />;
+  }
   const handleChange = (event) => {
     setCurrency(event.target.value);
   };
