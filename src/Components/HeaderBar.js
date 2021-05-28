@@ -18,7 +18,7 @@ import HeaderBarDropdown from "./HeaderBar/HeaderBarDropdown";
 import { useHistory } from "react-router-dom";
 import styles from "../styles/js/HomePage/HeaderBarStyle.js";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "../../consts/theme";
+import theme from "../consts/theme";
 const useStyles = makeStyles(styles);
 
 const StyledBadge = withStyles((theme) => ({
