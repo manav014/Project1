@@ -16,7 +16,8 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),
@@ -134,187 +135,191 @@ function SignUp(props) {
     props.handleClickOpenlogin();
   };
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar
-          className={classes.avatar}
-          style={{ backgroundColor: "#37b3f9" }}
-        >
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstname"
-                variant="outlined"
-                required
-                value={formData.firstname}
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                onChange={onChangeHandler}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                value={formData.lastname}
-                id="lastname"
-                label="Last Name"
-                name="lastname"
-                autoComplete="lastname"
-                onChange={onChangeHandler}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                type="email"
-                error={error && true}
-                helperText={error && "Email Alreday Exists"}
-                value={formData.email}
-                id="email"
-                inputProps={{
-                  pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$",
-                }}
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                onChange={onChangeHandler}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                type="tel"
-                required
-                fullWidth
-                error={error && true}
-                helperText={error && "Mobile Number Alreday Exists"}
-                value={formData.mobileno}
-                id="mobileno"
-                inputProps={{
-                  pattern: "[1-9]{1}[0-9]{9}",
-                }}
-                label="Contact No"
-                name="mobileno"
-                autoComplete="mno"
-                onChange={mobileOnChangeHandler}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="password"
-                name="password"
-                variant="outlined"
-                error={!formData.confirmed}
-                helperText={
-                  !formData.confirmed && "Both passwords should be the same"
-                }
-                // inputProps={{
-                //   pattern:
-                //     "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$",
-                // }}
-                required
-                value={formData.password}
-                fullWidth
-                type={formData.showPassword ? "text" : "password"}
-                id="password"
-                label="Password"
-                autoFocus
-                onChange={passwordOnChangeHandler}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => handleClickShowPassword("showPassword")}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {formData.showPassword ? (
-                          <Visibility />
-                        ) : (
-                          <VisibilityOff />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                error={!formData.confirmed && true}
-                type={formData.showConfirmPassword ? "text" : "password"}
-                value={formData.confirmpassword}
-                id="confirmpassword"
-                label="Confirm Password"
-                name="confirmpassword"
-                autoComplete="confirmpassword"
-                onChange={confirmPasswordOnChangeHandler}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() =>
-                          handleClickShowPassword("showConfirmPassword")
-                        }
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {formData.showConfirmPassword ? (
-                          <Visibility />
-                        ) : (
-                          <VisibilityOff />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            style={{ backgroundColor: "#37b3f9", color: "#FFFFFF" }}
-            className={classes.submit}
-            disabled={!formData.confirmed || formData.password === ""}
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar
+            className={classes.avatar}
+            style={{ backgroundColor: "#37b3f9" }}
           >
-            Sign Up
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link
-                href="#"
-                variant="body2"
-                onClick={handleSignIn}
-                style={{ color: "#37b3f9" }}
-              >
-                Already have an account? Sign in
-              </Link>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <form className={classes.form} onSubmit={handleSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstname"
+                  variant="outlined"
+                  required
+                  value={formData.firstname}
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  onChange={onChangeHandler}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  value={formData.lastname}
+                  id="lastname"
+                  label="Last Name"
+                  name="lastname"
+                  autoComplete="lastname"
+                  onChange={onChangeHandler}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  type="email"
+                  error={error && true}
+                  helperText={error && "Email Alreday Exists"}
+                  value={formData.email}
+                  id="email"
+                  inputProps={{
+                    pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$",
+                  }}
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  onChange={onChangeHandler}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  type="tel"
+                  required
+                  fullWidth
+                  error={error && true}
+                  helperText={error && "Mobile Number Alreday Exists"}
+                  value={formData.mobileno}
+                  id="mobileno"
+                  inputProps={{
+                    pattern: "[1-9]{1}[0-9]{9}",
+                  }}
+                  label="Contact No"
+                  name="mobileno"
+                  autoComplete="mno"
+                  onChange={mobileOnChangeHandler}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="password"
+                  name="password"
+                  variant="outlined"
+                  error={!formData.confirmed}
+                  helperText={
+                    !formData.confirmed && "Both passwords should be the same"
+                  }
+                  // inputProps={{
+                  //   pattern:
+                  //     "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$",
+                  // }}
+                  required
+                  value={formData.password}
+                  fullWidth
+                  type={formData.showPassword ? "text" : "password"}
+                  id="password"
+                  label="Password"
+                  autoFocus
+                  onChange={passwordOnChangeHandler}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() =>
+                            handleClickShowPassword("showPassword")
+                          }
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {formData.showPassword ? (
+                            <Visibility />
+                          ) : (
+                            <VisibilityOff />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  error={!formData.confirmed && true}
+                  type={formData.showConfirmPassword ? "text" : "password"}
+                  value={formData.confirmpassword}
+                  id="confirmpassword"
+                  label="Confirm Password"
+                  name="confirmpassword"
+                  autoComplete="confirmpassword"
+                  onChange={confirmPasswordOnChangeHandler}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() =>
+                            handleClickShowPassword("showConfirmPassword")
+                          }
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {formData.showConfirmPassword ? (
+                            <Visibility />
+                          ) : (
+                            <VisibilityOff />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              style={{ backgroundColor: "#37b3f9", color: "#FFFFFF" }}
+              className={classes.submit}
+              disabled={!formData.confirmed || formData.password === ""}
+            >
+              Sign Up
+            </Button>
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Link
+                  href="#"
+                  variant="body2"
+                  onClick={handleSignIn}
+                  style={{ color: "#37b3f9" }}
+                >
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+      </Container>
+    </ThemeProvider>
   );
 }
 

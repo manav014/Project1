@@ -10,7 +10,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
 import { createFilterOptions } from "@material-ui/lab/Autocomplete";
-
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
 const filter = createFilterOptions();
 const NoPaddingAutocomplete = withStyles({
   inputRoot: {
@@ -63,98 +64,100 @@ export default function CustomizedInputBase() {
   const preventDefault = (event) => event.preventDefault();
 
   return (
-    <Paper component="form" className={classes.root}>
-      <NoPaddingAutocomplete
-        id="disable-clearable"
-        disableClearable
-        value={value}
-        onChange={(event, newValue) => {
-          if (typeof newValue === "string") {
-            setValue({
-              title: newValue,
-            });
-          } else if (newValue && newValue.inputValue) {
-            // Create a new value from the user input
-            setValue({
-              title: newValue.inputValue,
-            });
-          } else {
-            setValue(newValue);
-          }
-        }}
-        filterOptions={(options, params) => {
-          const filtered = filter(options, params);
+    <ThemeProvider theme={theme}>
+      <Paper component="form" className={classes.root}>
+        <NoPaddingAutocomplete
+          id="disable-clearable"
+          disableClearable
+          value={value}
+          onChange={(event, newValue) => {
+            if (typeof newValue === "string") {
+              setValue({
+                title: newValue,
+              });
+            } else if (newValue && newValue.inputValue) {
+              // Create a new value from the user input
+              setValue({
+                title: newValue.inputValue,
+              });
+            } else {
+              setValue(newValue);
+            }
+          }}
+          filterOptions={(options, params) => {
+            const filtered = filter(options, params);
 
-          // Suggest the creation of a new value
-          if (params.inputValue !== "") {
-            filtered.push({
-              inputValue: params.inputValue,
-              title: `Add "${params.inputValue}"`,
-            });
-          }
+            // Suggest the creation of a new value
+            if (params.inputValue !== "") {
+              filtered.push({
+                inputValue: params.inputValue,
+                title: `Add "${params.inputValue}"`,
+              });
+            }
 
-          return filtered;
-        }}
-        selectOnFocus
-        clearOnBlur
-        handleHomeEndKeys
-        options={top100Films}
-        getOptionLabel={(option) => {
-          // Value selected with enter, right from the input
-          if (typeof option === "string") {
-            return option;
-          }
-          // Add "xxx" option created dynamically
-          if (option.inputValue) {
-            return option.inputValue;
-          }
-          // Regular option
-          return option.title;
-        }}
-        renderOption={(option) => option.title}
-        style={{ width: 300 }}
-        freeSolo
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            // InputProps={{ disableUnderline: true }}
-            placeholder="Search Shop or Location"
-          />
-        )}
-      />
-      <Tooltip title="Search" className={classes.colorchange}>
-        <IconButton
-          type="submit"
-          className={classes.iconButton}
-          aria-label="search"
-          onClick={preventDefault}
-        >
-          <SearchIcon />
-        </IconButton>
-      </Tooltip>
-      <Divider className={classes.divider} orientation="vertical" />
-      <Tooltip title="Explore Products" className={classes.colorchange}>
-        <IconButton
-          //   color="primary"
-          type="submit"
-          className={classes.iconButton}
-          aria-label="search"
-        >
-          <FastfoodOutlinedIcon />
-        </IconButton>
-      </Tooltip>
-      <Divider className={classes.divider} orientation="vertical" />
-      <Tooltip title="Explore Shops" className={classes.colorchange}>
-        <IconButton
-          // color="primary"
-          type="submit"
-          className={classes.iconButton}
-          aria-label="search"
-        >
-          <StoreOutlinedIcon />
-        </IconButton>
-      </Tooltip>
-    </Paper>
+            return filtered;
+          }}
+          selectOnFocus
+          clearOnBlur
+          handleHomeEndKeys
+          options={top100Films}
+          getOptionLabel={(option) => {
+            // Value selected with enter, right from the input
+            if (typeof option === "string") {
+              return option;
+            }
+            // Add "xxx" option created dynamically
+            if (option.inputValue) {
+              return option.inputValue;
+            }
+            // Regular option
+            return option.title;
+          }}
+          renderOption={(option) => option.title}
+          style={{ width: 300 }}
+          freeSolo
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              // InputProps={{ disableUnderline: true }}
+              placeholder="Search Shop or Location"
+            />
+          )}
+        />
+        <Tooltip title="Search" className={classes.colorchange}>
+          <IconButton
+            type="submit"
+            className={classes.iconButton}
+            aria-label="search"
+            onClick={preventDefault}
+          >
+            <SearchIcon />
+          </IconButton>
+        </Tooltip>
+        <Divider className={classes.divider} orientation="vertical" />
+        <Tooltip title="Explore Products" className={classes.colorchange}>
+          <IconButton
+            //   color="primary"
+            type="submit"
+            className={classes.iconButton}
+            aria-label="search"
+          >
+            <FastfoodOutlinedIcon />
+          </IconButton>
+        </Tooltip>
+        <Divider className={classes.divider} orientation="vertical" />
+        <Tooltip title="Explore Shops" className={classes.colorchange}>
+          <IconButton
+            // color="primary"
+            type="submit"
+            className={classes.iconButton}
+            aria-label="search"
+          >
+            <StoreOutlinedIcon />
+          </IconButton>
+        </Tooltip>
+      </Paper>
+    </ThemeProvider>
   );
 }
 const top100Films = [

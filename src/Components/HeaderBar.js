@@ -17,7 +17,8 @@ import List from "@material-ui/core/List";
 import HeaderBarDropdown from "./HeaderBar/HeaderBarDropdown";
 import { useHistory } from "react-router-dom";
 import styles from "../styles/js/HomePage/HeaderBarStyle.js";
-
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
 const useStyles = makeStyles(styles);
 
 const StyledBadge = withStyles((theme) => ({
@@ -86,47 +87,47 @@ export default function HeaderBar(props) {
     </Button>
   );
   return (
-    <AppBar className={appBarClasses}>
-      <Toolbar className={classes.container}>
-        <IconButton aria-label="logo">
-          <LocalMallIcon />
-        </IconButton>
-        <div className={classes.flex}>{brandComponent}</div>
-        <Hidden smDown implementation="css">
-          {userMenu("smDown")}
-        </Hidden>
-        <Hidden mdUp>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerToggle}
-          >
-            <Menu />
+    <ThemeProvider theme={theme}>
+      <AppBar className={appBarClasses}>
+        <Toolbar className={classes.container}>
+          <IconButton aria-label="logo">
+            <LocalMallIcon />
           </IconButton>
-        </Hidden>
+          <div className={classes.flex}>{brandComponent}</div>
+          <Hidden smDown implementation="css">
+            {userMenu("smDown")}
+          </Hidden>
+          <Hidden mdUp>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerToggle}
+            >
+              <Menu />
+            </IconButton>
+          </Hidden>
 
-        <IconButton aria-label="cart" onClick={handleClick}>
-          <StyledBadge badgeContent={4} color="secondary">
-            <ShoppingCartIcon />
-          </StyledBadge>
-        </IconButton>
-      </Toolbar>
-      <Hidden mdUp implementation="js">
-        <Drawer
-          variant="temporary"
-          anchor={"right"}
-          open={mobileOpen}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-          onClose={handleDrawerToggle}
-        >
-          <div className={classes.appResponsive}>
-            {userMenu("mdUp")}
-          </div>
-        </Drawer>
-      </Hidden>
-    </AppBar>
+          <IconButton aria-label="cart" onClick={handleClick}>
+            <StyledBadge badgeContent={4} color="secondary">
+              <ShoppingCartIcon />
+            </StyledBadge>
+          </IconButton>
+        </Toolbar>
+        <Hidden mdUp implementation="js">
+          <Drawer
+            variant="temporary"
+            anchor={"right"}
+            open={mobileOpen}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            onClose={handleDrawerToggle}
+          >
+            <div className={classes.appResponsive}>{userMenu("mdUp")}</div>
+          </Drawer>
+        </Hidden>
+      </AppBar>
+    </ThemeProvider>
   );
 }
 

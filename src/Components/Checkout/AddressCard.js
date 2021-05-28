@@ -13,7 +13,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -38,18 +39,16 @@ export default function AddressCard(props) {
   };
 
   const handleDeleteClose = (from) => {
-    if(from==="no"){
-    setOpenDeleteConfirm(false);
-    }
-    else if(from==="yes")
-    {
+    if (from === "no") {
+      setOpenDeleteConfirm(false);
+    } else if (from === "yes") {
       props.handleDelete(props.detail);
       setOpenDeleteConfirm(false);
     }
   };
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Card className={classes.root} style={{ marginLeft: "3vw" }}>
         <CardContent>
           <CardHeader title={props.detail.name} />
@@ -120,12 +119,16 @@ export default function AddressCard(props) {
           >
             No
           </Button>
-          <Button onClick={() => handleDeleteClose("yes")} color="primary" autoFocus>
+          <Button
+            onClick={() => handleDeleteClose("yes")}
+            color="primary"
+            autoFocus
+          >
             Yes
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </ThemeProvider>
   );
 }
 
