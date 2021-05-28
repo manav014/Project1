@@ -13,6 +13,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -119,7 +121,7 @@ function AddressForm(props) {
     }
   }, [props.updateDetails, props.turnEmpty]);
   return (
-    <React.Fragment>
+    <ThemeProvider theme={theme}>
       <Typography variant="h6" gutterBottom align="center">
         {props.updateDetails == null
           ? "Add a new Address"
@@ -292,7 +294,7 @@ function AddressForm(props) {
           Unable to process your request!
         </Alert>
       </Snackbar>
-    </React.Fragment>
+    </ThemeProvider>
   );
 }
 const mapStateToProps = (state) => {

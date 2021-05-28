@@ -6,17 +6,12 @@ import Coupon from "./CartPage/Coupon.js";
 import PaymentDetails from "./Checkout/PaymentDetails.js";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import styles from "../styles/js/CartPage/CartPageStyle.js";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 
+import styles from "../styles/js/CartPage/CartPageStyle.js";
+
+import theme from "../consts/theme";
 const useStyles = makeStyles(styles);
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#37b3f9",
-    },
-  },
-});
 
 function CartPage() {
   const classes = useStyles();

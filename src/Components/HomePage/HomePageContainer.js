@@ -3,7 +3,8 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "../../styles/js/HomePage/HomePageContainerStyle.js";
-
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
 const useStyles = makeStyles(styles);
 
 export default function HomePageContainer(props) {
@@ -39,15 +40,17 @@ export default function HomePageContainer(props) {
     [className]: className !== undefined,
   });
   return (
-    <div
-      className={parallaxClasses}
-      style={{
-        ...style,
-        transform: transform,
-      }}
-    >
-      {children}
-    </div>
+    <ThemeProvider theme={theme}>
+      <div
+        className={parallaxClasses}
+        style={{
+          ...style,
+          transform: transform,
+        }}
+      >
+        {children}
+      </div>
+    </ThemeProvider>
   );
 }
 

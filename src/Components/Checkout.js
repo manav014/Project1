@@ -17,16 +17,11 @@ import PaymentDetails from "./Checkout/PaymentDetails";
 import ReviewOrder from "./Checkout/ReviewOrder";
 import styles from "../styles/js/Checkout/CheckoutStyle.js";
 import AddressPage from "./Checkout/AddressPage";
+import theme from "../consts/theme";
 
 const useStyles = makeStyles(styles);
 const steps = ["Shipping address", "Payment details", "Review your order"];
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#37b3f9",
-    },
-  },
-});
+
 function getStepContent(step, handleNext) {
   switch (step) {
     case 0:

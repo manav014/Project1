@@ -14,7 +14,8 @@ import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
 // component imports
 import AddressCard from "./AddressCard";
 import AddressForm from "./AddressForm";
@@ -131,7 +132,7 @@ function AddressPage(props) {
   }, [token]);
 
   return (
-    <React.Fragment>
+    <ThemeProvider theme={theme}>
       <Grid container>
         <Grid item xs={6}>
           <Typography component="h2" variant="h5" className={classes.shipping}>
@@ -257,7 +258,7 @@ function AddressPage(props) {
           Unable to process your request!
         </Alert>
       </Snackbar>
-    </React.Fragment>
+    </ThemeProvider>
   );
 }
 AddressPage.propTypes = {

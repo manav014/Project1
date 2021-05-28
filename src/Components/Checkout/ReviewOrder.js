@@ -6,7 +6,8 @@ import Hidden from "@material-ui/core/Hidden";
 import Paper from "@material-ui/core/Paper";
 import PaymentDetails from "./PaymentDetails";
 import ProductCard from "../CartPage/ProductCard";
-
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
 // const products = [
 //   { name: "Product 1", desc: "A nice thing", price: "$9.99" },
 //   { name: "Product 2", desc: "Another thing", price: "$3.45" },
@@ -53,12 +54,11 @@ export default function Review() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <ThemeProvider theme={theme}>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
       <Grid container spacing={2}>
-        {/* <Hidden smDown> */}
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
             <Typography variant="h6" gutterBottom className={classes.title}>
@@ -66,14 +66,12 @@ export default function Review() {
             </Typography>
             <Typography gutterBottom>Avanya Wadhwa</Typography>
             <Typography gutterBottom>
-              {" "}
-              50 D/B Slice 4 Scheme 78 Vijay Nagar{" "}
+              50 D/B Slice 4 Scheme 78 Vijay Nagar
             </Typography>
             <Typography gutterBottom>Indore , M.P (201013) </Typography>
             <Typography gutterBottom>+91 987456321</Typography>
           </Paper>
         </Grid>
-        {/* </Hidden> */}
         <Grid item container direction="column" xs={12} sm={6}>
           <Paper className={classes.paper}>
             <Typography variant="h6" gutterBottom className={classes.title}>
@@ -97,7 +95,7 @@ export default function Review() {
       <Hidden smUp>
         <PaymentDetails />
       </Hidden>
-      <ProductCard></ProductCard>
+      <ProductCard />
       {/* <List disablePadding>
         {products.map((product) => (
           <ListItem className={classes.listItem} key={product.name}>
@@ -112,6 +110,6 @@ export default function Review() {
           </Typography>
         </ListItem>
       </List> */}
-    </React.Fragment>
+    </ThemeProvider>
   );
 }

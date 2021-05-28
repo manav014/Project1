@@ -9,7 +9,8 @@ import flour from "../../assets/HomePage/flour.jpg";
 import maggi from "../../assets/HomePage/maggi.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: "10vw",
@@ -71,285 +72,281 @@ export default function ProductsTab() {
   const classes = useStyles();
 
   return (
-    <Carousel
-      swipeable={true}
-      draggable={true}
-      responsive={responsive}
-      ssr={true}
-      infinite={true}
-      keyBoardControl={true}
-      customTransition="all .5"
-      transitionDuration={500}
-      containerClass="carousel-container"
-      removeArrowOnDeviceType={["tablet", "mobile"]}
-      itemClass={classes.carouselItem}
-    >
-      <Card
-        className={classes.root}
-        style={{
-          marginLeft: "2vw",
-          height: "30vh",
-        }}
+    <ThemeProvider theme={theme}>
+      <Carousel
+        swipeable={true}
+        draggable={true}
+        responsive={responsive}
+        ssr={true}
+        infinite={true}
+        keyBoardControl={true}
+        customTransition="all .5"
+        transitionDuration={500}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["tablet", "mobile"]}
+        itemClass={classes.carouselItem}
       >
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="Shop"
-            className={(classes.media, classes.carouselImage)}
-            image={maggi}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            {" "}
-            <div>Whole Wheat Bread</div>
-            <div style={{ display: "flex" }}>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+        <Card
+          className={classes.root}
+          style={{
+            marginLeft: "2vw",
+            height: "30vh",
+          }}
+        >
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              alt="Shop"
+              className={(classes.media, classes.carouselImage)}
+              image={maggi}
+              title="Contemplative Reptile"
+            />
+            <CardContent>
+              <div>Whole Wheat Bread</div>
+              <div style={{ display: "flex" }}>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+                </div>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    textDecoration: "line-through",
+                    color: "#777777",
+                    marginLeft: "5px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+                </div>
               </div>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  textDecoration: "line-through",
-                  color: "#777777",
-                  marginLeft: "5px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <Card
+          className={classes.root}
+          style={{
+            marginLeft: "2vw",
+            height: "30vh",
+          }}
+        >
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              alt="Shop"
+              className={(classes.media, classes.carouselImage)}
+              image={dals}
+              title="Contemplative Reptile"
+            />
+            <CardContent>
+              <div>Whole Wheat Bread</div>
+              <div style={{ display: "flex" }}>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+                </div>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    textDecoration: "line-through",
+                    color: "#777777",
+                    marginLeft: "5px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      <Card
-        className={classes.root}
-        style={{
-          marginLeft: "2vw",
-          height: "30vh",
-        }}
-      >
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="Shop"
-            className={(classes.media, classes.carouselImage)}
-            image={dals}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            {" "}
-            <div>Whole Wheat Bread</div>
-            <div style={{ display: "flex" }}>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <Card
+          className={classes.root}
+          style={{
+            marginLeft: "2vw",
+            height: "30vh",
+          }}
+        >
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              alt="Shop"
+              className={(classes.media, classes.carouselImage)}
+              image={maggi}
+              title="Contemplative Reptile"
+            />
+            <CardContent>
+              <div>Whole Wheat Bread</div>
+              <div style={{ display: "flex" }}>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+                </div>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    textDecoration: "line-through",
+                    color: "#777777",
+                    marginLeft: "5px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+                </div>
               </div>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  textDecoration: "line-through",
-                  color: "#777777",
-                  marginLeft: "5px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <Card
+          className={classes.root}
+          style={{
+            marginLeft: "2vw",
+            height: "30vh",
+          }}
+        >
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              alt="Shop"
+              className={(classes.media, classes.carouselImage)}
+              image={dairy}
+              title="Contemplative Reptile"
+            />
+            <CardContent>
+              <div>Whole Wheat Bread</div>
+              <div style={{ display: "flex" }}>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+                </div>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    textDecoration: "line-through",
+                    color: "#777777",
+                    marginLeft: "5px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      <Card
-        className={classes.root}
-        style={{
-          marginLeft: "2vw",
-          height: "30vh",
-        }}
-      >
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="Shop"
-            className={(classes.media, classes.carouselImage)}
-            image={maggi}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            {" "}
-            <div>Whole Wheat Bread</div>
-            <div style={{ display: "flex" }}>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>21</div>
-              </div>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  textDecoration: "line-through",
-                  color: "#777777",
-                  marginLeft: "5px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-              </div>
-            </div>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      <Card
-        className={classes.root}
-        style={{
-          marginLeft: "2vw",
-          height: "30vh",
-        }}
-      >
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="Shop"
-            className={(classes.media, classes.carouselImage)}
-            image={dairy}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            {" "}
-            <div>Whole Wheat Bread</div>
-            <div style={{ display: "flex" }}>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>21</div>
-              </div>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  textDecoration: "line-through",
-                  color: "#777777",
-                  marginLeft: "5px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-              </div>
-            </div>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      <Card
-        className={classes.root}
-        style={{
-          marginLeft: "2vw",
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <Card
+          className={classes.root}
+          style={{
+            marginLeft: "2vw",
 
-          height: "30vh",
-        }}
-      >
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="Shop"
-            className={(classes.media, classes.carouselImage)}
-            image={flour}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            {" "}
-            <div>Whole Wheat Bread</div>
-            <div style={{ display: "flex" }}>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+            height: "30vh",
+          }}
+        >
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              alt="Shop"
+              className={(classes.media, classes.carouselImage)}
+              image={flour}
+              title="Contemplative Reptile"
+            />
+            <CardContent>
+              <div>Whole Wheat Bread</div>
+              <div style={{ display: "flex" }}>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+                </div>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    textDecoration: "line-through",
+                    color: "#777777",
+                    marginLeft: "5px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+                </div>
               </div>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  textDecoration: "line-through",
-                  color: "#777777",
-                  marginLeft: "5px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-              </div>
-            </div>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      <Card
-        className={classes.root}
-        style={{
-          marginLeft: "2vw",
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <Card
+          className={classes.root}
+          style={{
+            marginLeft: "2vw",
 
-          height: "30vh",
-        }}
-      >
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="Shop"
-            className={(classes.media, classes.carouselImage)}
-            image={dals}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            {" "}
-            <div>Whole Wheat Bread</div>
-            <div style={{ display: "flex" }}>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+            height: "30vh",
+          }}
+        >
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              alt="Shop"
+              className={(classes.media, classes.carouselImage)}
+              image={dals}
+              title="Contemplative Reptile"
+            />
+            <CardContent>
+              <div>Whole Wheat Bread</div>
+              <div style={{ display: "flex" }}>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>21</div>
+                </div>
+                <div
+                  style={{
+                    fontSize: "13px",
+                    lineHeight: "15px",
+                    textDecoration: "line-through",
+                    color: "#777777",
+                    marginLeft: "5px",
+                    display: "flex",
+                  }}
+                >
+                  &#8377; <div style={{ marginLeft: "1px" }}>25</div>
+                </div>
               </div>
-              <div
-                style={{
-                  fontSize: "13px",
-                  lineHeight: "15px",
-                  textDecoration: "line-through",
-                  color: "#777777",
-                  marginLeft: "5px",
-                  display: "flex",
-                }}
-              >
-                &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-              </div>
-            </div>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Carousel>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Carousel>
+    </ThemeProvider>
   );
 }

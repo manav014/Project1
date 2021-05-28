@@ -13,6 +13,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
+
 const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(13),
@@ -44,7 +47,7 @@ function AddressAccordion(props) {
   };
 
   return (
-    <React.Fragment>
+    <ThemeProvider theme={theme}>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.heading}> {detail.name}</Typography>
@@ -123,7 +126,7 @@ function AddressAccordion(props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
+    </ThemeProvider>
   );
 }
 

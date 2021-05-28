@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import { makeStyles } from "@material-ui/core/styles";
 import marker from "../../assets/HomePage/marker.png";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
 const mapStyles = {
   map: {
     position: "absolute",
@@ -342,8 +344,10 @@ export default function Map(props) {
   }, []);
 
   return (
-    <div>
-      <div className={mapclasses.map} ref={mapContainer} />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div>
+        <div className={mapclasses.map} ref={mapContainer} />
+      </div>
+    </ThemeProvider>
   );
 }

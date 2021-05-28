@@ -16,6 +16,8 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../consts/theme";
 // TODO add loading on all pages
 
 const useStyles = makeStyles((theme) => ({
@@ -99,94 +101,100 @@ function Login(props) {
     return <Redirect to="/" />;
   }
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar
-          className={classes.avatar}
-          style={{ backgroundColor: "#37b3f9" }}
-        >
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Welcome Back
-        </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            error={error && error.response && true}
-            helperText={
-              error &&
-              error.response &&
-              "Incorrect Email/Mobile Number or Password"
-            }
-            id="emailmobile"
-            label="Email or Mobile Number"
-            name="emailmobile"
-            autoComplete="emailmobile"
-            autoFocus
-            onChange={onChangeHandler}
-            value={formData.emailmobile}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type={formData.showPassword ? "text" : "password"}
-            id="password"
-            autoComplete="password"
-            onChange={handleChange("password")}
-            value={formData.password}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {formData.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            style={{ backgroundColor: "#37b3f9", color: "#FFFFFF" }}
-            className={classes.submit}
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar
+            className={classes.avatar}
+            style={{ backgroundColor: "#37b3f9" }}
           >
-            LogIn
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="" variant="body2" style={{ color: "#37b3f9" }}>
-                Forgot password?
-              </Link>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Welcome Back
+          </Typography>
+          <form className={classes.form} onSubmit={handleSubmit}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              error={error && error.response && true}
+              helperText={
+                error &&
+                error.response &&
+                "Incorrect Email/Mobile Number or Password"
+              }
+              id="emailmobile"
+              label="Email or Mobile Number"
+              name="emailmobile"
+              autoComplete="emailmobile"
+              autoFocus
+              onChange={onChangeHandler}
+              value={formData.emailmobile}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type={formData.showPassword ? "text" : "password"}
+              id="password"
+              autoComplete="password"
+              onChange={handleChange("password")}
+              value={formData.password}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {formData.showPassword ? (
+                        <Visibility />
+                      ) : (
+                        <VisibilityOff />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              style={{ backgroundColor: "#37b3f9", color: "#FFFFFF" }}
+              className={classes.submit}
+            >
+              LogIn
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="" variant="body2" style={{ color: "#37b3f9" }}>
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link
+                  href=""
+                  onClick={handleSignUp}
+                  variant="body2"
+                  style={{ color: "#37b3f9" }}
+                >
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link
-                href=""
-                onClick={handleSignUp}
-                variant="body2"
-                style={{ color: "#37b3f9" }}
-              >
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+          </form>
+        </div>
+      </Container>
+    </ThemeProvider>
   );
 }
 
