@@ -80,7 +80,6 @@ function OrdersList() {
           </Box>
         </Grid>
         <Grid item xs={3}>
-          {" "}
           <Box>
             <Typography
               component="h1"
@@ -89,7 +88,7 @@ function OrdersList() {
               zeroMinWidth
             >
               <b>Total: </b>₹2,148
-            </Typography>{" "}
+            </Typography>
           </Box>
         </Grid>
       </Grid>

@@ -239,7 +239,6 @@ export default function OrderAccordion() {
           </Accordion>
         </Grid>
       </Grid>
-      {/* </Paper> */}
     </ThemeProvider>
   );
 }
