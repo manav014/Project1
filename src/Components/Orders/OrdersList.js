@@ -47,7 +47,7 @@ function OrdersList() {
               align="center"
               zeroMinWidth
             >
-              <b>Ordered on:</b> Sept 12,2020 at 3:03 PM
+              <b>Ordered On:</b> Sept 12,2020 at 3:03 PM
             </Typography>
             <Typography
               component="h1"

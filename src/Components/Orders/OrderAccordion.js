@@ -17,7 +17,7 @@ import theme from "../../consts/theme";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "90%",
+    width: "95%",
     marginLeft: "5vh",
   },
   heading: {
@@ -53,192 +53,182 @@ const AccordionSummary = withStyles({
 export default function OrderAccordion() {
   const classes = useStyles();
 
-  const [expanded, setExpanded] = React.useState(false);
+  // const [expanded, setExpanded] = React.useState(false);
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
+  // const handleChange = (panel) => (event, isExpanded) => {
+  //   setExpanded(isExpanded ? panel : false);
+  // };
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        style={{ marginTop: "1.5vh" }}
-      >
-        <Grid item xs={11}>
-          <Accordion
-            expanded={expanded === "panel1"}
-            onChange={handleChange("panel1")}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"
-            >
-              <Grid
-                container
-                direction="row"
-                justify="space-evenly"
-                alignItems="center"
+      <div className={classes.root}>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          style={{ marginTop: "1.5vh" }}
+        >
+          <Grid item xs={11}>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1bh-content"
+                id="panel1bh-header"
               >
-                <Grid item xs={4}>
-                  <Typography className={classes.heading}>
-                    Manav Stores
-                  </Typography>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-evenly"
+                  alignItems="center"
+                >
+                  <Grid item xs={4}>
+                    <Typography className={classes.heading}>
+                      Manav Stores
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Box borderColor="transparent" className={classes.rating}>
+                      <Rating name="read-only" value={1} readOnly />
+                    </Box>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography className={classes.secondaryHeading}>
+                      &#8377;648
+                    </Typography>
+                    <Typography className={classes.secondaryHeading}>
+                      Invoice
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  <Box borderColor="transparent" className={classes.rating}>
-                    <Rating name="read-only" value={1} readOnly />
-                  </Box>
-                </Grid>
-                <Grid item xs={4}>
-                  <Typography className={classes.secondaryHeading}>
-                    &#8377;648
-                  </Typography>
-                  <Typography className={classes.secondaryHeading}>
-                    Invoice
-                  </Typography>
-                </Grid>
-              </Grid>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-                feugiat. Aliquam eget maximus est, id dignissim quam.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion
-            expanded={expanded === "panel1"}
-            onChange={handleChange("panel1")}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"
-            >
-              <Grid
-                container
-                direction="row"
-                justify="space-evenly"
-                alignItems="center"
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
+                  feugiat. Aliquam eget maximus est, id dignissim quam.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1bh-content"
+                id="panel1bh-header"
               >
-                <Grid item xs={4}>
-                  <Typography className={classes.heading}>
-                    Khushi Stores
-                  </Typography>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-evenly"
+                  alignItems="center"
+                >
+                  <Grid item xs={4}>
+                    <Typography className={classes.heading}>
+                      Khushi Stores
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Box borderColor="transparent" className={classes.rating}>
+                      <Rating name="read-only" value={4} readOnly />
+                    </Box>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography className={classes.secondaryHeading}>
+                      &#8377;648
+                    </Typography>
+                    <Typography className={classes.secondaryHeading}>
+                      Invoice
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  <Box borderColor="transparent" className={classes.rating}>
-                    <Rating name="read-only" value={4} readOnly />
-                  </Box>
-                </Grid>
-                <Grid item xs={4}>
-                  <Typography className={classes.secondaryHeading}>
-                    &#8377;648
-                  </Typography>
-                  <Typography className={classes.secondaryHeading}>
-                    Invoice
-                  </Typography>
-                </Grid>
-              </Grid>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-                feugiat. Aliquam eget maximus est, id dignissim quam.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion
-            expanded={expanded === "panel1"}
-            onChange={handleChange("panel1")}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"
-            >
-              <Grid
-                container
-                direction="row"
-                justify="space-evenly"
-                alignItems="center"
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
+                  feugiat. Aliquam eget maximus est, id dignissim quam.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1bh-content"
+                id="panel1bh-header"
               >
-                <Grid item xs={4}>
-                  <Typography className={classes.heading}>
-                    Avanya Stores
-                  </Typography>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-evenly"
+                  alignItems="center"
+                >
+                  <Grid item xs={4}>
+                    <Typography className={classes.heading}>
+                      Avanya Stores
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Box borderColor="transparent" className={classes.rating}>
+                      <Rating name="read-only" value={3} readOnly />
+                    </Box>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography className={classes.secondaryHeading}>
+                      &#8377;648
+                    </Typography>
+                    <Typography className={classes.secondaryHeading}>
+                      Invoice
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  <Box borderColor="transparent" className={classes.rating}>
-                    <Rating name="read-only" value={3} readOnly />
-                  </Box>
-                </Grid>
-                <Grid item xs={4}>
-                  <Typography className={classes.secondaryHeading}>
-                    &#8377;648
-                  </Typography>
-                  <Typography className={classes.secondaryHeading}>
-                    Invoice
-                  </Typography>
-                </Grid>
-              </Grid>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-                feugiat. Aliquam eget maximus est, id dignissim quam.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion
-            expanded={expanded === "panel1"}
-            onChange={handleChange("panel1")}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"
-            >
-              <Grid
-                container
-                direction="row"
-                justify="space-evenly"
-                alignItems="center"
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
+                  feugiat. Aliquam eget maximus est, id dignissim quam.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1bh-content"
+                id="panel1bh-header"
               >
-                <Grid item xs={4}>
-                  <Typography className={classes.heading}>
-                    Aashutosh Stores
-                  </Typography>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-evenly"
+                  alignItems="center"
+                >
+                  <Grid item xs={4}>
+                    <Typography className={classes.heading}>
+                      Aashutosh Stores
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Box borderColor="transparent" className={classes.rating}>
+                      <Rating name="read-only" value={2} readOnly />
+                    </Box>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography className={classes.secondaryHeading}>
+                      &#8377;648
+                    </Typography>
+                    <Typography className={classes.secondaryHeading}>
+                      Invoice
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  <Box borderColor="transparent" className={classes.rating}>
-                    <Rating name="read-only" value={2} readOnly />
-                  </Box>
-                </Grid>
-                <Grid item xs={4}>
-                  <Typography className={classes.secondaryHeading}>
-                    &#8377;648
-                  </Typography>
-                  <Typography className={classes.secondaryHeading}>
-                    Invoice
-                  </Typography>
-                </Grid>
-              </Grid>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-                feugiat. Aliquam eget maximus est, id dignissim quam.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
+                  feugiat. Aliquam eget maximus est, id dignissim quam.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     </ThemeProvider>
   );
 }

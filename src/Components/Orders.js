@@ -17,7 +17,7 @@ import HeaderBar from "./HeaderBar.js";
 import OrderList from "./Orders/OrdersList";
 import theme from "../consts/theme";
 
-const currencies = [
+const filter = [
   {
     value: "USD",
     label: "$",
@@ -37,7 +37,7 @@ const currencies = [
 ];
 
 function Orders(props) {
-  const [currency, setCurrency] = React.useState("EUR");
+  const [filters, setFilters] = React.useState("EUR");
 
   const { token } = props;
 
@@ -45,7 +45,7 @@ function Orders(props) {
     return <Redirect to="/" />;
   }
   const handleChange = (event) => {
-    setCurrency(event.target.value);
+    setFilters(event.target.value);
   };
 
   return (
@@ -62,12 +62,12 @@ function Orders(props) {
             select
             fullWidth
             margin="normal"
-            label="Select"
-            value={currency}
+            label="FILTER"
+            value={filters}
             onChange={handleChange}
             variant="outlined"
           >
-            {currencies.map((option) => (
+            {filter.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
