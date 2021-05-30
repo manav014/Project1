@@ -91,21 +91,39 @@ function AddressPage(props) {
     setdetails(newDetails);
   };
   const handleEdit = (detail) => {
-    // axios.post("")
-    // const newDetails = details.filter((item) => item!==detail);
-    // setdetails(newDetails);
-    // setOpenSuccess(true);
-
-    // .then((res)=>{
-    //      alert(detail)
-    // setEditSuccess(true);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.response);
-    //     setEditerror(true);
-    //   });
-    setUpdateDetails(detail);
-    // console.log(updateDetails)
+    axios
+      .put(
+        addressSlugURL(detail.slug),
+        {
+          name: detail.name,
+          contact: detail.contact,
+          contact2: detail.contact2,
+          apartment_address: detail.apartment_address,
+          street_address: detail.street_address,
+          city: detail.city,
+          state: detail.state,
+          area_pincode: detail.area_pincode,
+          address_type: "W",
+          default_shipping: false,
+          default_billing: false,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        const newDetails = details;
+        const index = newDetails.findIndex((obj) => obj.slug == res.data.slug);
+        newDetails[index] = res.data;
+        setdetails(newDetails);
+        setEditSuccess(true);
+      })
+      .catch((err) => {
+        console.log(err.response);
+        setOpenEditerror(true);
+      });
   };
 
   const getAddresses = () => {
@@ -163,8 +181,10 @@ function AddressPage(props) {
                 detail={detail}
                 key={key}
                 handleNext={props.handleNext}
-                handleForm={handleForm}
-                handleEdit={handleEdit}
+                openEditForm={() => {
+                  handleForm();
+                  setUpdateDetails(detail);
+                }}
                 handleDelete={handleDelete}
               />
             ))
@@ -196,9 +216,9 @@ function AddressPage(props) {
                 <AddressCard
                   key={key}
                   handleNext={props.handleNext}
-                  handleEdit={() => {
+                  openEditForm={() => {
                     handleForm();
-                    handleEdit(detail);
+                    setUpdateDetails(detail);
                   }}
                   handleDelete={handleDelete}
                   detail={detail}
@@ -228,6 +248,7 @@ function AddressPage(props) {
         <Grid item xs={12}>
           <div ref={formRef} key={1}>
             <AddressForm
+              handleEdit={handleEdit}
               updateDetails={updateDetails}
               addToDetails={addToDetails}
               turnEmpty={turnEmpty}
@@ -238,19 +259,30 @@ function AddressPage(props) {
       </Grid>
 
       <Snackbar
-        open={(openSuccess, openEditSuccess)}
+        open={openSuccess}
         autoHideDuration={4000}
         onClose={handleSnackClose}
       >
-        <Alert onClose={handleSnackClose} severity="success">
+        <Alert open={openSuccess} onClose={handleSnackClose} severity="success">
           Address Deleted Successfully!
-        </Alert>
-        <Alert onClose={handleSnackClose} severity="success">
-          Address Edited Successfully!
         </Alert>
       </Snackbar>
       <Snackbar
-        open={(openerror, openEditerror)}
+        open={openEditSuccess}
+        autoHideDuration={4000}
+        onClose={handleSnackClose}
+      >
+        <Alert
+          open={openEditSuccess}
+          onClose={handleSnackClose}
+          severity="success"
+        >
+          Address Edited Successfully!
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={openerror || openEditerror}
         autoHideDuration={4000}
         onClose={handleSnackClose}
       >

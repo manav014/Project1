@@ -14,6 +14,11 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import theme from "../../consts/theme";
 
 function Alert(props) {
@@ -56,9 +61,20 @@ function AddressForm(props) {
     setOpenerror(false);
   };
   const classes = useStyles();
+  const [openEditConfirm, setOpenEditConfirm] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpenEditConfirm(true);
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleEditClose = (from) => {
+    if (from === "no") {
+      setOpenEditConfirm(false);
+    } else if (from === "yes") {
+      props.handleEdit(addressData);
+      setOpenEditConfirm(false);
+    }
+  };
+  const handleAddAddress = (e) => {
     axios
       .post(
         addressURL,
@@ -97,10 +113,17 @@ function AddressForm(props) {
           setOpenSuccess(true);
         }
       })
-
       .catch((err) => {
         setOpenerror(true);
       });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (e.nativeEvent.submitter.innerText === "ADD") {
+      handleAddAddress();
+    } else {
+      handleClickOpen();
+    }
   };
   React.useEffect(() => {
     if (props.updateDetails != null) {
@@ -263,10 +286,11 @@ function AddressForm(props) {
                   marginBottom: "4vh",
                 }}
               >
-                Submit
+                Add
               </Button>
             ) : (
               <Button
+                type="submit"
                 variant="contained"
                 style={{
                   backgroundColor: "#37b3f9",
@@ -294,6 +318,32 @@ function AddressForm(props) {
           Unable to process your request!
         </Alert>
       </Snackbar>
+      <Dialog open={openEditConfirm} onClose={handleEditClose}>
+        <DialogTitle>
+          {"Do you want to edit the address permanently?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            The address would be edited permanently.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="outlined"
+            onClick={() => handleEditClose("no")}
+            color="primary"
+          >
+            No
+          </Button>
+          <Button
+            onClick={() => handleEditClose("yes")}
+            color="primary"
+            autoFocus
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </ThemeProvider>
   );
 }

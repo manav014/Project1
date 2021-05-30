@@ -75,10 +75,7 @@ function AddressAccordion(props) {
         <AccordionDetails>
           <Button
             className={classes.onHover}
-            onClick={() => {
-              props.handleForm();
-              props.handleEdit(detail);
-            }}
+            onClick={props.openEditForm}
             size="small"
             style={{
               color: "#00A3FF",

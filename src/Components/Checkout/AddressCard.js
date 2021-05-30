@@ -79,7 +79,7 @@ export default function AddressCard(props) {
         <CardActions style={{ height: "5vh" }}>
           <Button
             className={classes.onHover}
-            onClick={props.handleEdit}
+            onClick={props.openEditForm}
             size="small"
             style={{
               color: "#00A3FF",
