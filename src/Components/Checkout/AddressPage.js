@@ -19,7 +19,7 @@ import theme from "../../consts/theme";
 // component imports
 import AddressCard from "./AddressCard";
 import AddressForm from "./AddressForm";
-import { addressURL } from "../../consts/constants";
+import { addressURL, addressSlugURL } from "../../consts/constants";
 import AddressAccordion from "./AddressAccordion";
 import styles from "../../styles/js/Checkout/AddressPageStyle";
 
@@ -67,7 +67,7 @@ function AddressPage(props) {
 
   const handleDelete = (detail) => {
     axios
-      .delete(addressURL + "?slug=" + detail.slug, {
+      .delete(addressSlugURL(detail.slug), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
