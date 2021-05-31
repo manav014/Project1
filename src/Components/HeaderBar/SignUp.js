@@ -119,22 +119,23 @@ function SignUp(props) {
 
   useEffect(() => {
     if (token) {
+      props.setAuthSuccess("Signed up");
       props.handleCloseDropdownsignup();
     }
-  });
+    if (props.emailMobile) {
+      if (props.emailMobile.indexOf("@") !== -1) {
+        setFormData({
+          ...formData,
+          email: props.emailMobile,
+        });
+      }
+      props.setemailMobile(null);
+    }
+  }, [token, props.emailMobile]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, firstname, lastname, mobileno, password, confirmPassword } =
-      formData;
-    props.signup(
-      email,
-      firstname,
-      lastname,
-      mobileno,
-      password,
-      confirmPassword
-    );
-    <Redirect to="/" />;
+    const { email, firstname, lastname, mobileno, password } = formData;
+    props.signup(email, firstname, lastname, mobileno, password);
   };
   const handleSignIn = (event) => {
     preventDefault(event);
