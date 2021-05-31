@@ -16,6 +16,8 @@ import Grow from "@material-ui/core/Grow";
 import Divider from "@material-ui/core/Divider";
 import Popper from "@material-ui/core/Popper";
 import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import { ThemeProvider } from "@material-ui/core/styles";
 
 // local components
@@ -28,6 +30,10 @@ import theme from "../../consts/theme";
 
 const useStyles = makeStyles(styles);
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function HeaderBarDropdown(props) {
   // styles
   // states  comment on this as all states
@@ -35,6 +41,19 @@ function HeaderBarDropdown(props) {
   // const functions comment on this as all functions
   // useeffect
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [authSuccess, setAuthSuccess] = React.useState(null);
+  const [emailMobile, setemailMobile] = useState(null);
+
+  const handleSnackClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAuthSuccess(null);
+    setOpenSuccess(false);
+    // setOpenerror(false);
+  };
+
   const handleClick = (event) => {
     if (anchorEl && anchorEl.contains(event.target)) {
       setAnchorEl(null);
@@ -86,9 +105,12 @@ function HeaderBarDropdown(props) {
   const handleCloseDropdownlogin = () => {
     setOpenlogin(false);
   };
-  const handleClickOpensignup = () => {
+  const handleClickOpensignup = (e, emailMobile) => {
     handleClose();
     setOpensignup(true);
+    if (emailMobile) {
+      setemailMobile(emailMobile);
+    }
   };
 
   const handleCloseDropdownsignup = () => {
@@ -96,7 +118,7 @@ function HeaderBarDropdown(props) {
   };
   const [username, setUserName] = useState("");
   useEffect(() => {
-    if (authenticated) {
+    if (authenticated && username == "") {
       axios
         .get(userDetailsURL, {
           headers: {
@@ -109,8 +131,15 @@ function HeaderBarDropdown(props) {
         .catch((err) => {
           console.log(err.response);
         });
+    } else if (!authenticated && username != "") {
+      setOpenSuccess(true);
+      setAuthSuccess("Logged Out");
+      setUserName("");
     }
-  }, [authenticated, token]);
+    {
+      authSuccess ? setOpenSuccess(true) : setOpenSuccess(false);
+    }
+  }, [authenticated, token, authSuccess]);
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -262,14 +291,29 @@ function HeaderBarDropdown(props) {
             </MenuList>
           </div>
         )}
+
+        <Snackbar
+          open={openSuccess}
+          autoHideDuration={4000}
+          onClose={handleSnackClose}
+        >
+          <Alert onClose={handleSnackClose} severity="success">
+            User {authSuccess} Successfully!
+          </Alert>
+        </Snackbar>
+
         <Dialog onClose={handleCloseDropdownlogin} open={openlogin}>
           <SignIn
+            setAuthSuccess={setAuthSuccess}
             handleCloseDropdownlogin={handleCloseDropdownlogin}
             handleClickOpensignup={handleClickOpensignup}
           />
         </Dialog>
         <Dialog onClose={handleCloseDropdownsignup} open={opensignup}>
           <SignUp
+            setAuthSuccess={setAuthSuccess}
+            emailMobile={emailMobile}
+            setemailMobile={setemailMobile}
             handleCloseDropdownsignup={handleCloseDropdownsignup}
             handleClickOpenlogin={handleClickOpenlogin}
           />

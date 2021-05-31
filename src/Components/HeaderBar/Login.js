@@ -75,13 +75,14 @@ function Login(props) {
 
   React.useEffect(() => {
     if (token) {
+      props.setAuthSuccess("Logged in");
       handleCloseDropdownlogin();
     }
     if (error) {
       if (error.response && error.response.status === 404) {
         props.setError();
         handleCloseDropdownlogin();
-        handleClickOpensignup();
+        handleClickOpensignup(1, formData.emailmobile);
       } else {
         // TODO to print a network error
         console.log("Network Error");

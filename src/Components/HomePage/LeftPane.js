@@ -105,7 +105,8 @@ const CustomDrawer = withStyles((theme) => ({
 const ReviewChip = withStyles({
   icon: { color: "#37b3f9 !important" },
 })(MuiChip);
-// TODO: search suggestions
+// TODO: make category dropdown functional and working
+// TODO: Add modal and search suggestions
 // main functional component start
 function LeftPane() {
   const classes = useStyles();
