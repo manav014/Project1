@@ -1,10 +1,17 @@
 import React, { useEffect } from "react";
+
+// Libraries
 import classNames from "classnames";
 import PropTypes from "prop-types";
+
+// @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
-import styles from "../../styles/js/HomePage/HomePageContainerStyle.js";
 import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
+import styles from "../../styles/js/HomePage/HomePageContainerStyle.js";
 import theme from "../../consts/theme";
+
 const useStyles = makeStyles(styles);
 
 export default function HomePageContainer(props) {

@@ -1,19 +1,21 @@
 import React from "react";
+
+// Libraries
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-// Material UI imports
+// @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 
-// Component imports
+// local components
 import HeaderBar from "./HeaderBar";
 import PaymentForm from "./Checkout/PaymentForm";
 import PaymentDetails from "./Checkout/PaymentDetails";
@@ -21,6 +23,7 @@ import ReviewOrder from "./Checkout/ReviewOrder";
 import styles from "../styles/js/Checkout/CheckoutStyle.js";
 import AddressPage from "./Checkout/AddressPage";
 import theme from "../consts/theme";
+
 const useStyles = makeStyles(styles);
 const steps = ["Shipping address", "Payment details", "Review your order"];
 

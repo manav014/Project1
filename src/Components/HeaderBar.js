@@ -1,6 +1,11 @@
 import React from "react";
+
+// Libraries
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+
+// @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -14,11 +19,13 @@ import { withStyles } from "@material-ui/core/styles";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import List from "@material-ui/core/List";
-import HeaderBarDropdown from "./HeaderBar/HeaderBarDropdown";
-import { useHistory } from "react-router-dom";
-import styles from "../styles/js/HomePage/HeaderBarStyle.js";
 import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
+import HeaderBarDropdown from "./HeaderBar/HeaderBarDropdown";
+import styles from "../styles/js/HomePage/HeaderBarStyle.js";
 import theme from "../consts/theme";
+
 const useStyles = makeStyles(styles);
 
 const StyledBadge = withStyles((theme) => ({

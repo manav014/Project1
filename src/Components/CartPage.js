@@ -1,16 +1,19 @@
 import React from "react";
+
+// @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
-import HeaderBar from "./HeaderBar.js";
-import ProductCard from "./CartPage/ProductCard.js";
-import Coupon from "./CartPage/Coupon.js";
-import PaymentDetails from "./Checkout/PaymentDetails.js";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { ThemeProvider } from "@material-ui/core/styles";
 
+// local components
+import HeaderBar from "./HeaderBar.js";
+import ProductCard from "./CartPage/ProductCard.js";
+import Coupon from "./CartPage/Coupon.js";
+import PaymentDetails from "./Checkout/PaymentDetails.js";
 import styles from "../styles/js/CartPage/CartPageStyle.js";
-
 import theme from "../consts/theme";
+
 const useStyles = makeStyles(styles);
 
 function CartPage() {

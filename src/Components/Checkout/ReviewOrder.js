@@ -1,13 +1,18 @@
 import React from "react";
+
+// @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import Paper from "@material-ui/core/Paper";
+import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
 import PaymentDetails from "./PaymentDetails";
 import ProductCard from "../CartPage/ProductCard";
-import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../../consts/theme";
+
 // const products = [
 //   { name: "Product 1", desc: "A nice thing", price: "$9.99" },
 //   { name: "Product 2", desc: "Another thing", price: "$3.45" },

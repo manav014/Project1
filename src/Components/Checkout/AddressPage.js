@@ -1,10 +1,11 @@
-// React Library Imports
 import React, { useEffect, useState } from "react";
+
+// Libraries
 import PropTypes from "prop-types";
 import axios from "axios";
 import { connect } from "react-redux";
 
-// Material ui imports
+// @material-ui components
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -15,13 +16,14 @@ import Hidden from "@material-ui/core/Hidden";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "../../consts/theme";
-// component imports
+
+// local components
 import AddressCard from "./AddressCard";
 import AddressForm from "./AddressForm";
 import { addressURL, addressSlugURL } from "../../consts/constants";
 import AddressAccordion from "./AddressAccordion";
 import styles from "../../styles/js/Checkout/AddressPageStyle";
+import theme from "../../consts/theme";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

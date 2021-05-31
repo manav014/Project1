@@ -1,8 +1,10 @@
 import React from "react";
+
+// Libraries
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-// Material UI imports
+// @material-ui components
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -12,7 +14,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MenuItem from "@material-ui/core/MenuItem";
 
-// Other Imports
+// local components
 import HeaderBar from "./HeaderBar.js";
 import OrderList from "./Orders/OrdersList";
 import theme from "../consts/theme";

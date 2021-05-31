@@ -1,20 +1,27 @@
 import React from "react";
+
+// Libraries
+import classNames from "classnames";
+
+// @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import product1 from "../../assets/HomePage/product1.png";
-import product2 from "../../assets/HomePage/product2.png";
 import Checkbox from "@material-ui/core/Checkbox";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
-import styles from "../../styles/js/CartPage/CartPageStyle.js";
-import classNames from "classnames";
 import Divider from "@material-ui/core/Divider";
 import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
+import styles from "../../styles/js/CartPage/CartPageStyle.js";
+import product1 from "../../assets/HomePage/product1.png";
+import product2 from "../../assets/HomePage/product2.png";
 import theme from "../../consts/theme";
+
 const useStyles = makeStyles(styles);
 
 export default function SimplePaper() {

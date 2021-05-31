@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-// nodejs libraries
+// Libraries
 import classNames from "classnames";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -17,17 +17,23 @@ import Divider from "@material-ui/core/Divider";
 import Popper from "@material-ui/core/Popper";
 import Button from "@material-ui/core/Button";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "../../consts/theme";
+
 // local components
 import { userDetailsURL } from "../../consts/constants";
 import SignIn from "./Login";
 import SignUp from "./SignUp";
 import styles from "../../styles/js/HomePage/customDropdownStyle";
 import * as actions from "../../store/actions/auth";
+import theme from "../../consts/theme";
 
 const useStyles = makeStyles(styles);
 
 function HeaderBarDropdown(props) {
+  // styles
+  // states  comment on this as all states
+  // other constantrs
+  // const functions comment on this as all functions
+  // useeffect
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     if (anchorEl && anchorEl.contains(event.target)) {

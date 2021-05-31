@@ -1,6 +1,6 @@
 import React from "react";
 
-// Material UI imports
+// @material-ui components
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -14,6 +14,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
 import theme from "../../consts/theme";
 
 const useStyles = makeStyles((theme) => ({

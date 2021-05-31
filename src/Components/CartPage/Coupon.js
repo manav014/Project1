@@ -1,7 +1,6 @@
 import React from "react";
 
 // @material-ui/core components
-
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -9,7 +8,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
 import theme from "../../consts/theme";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     width: "auto",

@@ -1,16 +1,24 @@
+import React from "react";
+
+// Libraries
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+// @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
 import dairy from "../../assets/HomePage/dairy.jpg";
 import dals from "../../assets/HomePage/dals.jpg";
 import flour from "../../assets/HomePage/flour.jpg";
 import maggi from "../../assets/HomePage/maggi.png";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../../consts/theme";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: "10vw",

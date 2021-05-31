@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
+
+// Libraries
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+
+// @material-ui components
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -10,14 +15,16 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { authSignup } from "../../store/actions/auth";
-import { connect } from "react-redux";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
+import { authSignup } from "../../store/actions/auth";
 import theme from "../../consts/theme";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),

@@ -1,6 +1,6 @@
 import React from "react";
 
-// Material UI Imports
+// @material-ui components
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -12,7 +12,7 @@ import Box from "@material-ui/core/Box";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 
-//Default Theme
+// local components
 import theme from "../../consts/theme";
 
 const useStyles = makeStyles((theme) => ({

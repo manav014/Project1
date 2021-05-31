@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+
+// Libraries
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+
+// @material-ui components
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,15 +15,16 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { authLogin, authSetError } from "../../store/actions/auth";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
+import { authLogin, authSetError } from "../../store/actions/auth";
 import theme from "../../consts/theme";
+
 // TODO add loading on all pages
 
 const useStyles = makeStyles((theme) => ({

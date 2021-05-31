@@ -1,4 +1,6 @@
 import React from "react";
+
+// @material-ui components
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
@@ -11,7 +13,10 @@ import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
 import { createFilterOptions } from "@material-ui/lab/Autocomplete";
 import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
 import theme from "../../consts/theme";
+
 const filter = createFilterOptions();
 const NoPaddingAutocomplete = withStyles({
   inputRoot: {

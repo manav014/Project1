@@ -1,4 +1,6 @@
 import React from "react";
+
+// @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -20,6 +22,7 @@ import DirectionsIcon from "@material-ui/icons/Directions";
 import Tooltip from "@material-ui/core/Tooltip";
 import CheckIcon from "@material-ui/icons/Check";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
+import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import MuiChip from "@material-ui/core/Chip";
 import Link from "@material-ui/core/Link";
@@ -31,15 +34,14 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 
-// HomePage imports
+// local components
 import CustomDropdown from "./ChooseCategory";
 import SearchBar from "./SearchBar";
 import ProductsTab from "./ProductsTab";
-// Asset imports
 import banner_image from "../../assets/HomePage/levis.jpg";
 import styles from "../../styles/js/HomePage/LeftPaneStyle.js";
-import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../../consts/theme";
 
 // Making styles
@@ -106,6 +108,7 @@ const ReviewChip = withStyles({
 // TODO: search suggestions
 // main functional component start
 function LeftPane() {
+  const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
   const [value, setValue] = React.useState(2);
   const [openmodal, setOpenModal] = React.useState(false);
@@ -120,8 +123,6 @@ function LeftPane() {
     setOpenModal(false);
   };
 
-  // Basic styles class
-  const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
     left: false,

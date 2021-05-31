@@ -1,4 +1,6 @@
 import React from "react";
+
+// @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -6,9 +8,12 @@ import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import styles from "../../styles/js/Checkout/PaymentDetailsStyle.js";
 import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
+import styles from "../../styles/js/Checkout/PaymentDetailsStyle.js";
 import theme from "../../consts/theme";
+
 const products = [
   { name: "Price (2 Items)", price: "$9.99" },
   { name: "Discount", price: "$3.45" },

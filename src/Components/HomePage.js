@@ -1,14 +1,20 @@
 import React from "react";
+
+// Libraries
+import classNames from "classnames";
+
+// @material-ui components
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
+import SearchBar from "./HomePage/SearchBar";
+import LeftPane from "./HomePage/LeftPane.js";
+import Map from "./HomePage/Map.js";
 import HomePageContainer from "./HomePage/HomePageContainer.js";
 import HeaderBar from "./HeaderBar.js";
 import styles from "../styles/js/HomePage/HomePageStyle.js";
-import classNames from "classnames";
-import Grid from "@material-ui/core/Grid";
-import SearchBar from "./HomePage/SearchBar";
-import { makeStyles } from "@material-ui/core/styles";
-import LeftPane from "./HomePage/LeftPane.js";
-import Map from "./HomePage/Map.js";
-import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../consts/theme";
 
 const gridStyles = {

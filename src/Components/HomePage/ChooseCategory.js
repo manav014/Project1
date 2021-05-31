@@ -1,7 +1,7 @@
 import React from "react";
-// nodejs library that concatenates classes
+
+// Libraries
 import classNames from "classnames";
-// nodejs library to set properties for components
 
 // @material-ui/core components
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -21,12 +21,12 @@ import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import Popper from "@material-ui/core/Popper";
 import { ThemeProvider } from "@material-ui/core/styles";
+
+// local components
 import theme from "../../consts/theme";
-// core components
 import styles from "../../styles/js/HomePage/customDropdownStyle.js";
 
 const useStyles = makeStyles(styles);
-
 const Accordion = withStyles({
   root: {
     border: "1px solid rgba(0, 0, 0, .125)",
