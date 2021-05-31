@@ -104,7 +104,11 @@ function Row(props) {
               open === row.ItemName ? setOpen("") : setOpen(row.ItemName);
             }}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {open === row.ItemName ? (
+              <KeyboardArrowUpIcon />
+            ) : (
+              <KeyboardArrowDownIcon />
+            )}
           </IconButton>
         </TableCell>
         <TableCell>{row.ItemName}</TableCell>
