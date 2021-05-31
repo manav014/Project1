@@ -122,6 +122,7 @@ function LeftPane() {
   const handleClose = () => {
     setOpenModal(false);
   };
+  const [save, setSave] = React.useState(true);
 
   const [state, setState] = React.useState({
     top: false,
@@ -206,17 +207,37 @@ function LeftPane() {
                   </Tooltip>
                 </Grid>
                 <Grid item>
-                  <Tooltip title="Save">
-                    <Box
-                      borderRadius="50px"
-                      border={1}
-                      className={classes.iconStyle}
-                    >
-                      <IconButton aria-label="SaveShop">
-                        <BookmarkIcon style={{ color: "#37b3f9" }} />
-                      </IconButton>
-                    </Box>
-                  </Tooltip>
+                  {save == true ? (
+                    <Tooltip title="unsave">
+                      <Box
+                        borderRadius="50px"
+                        border={1}
+                        className={classes.iconStyle}
+                      >
+                        <IconButton
+                          aria-label="SaveShop"
+                          onClick={() => setSave(false)}
+                        >
+                          <BookmarkIcon style={{ color: "#37b3f9" }} />
+                        </IconButton>
+                      </Box>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip title="save">
+                      <Box
+                        borderRadius="50px"
+                        border={1}
+                        className={classes.iconStyle}
+                      >
+                        <IconButton
+                          aria-label="SaveShop"
+                          onClick={() => setSave(true)}
+                        >
+                          <BookmarkBorderIcon style={{ color: "#37b3f9" }} />
+                        </IconButton>
+                      </Box>
+                    </Tooltip>
+                  )}
                 </Grid>
                 <Grid item>
                   <Tooltip title="Directions">
