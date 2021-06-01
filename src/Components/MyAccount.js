@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+// Libraries
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+
 // @material-ui components
 import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -19,9 +23,13 @@ const useStyles = makeStyles(() => ({
     backgroundColor: theme.palette.primary.main,
   },
 }));
-export default function MyAcccount() {
+function MyAccount(props) {
   const classes = useStyles();
   const [username, setUserName] = useState("Khushi Rauniyar");
+  const { token } = props;
+  if (!token) {
+    return <Redirect to="/" />;
+  }
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -49,12 +57,7 @@ export default function MyAcccount() {
             <LinkedCards />
           </Grid>
         </Grid>
-        <Grid
-          container
-          direction="row"
-          justify="space-evenly"
-          // alignItems="center"
-        >
+        <Grid container direction="row" justify="space-evenly">
           <Grid item xs={3}>
             <SideBar />
           </Grid>
@@ -66,3 +69,10 @@ export default function MyAcccount() {
     </ThemeProvider>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+
+export default connect(mapStateToProps)(MyAccount);
