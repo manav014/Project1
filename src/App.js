@@ -5,6 +5,7 @@ import HomePage from "./components/HomePage.js";
 import Checkout from "./components/Checkout";
 import CartPage from "./components/CartPage";
 import Orders from "./components/Orders";
+import MyAccount from "./components/MyAccount";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/auth";
 
@@ -20,6 +21,7 @@ function App(props) {
         <Switch>
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/cart" component={CartPage} />
+          <Route exact path="/myaccount" component={MyAccount} />
           <Route exact path="/orders" component={Orders} />
           <Route exact path="/" component={HomePage} />
           <Redirect from="*" to="/" />
