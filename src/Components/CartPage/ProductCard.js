@@ -303,13 +303,6 @@ export default function SimplePaper() {
                   </Typography>
                 </Grid>
               </Grid>
-              {/* TODO to be inspected why empty typography tags */}
-              <Grid item>
-                <Typography variant="subtitle1"> </Typography>
-                <Typography variant="subtitle1">
-                  <Typography variant="subtitle1"></Typography>
-                </Typography>
-              </Grid>
             </Grid>
             <Grid item>
               <ButtonGroup>
