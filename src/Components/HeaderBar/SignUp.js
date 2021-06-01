@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // Libraries
-import { Redirect } from "react-router-dom";
+
 import { connect } from "react-redux";
 
 // @material-ui components
@@ -104,7 +104,7 @@ function SignUp(props) {
     });
   };
   const mobileOnChangeHandler = (e) => {
-    if (e.target.value.length >= 11) {
+    if (e.target.value.length >= 11 || isNaN(e.target.value.slice(-1))) {
       setFormData({
         ...formData,
         [e.target.name]: formData.mobileno,
