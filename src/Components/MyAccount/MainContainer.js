@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
 import PersonalForm from "./PersonalForm";
+import SideBar from "./SideBar";
 
 function MainContainer() {
   return (

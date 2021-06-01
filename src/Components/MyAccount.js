@@ -9,6 +9,7 @@ import theme from "../consts/theme";
 import HeaderBar from "./HeaderBar.js";
 import LinkedCards from "./MyAccount/LinkedCards";
 import MainContainer from "./MyAccount/MainContainer";
+import SideBar from "./MyAccount/SideBar";
 
 const useStyles = makeStyles(() => ({
   avatar: {
@@ -41,12 +42,23 @@ export default function MyAcccount() {
               />
             </Box>
           </Grid>
-
           <Grid item xs={9}>
             <LinkedCards />
           </Grid>
         </Grid>
-        <MainContainer />
+        <Grid
+          container
+          direction="row"
+          justify="space-evenly"
+          // alignItems="center"
+        >
+          <Grid item xs={3}>
+            <SideBar />
+          </Grid>
+          <Grid item xs={8}>
+            <MainContainer />
+          </Grid>
+        </Grid>
       </div>
     </ThemeProvider>
   );

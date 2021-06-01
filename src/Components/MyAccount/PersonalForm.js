@@ -49,137 +49,144 @@ function PersonalForm() {
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Personal Information" />
-          <Tab label="Change" />
+          <Tab label="Change Password" />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="firstName"
-              name="firstName"
-              label="First name"
-              fullWidth
-              autoComplete="given-name"
-            />
+        <form style={{ width: "100%" }}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="firstName"
+                name="firstName"
+                label="First name"
+                fullWidth
+                autoComplete="given-name"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="lastName"
+                name="lastName"
+                label="Last name"
+                fullWidth
+                autoComplete="family-name"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="email"
+                name="email"
+                label="Email"
+                fullWidth
+                autoComplete="Email"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="contact"
+                name="contact"
+                label="Contact"
+                fullWidth
+                autoComplete="contact"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="dob"
+                name="dob"
+                label="DOB"
+                fullWidth
+                autoComplete="dob"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="gender"
+                name="gender"
+                label="Gender"
+                fullWidth
+                autoComplete="gender"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <div className={classes.buttons}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  style={{
+                    backgroundColor: "#37b3f9",
+                    color: "#FFFFFF",
+                    marginBottom: "4vh",
+                  }}
+                >
+                  Update
+                </Button>
+              </div>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="lastName"
-              name="lastName"
-              label="Last name"
-              fullWidth
-              autoComplete="family-name"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="email"
-              name="email"
-              label="Email"
-              fullWidth
-              autoComplete="Email"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="contact"
-              name="contact"
-              label="Contact"
-              fullWidth
-              autoComplete="contact"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="dob"
-              name="dob"
-              label="DOB"
-              fullWidth
-              autoComplete="dob"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="gender"
-              name="gender"
-              label="Gender"
-              fullWidth
-              autoComplete="gender"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <div className={classes.buttons}>
-              <Button
-                type="submit"
-                variant="contained"
-                style={{
-                  backgroundColor: "#37b3f9",
-                  color: "#FFFFFF",
-                  marginBottom: "4vh",
-                }}
-              >
-                Update
-              </Button>
-            </div>
-          </Grid>
-        </Grid>
+        </form>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <TextField
-              required9
-              id="oldpassword"
-              name="oldpassword"
-              label="Old Password"
-              fullWidth
-              autoComplete="oldpassword"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              id="newpassword"
-              name="newpassword"
-              label="New Password"
-              fullWidth
-              autoComplete="newpassword"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              id="confirmnewpassword"
-              name="confirmnewpassword"
-              label="Confirm New Password"
-              fullWidth
-              autoComplete="confirmnewpassword"
-            />
-          </Grid>
+        <form style={{ width: "100%" }}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <TextField
+                type="password"
+                required
+                id="oldpassword"
+                name="oldpassword"
+                label="Old Password"
+                fullWidth
+                autoComplete="oldpassword"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                type="password"
+                id="newpassword"
+                name="newpassword"
+                label="New Password"
+                fullWidth
+                autoComplete="newpassword"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                type="password"
+                id="confirmnewpassword"
+                name="confirmnewpassword"
+                label="Confirm New Password"
+                fullWidth
+                autoComplete="confirmnewpassword"
+              />
+            </Grid>
 
-          <Grid item xs={12}>
-            <div className={classes.buttons}>
-              <Button
-                type="submit"
-                variant="contained"
-                style={{
-                  backgroundColor: "#37b3f9",
-                  color: "#FFFFFF",
-                  marginBottom: "4vh",
-                }}
-              >
-                Submit
-              </Button>
-            </div>
+            <Grid item xs={12}>
+              <div className={classes.buttons}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  style={{
+                    backgroundColor: "#37b3f9",
+                    color: "#FFFFFF",
+                    marginBottom: "4vh",
+                  }}
+                >
+                  Submit
+                </Button>
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
+        </form>
       </TabPanel>
     </ThemeProvider>
   );
