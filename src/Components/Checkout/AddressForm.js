@@ -202,6 +202,7 @@ function AddressForm(props) {
           </Grid>
           <Grid item xs={12}>
             <TextField
+              required
               id="apartment_address"
               name="apartment_address"
               label="Flat,House no.,Building,Company,Apartment"
@@ -237,6 +238,7 @@ function AddressForm(props) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              required
               id="state"
               select
               name="state"
