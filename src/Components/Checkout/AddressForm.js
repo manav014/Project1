@@ -248,12 +248,7 @@ function AddressForm(props) {
               value={addressData.state}
             >
               {states.map((option, key) => (
-                <MenuItem
-                  key={key}
-                  value={option.name}
-                  name={option.name}
-                  onclick={onChangeHandler}
-                >
+                <MenuItem key={key} value={option.name} name={option.name}>
                   {option.name}
                 </MenuItem>
               ))}
