@@ -146,6 +146,23 @@ function Row(props) {
                       <TableCell align="right">{historyRow.Amount}</TableCell>
                     </TableRow>
                   ))}
+                  <TableRow>
+                    <TableCell rowSpan={5} />
+                    <TableCell colSpan={3}>Gross Amount</TableCell>
+                    <TableCell align="right">1532</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={3}>Bill Discount </TableCell>
+                    <TableCell align="right">4.00</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={3}>Total</TableCell>
+                    <TableCell align="right">1526</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={3}>YOU HAVE SAVED </TableCell>
+                    <TableCell align="right">182</TableCell>
+                  </TableRow>
                 </TableBody>
               </Table>
             </Box>
