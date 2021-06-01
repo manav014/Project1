@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import { ThemeProvider } from "@material-ui/core/styles";
 
 // local components
+import AddressPage from "../Checkout/AddressPage";
 import PersonalForm from "./PersonalForm";
 import theme from "../../consts/theme";
 
@@ -16,7 +17,8 @@ function MainContainer() {
         <Paper variant="outlined" style={{ padding: "1vh", marginTop: "2vh" }}>
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item xs={12}>
-              <PersonalForm />
+              {/* <PersonalForm /> */}
+              <AddressPage />
             </Grid>
           </Grid>
         </Paper>
