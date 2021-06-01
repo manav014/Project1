@@ -1,16 +1,26 @@
 import React from "react";
 
+// Libraries
+import PropTypes from "prop-types";
+
 // @material-ui components
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
+import Collapse from "@material-ui/core/Collapse";
+import IconButton from "@material-ui/core/IconButton";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
 // local components
 import theme from "../../consts/theme";
@@ -31,34 +41,167 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AccordionSummary = withStyles({
+const useRowStyles = makeStyles({
   root: {
-    backgroundColor: "rgba(0, 0, 0, .03)",
-    borderBottom: "1px solid rgba(0, 0, 0, .125)",
-    marginBottom: -1,
-    minHeight: 56,
-    "&$expanded": {
-      minHeight: 56,
+    "& > *": {
+      borderBottom: "unset",
     },
   },
-  content: {
-    "&$expanded": {
-      margin: "1.5vh 0",
-    },
-  },
-  expanded: {},
-  expandIcon: {},
-})(MuiAccordionSummary);
+});
+
+function createData(ItemName, Qty, MRP, Price, Amount) {
+  return {
+    ItemName,
+    Qty,
+    MRP,
+    Price,
+    Amount,
+    history: [
+      {
+        ItemName: "AMUL BUTTER 100GM",
+        Qty: "1",
+        MRP: 48.0,
+        Price: 47.0,
+        Amount: 47.0,
+      },
+      {
+        ItemName: "LAYS & KURKURA",
+        Qty: "5",
+        MRP: 10.0,
+        Price: 10.0,
+        Amount: 50.0,
+      },
+      {
+        ItemName: "MDH DEGGI MIRCH 100GM",
+        Qty: "1",
+        MRP: 78.0,
+        Price: 70.0,
+        Amount: 70.0,
+      },
+      {
+        ItemName: "HALDIRAM BHUJIA 400GM",
+        Qty: "1",
+        MRP: 99.0,
+        Price: 95.0,
+        Amount: 95.0,
+      },
+    ],
+  };
+}
+
+function Row(props) {
+  const { row, open, setOpen } = props;
+  const classes = useRowStyles();
+
+  return (
+    <React.Fragment>
+      <TableRow className={classes.root}>
+        <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => {
+              open === row.ItemName ? setOpen("") : setOpen(row.ItemName);
+            }}
+          >
+            {open === row.ItemName ? (
+              <KeyboardArrowUpIcon />
+            ) : (
+              <KeyboardArrowDownIcon />
+            )}
+          </IconButton>
+        </TableCell>
+        <TableCell>{row.ItemName}</TableCell>
+        <TableCell>{row.Qty}</TableCell>
+        <TableCell align="right">{row.MRP}</TableCell>
+        <TableCell align="right">{row.Price}</TableCell>
+        <TableCell align="right">{row.Amount}</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          <Collapse in={open === row.ItemName} timeout="auto" unmountOnExit>
+            <Box margin={1}>
+              <Typography variant="h6" gutterBottom component="div">
+                History
+              </Typography>
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Item</TableCell>
+                    <TableCell>Quantity</TableCell>
+                    <TableCell align="right">MRP</TableCell>
+                    <TableCell align="right">Price</TableCell>
+                    <TableCell align="right">Amount</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {row.history.map((historyRow) => (
+                    <TableRow key={historyRow.date}>
+                      <TableCell component="th" scope="row">
+                        {historyRow.ItemName}
+                      </TableCell>
+                      <TableCell>{historyRow.Qty}</TableCell>
+                      <TableCell align="right">{historyRow.MRP}</TableCell>
+                      <TableCell align="right">{historyRow.Price}</TableCell>
+                      <TableCell align="right">{historyRow.Amount}</TableCell>
+                    </TableRow>
+                  ))}
+                  <TableRow>
+                    <TableCell rowSpan={5} />
+                    <TableCell colSpan={3}>Gross Amount</TableCell>
+                    <TableCell align="right">1532</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={3}>Bill Discount </TableCell>
+                    <TableCell align="right">4.00</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={3}>Total</TableCell>
+                    <TableCell align="right">1526</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={3}>YOU HAVE SAVED </TableCell>
+                    <TableCell align="right">182</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </React.Fragment>
+  );
+}
+
+Row.propTypes = {
+  row: PropTypes.shape({
+    Qty: PropTypes.number.isRequired,
+    Price: PropTypes.number.isRequired,
+    MRP: PropTypes.number.isRequired,
+    history: PropTypes.arrayOf(
+      PropTypes.shape({
+        amount: PropTypes.number.isRequired,
+        customerId: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    ItemName: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    Amount: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+const rows = [
+  createData("Khushi Stores", 159, 6.0, 24, 4.0, 3.99),
+  createData("Manav Stores", 237, 9.0, 37, 4.3, 4.99),
+  createData("Avanya Stores", 262, 16.0, 24, 6.0, 3.79),
+  createData("Aashutosh Stores", 305, 3.7, 67, 4.3, 2.5),
+  createData("Khushi R Stores", 356, 16.0, 49, 3.9, 1.5),
+];
 
 export default function OrderAccordion() {
   const classes = useStyles();
-
-  // const [expanded, setExpanded] = React.useState(false);
-
-  // const handleChange = (panel) => (event, isExpanded) => {
-  //   setExpanded(isExpanded ? panel : false);
-  // };
-
+  const [open, setOpen] = React.useState("");
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -70,162 +213,30 @@ export default function OrderAccordion() {
           style={{ marginTop: "1.5vh" }}
         >
           <Grid item xs={11}>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-evenly"
-                  alignItems="center"
-                >
-                  <Grid item xs={4}>
-                    <Typography className={classes.heading}>
-                      Manav Stores
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Box borderColor="transparent" className={classes.rating}>
-                      <Rating name="read-only" value={1} readOnly />
-                    </Box>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography className={classes.secondaryHeading}>
-                      &#8377;648
-                    </Typography>
-                    <Typography className={classes.secondaryHeading}>
-                      Invoice
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-                  feugiat. Aliquam eget maximus est, id dignissim quam.
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-evenly"
-                  alignItems="center"
-                >
-                  <Grid item xs={4}>
-                    <Typography className={classes.heading}>
-                      Khushi Stores
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Box borderColor="transparent" className={classes.rating}>
-                      <Rating name="read-only" value={4} readOnly />
-                    </Box>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography className={classes.secondaryHeading}>
-                      &#8377;648
-                    </Typography>
-                    <Typography className={classes.secondaryHeading}>
-                      Invoice
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-                  feugiat. Aliquam eget maximus est, id dignissim quam.
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-evenly"
-                  alignItems="center"
-                >
-                  <Grid item xs={4}>
-                    <Typography className={classes.heading}>
-                      Avanya Stores
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Box borderColor="transparent" className={classes.rating}>
-                      <Rating name="read-only" value={3} readOnly />
-                    </Box>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography className={classes.secondaryHeading}>
-                      &#8377;648
-                    </Typography>
-                    <Typography className={classes.secondaryHeading}>
-                      Invoice
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-                  feugiat. Aliquam eget maximus est, id dignissim quam.
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-evenly"
-                  alignItems="center"
-                >
-                  <Grid item xs={4}>
-                    <Typography className={classes.heading}>
-                      Aashutosh Stores
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Box borderColor="transparent" className={classes.rating}>
-                      <Rating name="read-only" value={2} readOnly />
-                    </Box>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography className={classes.secondaryHeading}>
-                      &#8377;648
-                    </Typography>
-                    <Typography className={classes.secondaryHeading}>
-                      Invoice
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-                  feugiat. Aliquam eget maximus est, id dignissim quam.
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
+            <TableContainer component={Paper}>
+              <Table aria-label="collapsible table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell />
+                    <TableCell>Shop Name</TableCell>
+                    <TableCell />
+                    <TableCell />
+                    <TableCell />
+                    <TableCell align="right">Price</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <Row
+                      key={row.ItemName}
+                      row={row}
+                      open={open}
+                      setOpen={setOpen}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Grid>
         </Grid>
       </div>
