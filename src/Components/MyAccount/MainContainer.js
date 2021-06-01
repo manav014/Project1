@@ -1,11 +1,13 @@
 import React from "react";
-import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "../../consts/theme";
+
+// @material-ui components
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import { ThemeProvider } from "@material-ui/core/styles";
 
+// local components
 import PersonalForm from "./PersonalForm";
-import SideBar from "./SideBar";
+import theme from "../../consts/theme";
 
 function MainContainer() {
   return (

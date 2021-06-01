@@ -1,4 +1,6 @@
 import React from "react";
+
+// @material-ui components
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -6,6 +8,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
+
+// local components
 import theme from "../../consts/theme";
 
 const useStyles = makeStyles(() => ({

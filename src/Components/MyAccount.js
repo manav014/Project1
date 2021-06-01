@@ -1,15 +1,18 @@
 import React, { useState } from "react";
+
+// @material-ui components
 import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import CardHeader from "@material-ui/core/CardHeader";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
 
-import theme from "../consts/theme";
+// local components
 import HeaderBar from "./HeaderBar.js";
 import LinkedCards from "./MyAccount/LinkedCards";
 import MainContainer from "./MyAccount/MainContainer";
 import SideBar from "./MyAccount/SideBar";
+import theme from "../consts/theme";
 
 const useStyles = makeStyles(() => ({
   avatar: {
