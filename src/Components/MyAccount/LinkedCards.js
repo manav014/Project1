@@ -8,6 +8,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 
 // local components
 import theme from "../../consts/theme";
@@ -29,7 +30,7 @@ function LinkedCards() {
         justify="space-evenly"
         alignItems="center"
       >
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <Card>
             <CardActionArea>
               <CardHeader
@@ -46,35 +47,18 @@ function LinkedCards() {
             </CardActionArea>
           </Card>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <Card>
             <CardActionArea>
               <CardHeader
                 avatar={
                   <Avatar className={classes.avatar}>
-                    <LocalMallIcon />
+                    <AssignmentIcon />
                   </Avatar>
                 }
                 title="My Rashon List"
                 titleTypographyProps={{ variant: "subtitle2" }}
                 subheader="Track, return or buy things again"
-                subheaderTypographyProps={{ variant: "body" }}
-              />
-            </CardActionArea>
-          </Card>
-        </Grid>
-        <Grid item xs={3}>
-          <Card>
-            <CardActionArea>
-              <CardHeader
-                avatar={
-                  <Avatar className={classes.avatar}>
-                    <LocalMallIcon />
-                  </Avatar>
-                }
-                title="Login & Security"
-                titleTypographyProps={{ variant: "subtitle2" }}
-                subheader="Edit Login,name and mobile number"
                 subheaderTypographyProps={{ variant: "body" }}
               />
             </CardActionArea>
