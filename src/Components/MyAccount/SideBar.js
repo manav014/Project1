@@ -13,6 +13,7 @@ import FileCopyIcon from "@material-ui/icons/FileCopy";
 import Divider from "@material-ui/core/Divider";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,30 +24,50 @@ const useStyles = makeStyles((theme) => ({
   nested: {
     paddingLeft: theme.spacing(9),
   },
+  avatar: {
+    backgroundColor: theme.palette.primary.main,
+  },
 }));
 function SideBar() {
   const classes = useStyles();
-  const [tabValue, setTabValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setTabValue(newValue);
-  };
   return (
     <div>
       <List className={classes.root}>
         <Paper variant="outlined" style={{ padding: "1vh", marginTop: "2vh" }}>
           <ListItem>
             <ListItemIcon>
-              <AccountBoxIcon />
+              <Avatar className={classes.avatar}>
+                <AccountBoxIcon />
+              </Avatar>
             </ListItemIcon>
             <ListItemText
               primary={<Typography variant="button">My Account</Typography>}
             />
           </ListItem>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText
+                primary={
+                  <Typography variant="subtitle1">
+                    Edit Personal Information
+                  </Typography>
+                }
+              />
+            </ListItem>
+            <ListItem button className={classes.nested}>
+              <ListItemText
+                primary={
+                  <Typography variant="subtitle1">Change Password</Typography>
+                }
+              />
+            </ListItem>
+          </List>
           <Divider />
           <ListItem>
             <ListItemIcon>
-              <PaymentIcon />
+              <Avatar className={classes.avatar}>
+                <PaymentIcon />
+              </Avatar>
             </ListItemIcon>
             <ListItemText
               primary={<Typography variant="button"> Payment</Typography>}
@@ -64,7 +85,9 @@ function SideBar() {
           <Divider />
           <ListItem>
             <ListItemIcon>
-              <HomeIcon />
+              <Avatar className={classes.avatar}>
+                <HomeIcon />
+              </Avatar>
             </ListItemIcon>
             <ListItemText
               primary={<Typography variant="button">Address</Typography>}
@@ -82,7 +105,9 @@ function SideBar() {
           <Divider />
           <ListItem>
             <ListItemIcon>
-              <FileCopyIcon />
+              <Avatar className={classes.avatar}>
+                <FileCopyIcon />
+              </Avatar>
             </ListItemIcon>
             <ListItemText
               primary={<Typography variant="button"> My Stuff</Typography>}

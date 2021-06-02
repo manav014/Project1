@@ -81,7 +81,7 @@ export const authSignup = (email, firstname, lastname, mobileno, password) => {
       })
       .then((res) => {
         const token = res.data.access;
-        //   TODO change the time from 3600 ti anything else
+        //   TODO change the time from 3600 to anything else
 
         const expirationDate = new Date(new Date().getTime() + 172800 * 1000);
         localStorage.setItem("token", token);
