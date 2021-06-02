@@ -5,11 +5,12 @@ import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import Typography from "@material-ui/core/Typography";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import Button from "@material-ui/core/Button";
 
 // local components
 import SideBar from "./SideBar";
@@ -19,12 +20,19 @@ const useStyles = makeStyles(() => ({
   avatar: {
     backgroundColor: theme.palette.primary.main,
   },
+  root: {
+    width: "100%",
+    // maxWidth: 300,
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing(9),
+  },
 }));
 
 function SideBarMobile() {
   const [username, setUserName] = useState("Khushi Rauniyar");
   const classes = useStyles();
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -45,38 +53,27 @@ function SideBarMobile() {
             />
           </Box>
         </Grid>
-        <Grid item xs={5}>
-          <Card>
-            <CardActionArea>
-              <CardHeader
-                avatar={
-                  <Avatar className={classes.avatar}>
-                    <LocalMallIcon />
-                  </Avatar>
-                }
-                title="My Orders"
-                titleTypographyProps={{ variant: "subtitle2" }}
-              />
-            </CardActionArea>
-          </Card>
+        <Grid>
+          <Button variant="outlined" color="primary">
+            <ListItemIcon>
+              <Avatar className={classes.avatar}>
+                <LocalMallIcon />
+              </Avatar>
+            </ListItemIcon>
+            <Typography variant="button">Orders</Typography>
+          </Button>
         </Grid>
-        <Grid item xs={5}>
-          <Card>
-            <CardActionArea>
-              <CardHeader
-                avatar={
-                  <Avatar className={classes.avatar}>
-                    <AssignmentIcon />
-                  </Avatar>
-                }
-                title="My Rashon"
-                titleTypographyProps={{ variant: "subtitle2" }}
-              />
-            </CardActionArea>
-          </Card>
+        <Grid>
+          <Button variant="outlined" color="primary">
+            <ListItemIcon>
+              <Avatar className={classes.avatar}>
+                <AssignmentIcon />
+              </Avatar>
+            </ListItemIcon>
+            <Typography variant="button">Rashan List</Typography>
+          </Button>
         </Grid>
-
-        <Grid item xs={10}>
+        <Grid item xs={12}>
           <SideBar />
         </Grid>
       </Grid>

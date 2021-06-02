@@ -19,11 +19,9 @@ import { ThemeProvider } from "@material-ui/core/styles";
 // local components
 import theme from "../../consts/theme";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    maxWidth: 300,
     backgroundColor: theme.palette.background.paper,
   },
   nested: {
@@ -57,7 +55,7 @@ function SideBar() {
               <ListItem button className={classes.nested}>
                 <ListItemText
                   primary={
-                    <Typography variant="subtitle1">
+                    <Typography variant="button" color="primary">
                       Edit Personal Information
                     </Typography>
                   }
@@ -66,7 +64,9 @@ function SideBar() {
               <ListItem button className={classes.nested}>
                 <ListItemText
                   primary={
-                    <Typography variant="subtitle1">Change Password</Typography>
+                    <Typography variant="button" color="primary">
+                      Change Password
+                    </Typography>
                   }
                 />
               </ListItem>
@@ -86,7 +86,9 @@ function SideBar() {
               <ListItem button className={classes.nested}>
                 <ListItemText
                   primary={
-                    <Typography variant="subtitle1">Manage Cards</Typography>
+                    <Typography variant="button" color="primary">
+                      Manage Cards
+                    </Typography>
                   }
                 />
               </ListItem>
@@ -106,7 +108,7 @@ function SideBar() {
               <ListItem button className={classes.nested}>
                 <ListItemText
                   primary={
-                    <Typography variant="subtitle1">
+                    <Typography variant="button" color="primary">
                       Manage Addresses
                     </Typography>
                   }
@@ -128,7 +130,7 @@ function SideBar() {
               <ListItem button className={classes.nested}>
                 <ListItemText
                   primary={
-                    <Typography variant="subtitle1">
+                    <Typography variant="button" color="primary">
                       Review and Rating
                     </Typography>
                   }
@@ -137,13 +139,19 @@ function SideBar() {
               <ListItem button className={classes.nested}>
                 <ListItemText
                   primary={
-                    <Typography variant="subtitle1">My WishList</Typography>
+                    <Typography variant="button" color="primary">
+                      My WishList
+                    </Typography>
                   }
                 />
               </ListItem>
               <ListItem button className={classes.nested}>
                 <ListItemText
-                  primary={<Typography variant="subtitle1">Coupons</Typography>}
+                  primary={
+                    <Typography variant="button" color="primary">
+                      Coupons
+                    </Typography>
+                  }
                 />
               </ListItem>
             </List>
