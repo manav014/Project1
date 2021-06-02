@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+// Libraries
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+
 // @material-ui components
 import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
@@ -30,10 +34,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function SideBarMobile() {
+function SideBarMobile(props) {
   const [username, setUserName] = useState("Khushi Rauniyar");
   const classes = useStyles();
-
+  const { token } = props;
+  if (!token) {
+    return <Redirect to="/" />;
+  }
   return (
     <ThemeProvider theme={theme}>
       <Grid
@@ -81,4 +88,10 @@ function SideBarMobile() {
   );
 }
 
-export default SideBarMobile;
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+
+export default connect(mapStateToProps)(SideBarMobile);
