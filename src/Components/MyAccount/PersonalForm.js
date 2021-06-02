@@ -69,9 +69,47 @@ function PersonalForm(props) {
     dob: "",
     gender: "",
   });
+  const [passwordData, setPasswordData] = useState({
+    oldPass: "",
+    newPass: "",
+    confirmNewPass: "",
+    confirmed: true,
+  });
+
+  const onPassChangeHandler = (e) => {
+    setPasswordData({
+      ...passwordData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const confirmPasswordOnChangeHandler = (e) => {
+    let confirmed = false;
+    if (e.target.value === passwordData.newPass) {
+      confirmed = true;
+    } else {
+      confirmed = false;
+    }
+    setPasswordData({
+      ...passwordData,
+      confirmed: confirmed,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const passwordOnChangeHandler = (e) => {
+    let confirmed = false;
+    if (e.target.value === passwordData.confirmNewPass) {
+      confirmed = true;
+    } else {
+      confirmed = false;
+    }
+    setPasswordData({
+      ...passwordData,
+      confirmed: confirmed,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const onChangeHandler = (e) => {
-    console.log(e.target.name);
-    console.log(e.target.value);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -90,6 +128,14 @@ function PersonalForm(props) {
       });
     }
   };
+  const personalDetailsHandler = (e) => {
+    e.preventDefault();
+  };
+
+  const changePasswordHandler = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static">
@@ -99,7 +145,7 @@ function PersonalForm(props) {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <form style={{ width: "100%" }}>
+        <form style={{ width: "100%" }} onSubmit={personalDetailsHandler}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -201,27 +247,35 @@ function PersonalForm(props) {
         </form>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <form style={{ width: "100%" }}>
+        <form style={{ width: "100%" }} onSubmit={changePasswordHandler}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 type="password"
                 required
                 id="oldpassword"
-                name="oldpassword"
+                name="oldPass"
+                value={passwordData.oldPass}
                 label="Old Password"
                 fullWidth
                 autoComplete="oldpassword"
+                onChange={onPassChangeHandler}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                error={!passwordData.confirmed && true}
+                helperText={
+                  !passwordData.confirmed && "Both passwords should be the same"
+                }
                 required
                 type="password"
                 id="newpassword"
-                name="newpassword"
+                name="newPass"
+                value={passwordData.newPass}
                 label="New Password"
                 fullWidth
+                onChange={passwordOnChangeHandler}
                 autoComplete="newpassword"
               />
             </Grid>
@@ -230,13 +284,14 @@ function PersonalForm(props) {
                 required
                 type="password"
                 id="confirmnewpassword"
-                name="confirmnewpassword"
+                onChange={confirmPasswordOnChangeHandler}
+                name="confirmNewPass"
+                value={passwordData.confirmNewPass}
                 label="Confirm New Password"
                 fullWidth
                 autoComplete="confirmnewpassword"
               />
             </Grid>
-
             <Grid item xs={12}>
               <div className={classes.buttons}>
                 <Button
@@ -247,6 +302,9 @@ function PersonalForm(props) {
                     color: "#FFFFFF",
                     marginBottom: "4vh",
                   }}
+                  disabled={
+                    !passwordData.confirmed || passwordData.newPass === ""
+                  }
                 >
                   Submit
                 </Button>
