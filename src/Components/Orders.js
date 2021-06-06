@@ -13,10 +13,12 @@ import Grid from "@material-ui/core/Grid";
 import { ThemeProvider } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MenuItem from "@material-ui/core/MenuItem";
+import Hidden from "@material-ui/core/Hidden";
 
 // local components
 import HeaderBar from "./HeaderBar.js";
 import OrderList from "./Orders/OrdersList";
+import ShopOrderMobile from "./Orders/ShopOrderMobile.js";
 import theme from "../consts/theme";
 
 const filter = [
@@ -53,85 +55,90 @@ function Orders(props) {
   return (
     <ThemeProvider theme={theme}>
       <HeaderBar sticky />
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={12}>
-          <Typography component="h1" variant="h4" align="center">
-            Your Orders
-          </Typography>
-        </Grid>
-        <Grid item xs={1} justify="flex-start" alignItems="flex-start">
-          <TextField
-            select
-            fullWidth
-            margin="normal"
-            label="FILTER"
-            value={filters}
-            onChange={handleChange}
-            variant="outlined"
-          >
-            {filter.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item xs={10} justify="flex-end" alignItems="flex-end">
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <Button
-                    style={{
-                      backgroundColor: "#37b3f9",
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    Search Orders
-                  </Button>
-                </InputAdornment>
-              ),
-            }}
-            label="Search For Orders"
-            name="searchOrders"
-            autoComplete="Search For Orders"
-          />
-        </Grid>
-        <Grid item xs={11}>
-          <Paper variant="outlined" style={{ padding: "1vh" }}>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
+      <Hidden smDown>
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={12}>
+            <Typography component="h1" variant="h4" align="center">
+              Your Orders
+            </Typography>
+          </Grid>
+          <Grid item xs={1} justify="flex-start" alignItems="flex-start">
+            <TextField
+              select
+              fullWidth
+              margin="normal"
+              label="FILTER"
+              value={filters}
+              onChange={handleChange}
+              variant="outlined"
             >
-              <Grid item xs={12}>
-                <OrderList />
+              {filter.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item xs={10} justify="flex-end" alignItems="flex-end">
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <Button
+                      style={{
+                        backgroundColor: "#37b3f9",
+                        color: "#FFFFFF",
+                      }}
+                    >
+                      Search Orders
+                    </Button>
+                  </InputAdornment>
+                ),
+              }}
+              label="Search For Orders"
+              name="searchOrders"
+              autoComplete="Search For Orders"
+            />
+          </Grid>
+          <Grid item xs={11}>
+            <Paper variant="outlined" style={{ padding: "1vh" }}>
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+              >
+                <Grid item xs={12}>
+                  <OrderList />
+                </Grid>
               </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-        <Grid item xs={11}>
-          <Paper
-            variant="outlined"
-            style={{ padding: "1vh", marginTop: "2vh" }}
-          >
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
+            </Paper>
+          </Grid>
+          <Grid item xs={11}>
+            <Paper
+              variant="outlined"
+              style={{ padding: "1vh", marginTop: "2vh" }}
             >
-              <Grid item xs={12}>
-                <OrderList />
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+              >
+                <Grid item xs={12}>
+                  <OrderList />
+                </Grid>
               </Grid>
-            </Grid>
-          </Paper>
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
+      </Hidden>
+      <Hidden mdUp>
+        <ShopOrderMobile />
+      </Hidden>
     </ThemeProvider>
   );
 }
