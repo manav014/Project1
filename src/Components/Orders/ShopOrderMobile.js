@@ -1,20 +1,24 @@
 import React from "react";
+
+// @material-ui components
 import {
   ThemeProvider,
   makeStyles,
   withStyles,
 } from "@material-ui/core/styles";
-import theme from "../../consts/theme";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import product1 from "../../assets/HomePage/product1.png";
-import dairy from "../../assets/HomePage/dairy.jpg";
 import Box from "@material-ui/core/Box";
 import Accordion from "@material-ui/core/Accordion";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AddBoxIcon from "@material-ui/icons/Add";
+
+// local components
+import product1 from "../../assets/HomePage/product1.png";
+import dairy from "../../assets/HomePage/dairy.jpg";
+import theme from "../../consts/theme";
 
 const AccordionSummary = withStyles({
   root: {
