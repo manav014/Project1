@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // Libraries
-import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
 
@@ -16,6 +16,9 @@ import Hidden from "@material-ui/core/Hidden";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { ThemeProvider } from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
 
 // local components
 import AddressCard from "./AddressCard";
@@ -46,6 +49,7 @@ function AddressPage(props) {
   const skeletons = [1, 2, 3];
   const { token } = props;
   const formRef = React.useRef(null);
+  let history = useHistory();
 
   const handleForm = () => {
     formRef.current.scrollIntoView({
@@ -55,6 +59,10 @@ function AddressPage(props) {
       setUpdateDetails(null);
       setTurnEmpty(true);
     }
+  };
+
+  const handleRedirect = (url) => {
+    history.push(url);
   };
 
   const handleSnackClose = (event, reason) => {
@@ -150,9 +158,17 @@ function AddressPage(props) {
   useEffect(() => {
     if (token) getAddresses();
   }, [token]);
+  const steps = ["Shipping address", "Payment details", "Review your order"];
 
   return (
     <ThemeProvider theme={theme}>
+      <Stepper activeStep={0} className={classes.stepper}>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
       <Grid container>
         <Grid item xs={6}>
           <Typography component="h2" variant="h5" className={classes.shipping}>
@@ -182,7 +198,9 @@ function AddressPage(props) {
               <AddressAccordion
                 detail={detail}
                 key={key}
-                handleNext={props.handleNext}
+                handleNext={() => {
+                  handleRedirect("/checkout/payment");
+                }}
                 openEditForm={() => {
                   handleForm();
                   setUpdateDetails(detail);
@@ -217,7 +235,9 @@ function AddressPage(props) {
               <Grid item xs={10} sm={4}>
                 <AddressCard
                   key={key}
-                  handleNext={props.handleNext}
+                  handleNext={() => {
+                    handleRedirect("/checkout/payment");
+                  }}
                   openEditForm={() => {
                     handleForm();
                     setUpdateDetails(detail);
@@ -292,12 +312,14 @@ function AddressPage(props) {
           Unable to process your request!
         </Alert>
       </Snackbar>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button variant="contained" color="primary">
+          {"Next"}
+        </Button>
+      </div>
     </ThemeProvider>
   );
 }
-AddressPage.propTypes = {
-  handleNext: PropTypes.func,
-};
 
 const mapStateToProps = (state) => {
   return {

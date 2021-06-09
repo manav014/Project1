@@ -1,34 +1,21 @@
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import HomePage from "./components/HomePage.js";
-import Checkout from "./components/Checkout";
-import CartPage from "./components/CartPage";
-import Orders from "./components/Orders";
-import MyAccount from "./components/MyAccount";
+import React, { Component } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
+import BaseRouter from "./routes/routes";
 import * as actions from "./store/actions/auth";
 
-function App(props) {
-  const { onTryAutoSignup } = props;
-  useEffect(() => {
-    onTryAutoSignup();
-  }, [onTryAutoSignup]);
+class App extends Component {
+  componentDidMount() {
+    this.props.onTryAutoSignup();
+  }
 
-  return (
-    <div>
+  render() {
+    return (
       <Router>
-        <Switch>
-          <Route exact path="/checkout" component={Checkout} />
-          <Route exact path="/cart" component={CartPage} />
-          <Route exact path="/myaccount" component={MyAccount} />
-          <Route exact path="/orders" component={Orders} />
-          <Route exact path="/" component={HomePage} />
-          <Redirect from="*" to="/" />
-        </Switch>
+        <BaseRouter />
       </Router>
-    </div>
-  );
+    );
+  }
 }
 
 const mapStateToProps = (state) => {

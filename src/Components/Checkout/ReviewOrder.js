@@ -1,12 +1,17 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 // @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
+import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { ThemeProvider } from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
 
 // local components
 import PaymentDetails from "./PaymentDetails";
@@ -26,6 +31,8 @@ const payments = [
   { name: "Card number", detail: "xxxx-xxxx-xxxx-1234" },
   { name: "Expiry date", detail: "04/2024" },
 ];
+
+const steps = ["Shipping address", "Payment details", "Review your order"];
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -53,13 +60,28 @@ const useStyles = makeStyles((theme) => ({
   secondaryHeading: {
     color: theme.palette.text.secondary,
   },
+  stepper: {
+    padding: theme.spacing(3, 2, 5),
+  },
 }));
 
 export default function Review() {
   const classes = useStyles();
 
+  let history = useHistory();
+
+  const handleRedirect = (url) => {
+    history.push(url);
+  };
   return (
     <ThemeProvider theme={theme}>
+      <Stepper activeStep={2} className={classes.stepper}>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
@@ -101,6 +123,18 @@ export default function Review() {
         <PaymentDetails />
       </Hidden>
       <ProductCard />
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button
+          onClick={() => {
+            handleRedirect("/checkout/payment");
+          }}
+        >
+          Back
+        </Button>
+        <Button variant="contained" color="primary">
+          {"Place Order"}
+        </Button>
+      </div>
       {/* <List disablePadding>
         {products.map((product) => (
           <ListItem className={classes.listItem} key={product.name}>

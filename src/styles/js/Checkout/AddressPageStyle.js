@@ -28,6 +28,9 @@ const addressPageStyle = (theme) => ({
       fontSize: "1.8vw",
     },
   },
+  stepper: {
+    padding: theme.spacing(3, 2, 5),
+  },
 });
 
 export default addressPageStyle;
