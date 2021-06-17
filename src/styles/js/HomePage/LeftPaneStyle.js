@@ -29,6 +29,10 @@ const typographyStyle = (theme) => ({
     margin: "auto",
     borderRadius: "8px",
   },
+  buttons: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
   searchbarPlacement: {
     position: "absolute !important",
     top: "5vh !important",

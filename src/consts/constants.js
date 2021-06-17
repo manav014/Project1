@@ -8,3 +8,4 @@ export const accounts_endpoint = `${serverURL}${accountsApiURL}`;
 export const userDetailsURL = `${accounts_endpoint}/account_details/`;
 export const addressURL = `${core_endpoint}/address/`;
 export const addressSlugURL = (slug) => `${addressURL}${slug}/`;
+export const allShopsURL = `${core_endpoint}/allshops/`;

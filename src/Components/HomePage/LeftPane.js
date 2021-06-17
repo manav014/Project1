@@ -34,6 +34,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
+import CloseIcon from "@material-ui/icons/Close";
 import { ThemeProvider } from "@material-ui/core/styles";
 
 // local components
@@ -108,7 +109,7 @@ const ReviewChip = withStyles({
 // TODO: make category dropdown functional and working
 // TODO: Add modal and search suggestions
 // main functional component start
-function LeftPane() {
+function LeftPane(props) {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
   const [value, setValue] = React.useState(2);
@@ -125,342 +126,344 @@ function LeftPane() {
   };
   const [save, setSave] = React.useState(true);
 
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
   const anchor = "left";
 
   return (
     <ThemeProvider theme={theme}>
-      <React.Fragment key={anchor}>
-        <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-        <CustomDrawer
-          disableSwipeToOpen={true}
-          anchor={anchor}
-          open={state[anchor]}
-          onClose={toggleDrawer(anchor, false)}
-          onOpen={toggleDrawer(anchor, true)}
-        >
-          <div style={{ backgroundColor: "#F4F5F5" }}>
-            <Card>
-              <div className={classes.searchbarPlacement}>
-                <SearchBar />
+      {props.shop ? (
+        <React.Fragment key={anchor}>
+          <CustomDrawer
+            variant="permanent"
+            disableSwipeToOpen={true}
+            anchor={anchor}
+            open={props.state[anchor]}
+            onClose={props.toggleDrawer(anchor, false, null)}
+            onOpen={props.toggleDrawer(anchor, true, null)}
+          >
+            <div style={{ backgroundColor: "#F4F5F5" }}>
+              <Card>
+                <div className={classes.searchbarPlacement}>
+                  <div className={classes.buttons}>
+                    <SearchBar />
+                    <IconButton
+                      aria-label="logo"
+                      color="red"
+                      style={{ backgroundColor: "white" }}
+                      onClick={props.toggleDrawer(anchor, false)}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  </div>
+                </div>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    alt="Shop"
+                    height="200"
+                    image={banner_image}
+                    style={{ display: "flex" }}
+                  ></CardMedia>
+                </CardActionArea>
+              </Card>
+              <div style={{ display: "flex" }}>
+                <div variant="h5" component="h2" className={classes.shopName}>
+                  {props.shop.properties.name}
+                </div>
+                <Box
+                  component="fieldset"
+                  borderColor="transparent"
+                  className={classes.rating}
+                >
+                  <Rating
+                    name="read-only"
+                    value={props.shop.properties.rating}
+                    readOnly
+                  />
+                </Box>
               </div>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  alt="Shop"
-                  height="200"
-                  image={banner_image}
-                  style={{ display: "flex" }}
-                ></CardMedia>
-              </CardActionArea>
-            </Card>
-            <div style={{ display: "flex" }}>
-              <div variant="h5" component="h2" className={classes.shopName}>
-                Aggarwal Store
+              <div className={classes.timing}>
+                Open Now - 11:00 AM - 11:00 PM
               </div>
-              <Box
-                component="fieldset"
-                borderColor="transparent"
-                className={classes.rating}
-              >
-                <Rating name="read-only" value={1} readOnly />
-              </Box>
-            </div>
-            <div className={classes.timing}>Open Now - 11:00 AM - 11:00 PM</div>
-            <Divider variant="middle" />
-            <div>
-              <Grid
-                container
+              <Divider variant="middle" />
+              <div>
+                <Grid
+                  container
+                  style={{
+                    alignContent: "center",
+                    justifyItems: "center",
+                    marginTop: "15px",
+                  }}
+                >
+                  <Grid item>
+                    <Tooltip title="Open Now">
+                      <Box
+                        borderRadius="50px"
+                        border={1}
+                        className={classes.iconStyle}
+                      >
+                        <IconButton aria-label="ShopStatus">
+                          <CheckIcon style={{ color: "#37b3f9" }} />
+                        </IconButton>
+                      </Box>
+                    </Tooltip>
+                  </Grid>
+                  <Grid item>
+                    {save == true ? (
+                      <Tooltip title="unsave">
+                        <Box
+                          borderRadius="50px"
+                          border={1}
+                          className={classes.iconStyle}
+                        >
+                          <IconButton
+                            aria-label="SaveShop"
+                            onClick={() => setSave(false)}
+                          >
+                            <BookmarkIcon style={{ color: "#37b3f9" }} />
+                          </IconButton>
+                        </Box>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="save">
+                        <Box
+                          borderRadius="50px"
+                          border={1}
+                          className={classes.iconStyle}
+                        >
+                          <IconButton
+                            aria-label="SaveShop"
+                            onClick={() => setSave(true)}
+                          >
+                            <BookmarkBorderIcon style={{ color: "#37b3f9" }} />
+                          </IconButton>
+                        </Box>
+                      </Tooltip>
+                    )}
+                  </Grid>
+                  <Grid item>
+                    <Tooltip title="Directions">
+                      <Box
+                        borderRadius="50px"
+                        border={1}
+                        className={classes.iconStyle}
+                      >
+                        <IconButton aria-label="Directions">
+                          <DirectionsIcon style={{ color: "#37b3f9" }} />
+                        </IconButton>
+                      </Box>
+                    </Tooltip>
+                  </Grid>
+                  <Grid item>
+                    <Tooltip title="Share">
+                      <Box
+                        borderRadius="50px"
+                        border={1}
+                        className={classes.iconStyle}
+                      >
+                        <IconButton aria-label="ShareShop">
+                          <ShareIcon style={{ color: "#37b3f9" }} />
+                        </IconButton>
+                      </Box>
+                    </Tooltip>
+                  </Grid>
+                  <Grid item>
+                    <Tooltip title="Explore all Products">
+                      <Box
+                        borderRadius="50px"
+                        border={1}
+                        className={classes.iconStyle}
+                      >
+                        <IconButton aria-label="ExploreShop">
+                          <ExploreIcon style={{ color: "#37b3f9" }} />
+                        </IconButton>
+                      </Box>
+                    </Tooltip>
+                  </Grid>
+                </Grid>
+              </div>
+              <Divider
+                variant="middle"
                 style={{
-                  alignContent: "center",
-                  justifyItems: "center",
                   marginTop: "15px",
                 }}
-              >
-                <Grid item>
-                  <Tooltip title="Open Now">
-                    <Box
-                      borderRadius="50px"
-                      border={1}
-                      className={classes.iconStyle}
-                    >
-                      <IconButton aria-label="ShopStatus">
-                        <CheckIcon style={{ color: "#37b3f9" }} />
-                      </IconButton>
-                    </Box>
-                  </Tooltip>
-                </Grid>
-                <Grid item>
-                  {save == true ? (
-                    <Tooltip title="unsave">
-                      <Box
-                        borderRadius="50px"
-                        border={1}
-                        className={classes.iconStyle}
-                      >
-                        <IconButton
-                          aria-label="SaveShop"
-                          onClick={() => setSave(false)}
-                        >
-                          <BookmarkIcon style={{ color: "#37b3f9" }} />
-                        </IconButton>
-                      </Box>
-                    </Tooltip>
-                  ) : (
-                    <Tooltip title="save">
-                      <Box
-                        borderRadius="50px"
-                        border={1}
-                        className={classes.iconStyle}
-                      >
-                        <IconButton
-                          aria-label="SaveShop"
-                          onClick={() => setSave(true)}
-                        >
-                          <BookmarkBorderIcon style={{ color: "#37b3f9" }} />
-                        </IconButton>
-                      </Box>
-                    </Tooltip>
-                  )}
-                </Grid>
-                <Grid item>
-                  <Tooltip title="Directions">
-                    <Box
-                      borderRadius="50px"
-                      border={1}
-                      className={classes.iconStyle}
-                    >
-                      <IconButton aria-label="Directions">
-                        <DirectionsIcon style={{ color: "#37b3f9" }} />
-                      </IconButton>
-                    </Box>
-                  </Tooltip>
-                </Grid>
-                <Grid item>
-                  <Tooltip title="Share">
-                    <Box
-                      borderRadius="50px"
-                      border={1}
-                      className={classes.iconStyle}
-                    >
-                      <IconButton aria-label="ShareShop">
-                        <ShareIcon style={{ color: "#37b3f9" }} />
-                      </IconButton>
-                    </Box>
-                  </Tooltip>
-                </Grid>
-                <Grid item>
-                  <Tooltip title="Explore all Products">
-                    <Box
-                      borderRadius="50px"
-                      border={1}
-                      className={classes.iconStyle}
-                    >
-                      <IconButton aria-label="ExploreShop">
-                        <ExploreIcon style={{ color: "#37b3f9" }} />
-                      </IconButton>
-                    </Box>
-                  </Tooltip>
-                </Grid>
-              </Grid>
-            </div>
-            <Divider
-              variant="middle"
-              style={{
-                marginTop: "15px",
-              }}
-            />
-            <div
-              style={{
-                marginTop: "2vh",
-                marginBottom: "2vh",
-                position: "sticky",
-                zIndex: "1100",
-              }}
-            >
-              <CustomDropdown />
-            </div>
-
-            <div className={classes.bestdeals}>BEST DEALS</div>
-            <div style={{ marginTop: "2vh" }}>
-              <ProductsTab></ProductsTab>
-            </div>
-            <Divider variant="middle" />
-            <ListItem>
-              <ReviewChip
-                onClick={handleClickOpen}
-                variant="outlined"
-                icon={<RateReviewIcon />}
-                label={"Write a Review"}
-                className={classes.chip}
               />
-            </ListItem>
-            <Paper className={classes.paper} elevation={2}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                className={classes.reviewname}
-              >
-                From Customers
-              </Typography>
-              <Divider variant="left" />
-
-              <Typography
-                variant="h6"
-                gutterBottom
-                className={classes.reviewname}
-              >
-                Avanya Wadhwa
-              </Typography>
-              <Typography gutterBottom className={classes.review2}>
-                Local Guid - 219 reviews
-              </Typography>
-              <Typography gutterBottom className={classes.reviewtext}>
-                I think this is the best website ever build.
-              </Typography>
-              <Divider variant="middle" />
-              <Typography
-                variant="h6"
-                gutterBottom
-                className={classes.reviewname}
-              >
-                Manav Agarwal
-              </Typography>
-              <Typography gutterBottom className={classes.review2}>
-                Student - 719 reviews
-              </Typography>
-              <Typography gutterBottom className={classes.reviewtext}>
-                Upar wali comment ko ignore krein.
-              </Typography>
-              <Divider variant="middle" />
-              <Typography
-                variant="h6"
-                gutterBottom
-                className={classes.reviewname}
-              >
-                Avanya Wadhwa
-              </Typography>
-              <Typography gutterBottom className={classes.review2}>
-                Local Guid - 219 reviews
-              </Typography>
-              <Typography gutterBottom className={classes.reviewtext}>
-                I think this is the best website ever build.
-              </Typography>
-              <Divider variant="middle" />
-              <Typography
-                variant="h6"
-                gutterBottom
-                className={classes.reviewname}
-              >
-                Manav Agarwal
-              </Typography>
-              <Typography gutterBottom className={classes.review2}>
-                Student - 719 reviews
-              </Typography>
-              <Typography gutterBottom className={classes.reviewtext}>
-                Upar wali comment ko ignore krein.
-              </Typography>
-              <Divider variant="middle" />
-              <ListItem>
-                <Typography className={classes.morereviews}>
-                  <Link
-                    href="#"
-                    onClick={preventDefault}
-                    style={{ color: "#37b3f9" }}
-                  >
-                    More Reviews (1,673)
-                  </Link>
-                </Typography>
-              </ListItem>
-            </Paper>
-            <Dialog
-              fullScreen={fullScreen}
-              maxWidth={"sm"}
-              open={openmodal}
-              fullWidth={true}
-              onClose={handleClose}
-            >
               <div
-                id="responsive-dialog-title"
                 style={{
-                  textAlign: "center",
-                  fontSize: "1.7rem",
-                  fontWeight: "400",
                   marginTop: "2vh",
+                  marginBottom: "2vh",
+                  position: "sticky",
+                  zIndex: "1100",
                 }}
               >
-                {"Aggarwal Store"}
+                <CustomDropdown />
               </div>
-              <DialogContent>
-                <div style={{ fontSize: "1.1rem", fontWeight: "500" }}>
-                  AVANYA WADHWA
+
+              <div className={classes.bestdeals}>BEST DEALS</div>
+              <div style={{ marginTop: "2vh" }}>
+                <ProductsTab></ProductsTab>
+              </div>
+              <Divider variant="middle" />
+              <ListItem>
+                <ReviewChip
+                  onClick={handleClickOpen}
+                  variant="outlined"
+                  icon={<RateReviewIcon />}
+                  label={"Write a Review"}
+                  className={classes.chip}
+                />
+              </ListItem>
+              <Paper className={classes.paper} elevation={2}>
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  className={classes.reviewname}
+                >
+                  From Customers
+                </Typography>
+                <Divider variant="left" />
+
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  className={classes.reviewname}
+                >
+                  Avanya Wadhwa
+                </Typography>
+                <Typography gutterBottom className={classes.review2}>
+                  Local Guid - 219 reviews
+                </Typography>
+                <Typography gutterBottom className={classes.reviewtext}>
+                  I think this is the best website ever build.
+                </Typography>
+                <Divider variant="middle" />
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  className={classes.reviewname}
+                >
+                  Manav Agarwal
+                </Typography>
+                <Typography gutterBottom className={classes.review2}>
+                  Student - 719 reviews
+                </Typography>
+                <Typography gutterBottom className={classes.reviewtext}>
+                  Upar wali comment ko ignore krein.
+                </Typography>
+                <Divider variant="middle" />
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  className={classes.reviewname}
+                >
+                  Avanya Wadhwa
+                </Typography>
+                <Typography gutterBottom className={classes.review2}>
+                  Local Guid - 219 reviews
+                </Typography>
+                <Typography gutterBottom className={classes.reviewtext}>
+                  I think this is the best website ever build.
+                </Typography>
+                <Divider variant="middle" />
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  className={classes.reviewname}
+                >
+                  Manav Agarwal
+                </Typography>
+                <Typography gutterBottom className={classes.review2}>
+                  Student - 719 reviews
+                </Typography>
+                <Typography gutterBottom className={classes.reviewtext}>
+                  Upar wali comment ko ignore krein.
+                </Typography>
+                <Divider variant="middle" />
+                <ListItem>
+                  <Typography className={classes.morereviews}>
+                    <Link
+                      href="#"
+                      onClick={preventDefault}
+                      style={{ color: "#37b3f9" }}
+                    >
+                      More Reviews (1,673)
+                    </Link>
+                  </Typography>
+                </ListItem>
+              </Paper>
+              <Dialog
+                fullScreen={fullScreen}
+                maxWidth={"sm"}
+                open={openmodal}
+                fullWidth={true}
+                onClose={handleClose}
+              >
+                <div
+                  id="responsive-dialog-title"
+                  style={{
+                    textAlign: "center",
+                    fontSize: "1.7rem",
+                    fontWeight: "400",
+                    marginTop: "2vh",
+                  }}
+                >
+                  {"Aggarwal Store"}
                 </div>
-                <DialogContentText>Posting Publically</DialogContentText>
-                <DialogContentText>
-                  <Rating
-                    name="simple-controlled"
-                    value={value}
-                    onChange={(event, newValue) => {
-                      setValue(newValue);
-                    }}
-                  />
-                </DialogContentText>
-                <DialogContentText>
-                  <FormControl fullWidth>
-                    <TextField
-                      id="outlined-full-width"
-                      label="Label"
-                      style={{ margin: 8 }}
-                      placeholder="Placeholder"
-                      fullWidth="true"
-                      margin="normal"
-                      InputLabelProps={{
-                        shrink: true,
+                <DialogContent>
+                  <div style={{ fontSize: "1.1rem", fontWeight: "500" }}>
+                    AVANYA WADHWA
+                  </div>
+                  <DialogContentText>Posting Publically</DialogContentText>
+                  <DialogContentText>
+                    <Rating
+                      name="simple-controlled"
+                      value={value}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
                       }}
-                      variant="outlined"
                     />
-                  </FormControl>
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions style={{ height: "5vh" }}>
-                <Button
-                  autoFocus
-                  className={classes.onHover}
-                  onClick={handleClose}
-                  style={{ color: "#37b3f9" }}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  onClick={handleClose}
-                  className={classes.onHover}
-                  autoFocus
-                  style={{ color: "#37b3f9" }}
-                >
-                  Post
-                </Button>
-              </DialogActions>
-            </Dialog>
-          </div>
-        </CustomDrawer>
-      </React.Fragment>
+                  </DialogContentText>
+                  <DialogContentText>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="outlined-full-width"
+                        label="Label"
+                        style={{ margin: 8 }}
+                        placeholder="Placeholder"
+                        fullWidth="true"
+                        margin="normal"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="outlined"
+                      />
+                    </FormControl>
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions style={{ height: "5vh" }}>
+                  <Button
+                    autoFocus
+                    className={classes.onHover}
+                    onClick={handleClose}
+                    style={{ color: "#37b3f9" }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleClose}
+                    className={classes.onHover}
+                    autoFocus
+                    style={{ color: "#37b3f9" }}
+                  >
+                    Post
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </div>
+          </CustomDrawer>
+        </React.Fragment>
+      ) : (
+        ""
+      )}
     </ThemeProvider>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, createRef } from "react";
 
 // Libraries
 import classNames from "classnames";
@@ -69,6 +69,8 @@ const AccordionDetails = withStyles((theme) => ({
   },
 }))(MuiAccordionDetails);
 export default function CustomDropdown(props) {
+  const [categoryRefs, setCategoryRefs] = React.useState([]);
+
   const preventDefault = (event) => event.preventDefault();
   // TODO add transition on according expanding
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -79,8 +81,14 @@ export default function CustomDropdown(props) {
       setAnchorEl(event.currentTarget);
     }
   };
-  const handleClose = (param) => {
+  const handleClose = (prop, key) => {
+    categoryRefs[key].current.scrollIntoView({
+      behavior: "smooth",
+    });
+    handleChange(prop);
+
     setAnchorEl(null);
+    // console.log(categoryRefs[key].current.scrollIntoView );
   };
   const handleCloseAway = (event) => {
     if (anchorEl.contains(event.target)) {
@@ -110,8 +118,13 @@ export default function CustomDropdown(props) {
     Dairy: false,
     Flour: false,
   });
-  const handleChange = (prop) => {
+  const handleChange = (prop, key) => {
     setState({ ...state, [prop]: true });
+  };
+  const handleForm = (key) => {
+    categoryRefs[key].current.scrollIntoView({
+      behavior: "smooth",
+    });
   };
   const handleAccordianChange = (prop) => (event, newExpanded) => {
     if (newExpanded === true) {
@@ -120,6 +133,15 @@ export default function CustomDropdown(props) {
       setState({ ...state, [prop]: false });
     }
   };
+
+  useEffect(() => {
+    setCategoryRefs((categoryRefs) =>
+      Array(dropdownList.length)
+        .fill()
+        .map((_, i) => categoryRefs[i] || createRef())
+    );
+  }, [dropdownList.length]);
+
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -157,8 +179,7 @@ export default function CustomDropdown(props) {
                         <MenuItem
                           key={key}
                           onClick={() => {
-                            handleClose();
-                            handleChange(prop);
+                            handleClose(prop, key);
                           }}
                           className={classNames(
                             classes.dropdownItem,
@@ -176,8 +197,8 @@ export default function CustomDropdown(props) {
           )}
         </Popper>
         <div>
-          {dropdownList.map((element) => {
-            return (
+          {dropdownList.map((element, key) => (
+            <div ref={categoryRefs[key]}>
               <Accordion
                 expanded={state[element]}
                 onChange={handleAccordianChange(element)}
@@ -304,8 +325,8 @@ export default function CustomDropdown(props) {
                   </ButtonGroup>
                 </AccordionDetails>
               </Accordion>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </ThemeProvider>

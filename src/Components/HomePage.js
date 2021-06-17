@@ -36,6 +36,27 @@ const useGridStyles = makeStyles(gridStyles);
 const useGridItemStyles = makeStyles(gridItemStyles);
 
 function HomePage() {
+  const [leftPane, setLeftPane] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+  const [shop, setShop] = React.useState(null);
+
+  const toggleDrawer =
+    (anchor, open, shop = null) =>
+    (event) => {
+      if (
+        event &&
+        event.type === "keydown" &&
+        (event.key === "Tab" || event.key === "Shift")
+      ) {
+        return;
+      }
+      setShop(shop);
+      setLeftPane({ ...leftPane, [anchor]: open });
+    };
   const gridclasses = useGridStyles();
   const griditemclasses = useGridItemStyles();
   const classes = useStyles();
@@ -43,7 +64,7 @@ function HomePage() {
     <ThemeProvider theme={theme}>
       <div>
         <HomePageContainer>
-          <Map />
+          <Map toggleDrawer={toggleDrawer} />
           <div className={classes.container}>
             <Grid container className={gridclasses.grid}>
               <Grid item className={griditemclasses.grid}>
@@ -54,10 +75,18 @@ function HomePage() {
                   A Badass Material-UI Kit based on Material Design.
                 </h3>
               </div> */}
-                <div className={classes.searchbarPosition}>
-                  <SearchBar />
-                </div>
-                <LeftPane />
+
+                {shop != null ? (
+                  <LeftPane
+                    state={leftPane}
+                    toggleDrawer={toggleDrawer}
+                    shop={shop}
+                  />
+                ) : (
+                  <div className={classes.searchbarPosition}>
+                    <SearchBar />
+                  </div>
+                )}
               </Grid>
             </Grid>
           </div>
