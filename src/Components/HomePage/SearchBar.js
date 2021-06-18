@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 // @material-ui components
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -13,6 +14,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
 import { createFilterOptions } from "@material-ui/lab/Autocomplete";
 import { ThemeProvider } from "@material-ui/core/styles";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 // local components
 import theme from "../../consts/theme";
@@ -38,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
-    width: 400,
     [theme.breakpoints.down(400 + theme.spacing(3) * 2)]: {
       maxWidth: "90vw",
     },
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   iconButton: {
-    padding: 10,
+    padding: 5,
   },
   divider: {
     height: 28,
@@ -63,11 +64,14 @@ const useStyles = makeStyles((theme) => ({
   // inputRoot: { input: { "&:first-child": { paddingLeft: "5px !important" } } },
 }));
 
-export default function CustomizedInputBase() {
+export default function CustomizedInputBase(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(null);
   const preventDefault = (event) => event.preventDefault();
-
+  let history = useHistory();
+  const handleClick = () => {
+    history.push("/exploreproduct");
+  };
   return (
     <ThemeProvider theme={theme}>
       <Paper component="form" className={classes.root}>
@@ -136,31 +140,47 @@ export default function CustomizedInputBase() {
             aria-label="search"
             onClick={preventDefault}
           >
-            <SearchIcon />
+            <SearchIcon fontSize="small" />
           </IconButton>
         </Tooltip>
         <Divider className={classes.divider} orientation="vertical" />
-        <Tooltip title="Explore Products" className={classes.colorchange}>
-          <IconButton
-            //   color="primary"
-            type="submit"
-            className={classes.iconButton}
-            aria-label="search"
-          >
-            <FastfoodOutlinedIcon />
-          </IconButton>
-        </Tooltip>
-        <Divider className={classes.divider} orientation="vertical" />
-        <Tooltip title="Explore Shops" className={classes.colorchange}>
-          <IconButton
-            // color="primary"
-            type="submit"
-            className={classes.iconButton}
-            aria-label="search"
-          >
-            <StoreOutlinedIcon />
-          </IconButton>
-        </Tooltip>
+        {props.LeftPane == null ? (
+          <Tooltip title="Close" className={classes.colorchange}>
+            <IconButton
+              type="submit"
+              className={classes.iconButton}
+              aria-label="search"
+              onClick={props.close}
+            >
+              <ChevronLeftIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <div style={{ display: "flex" }}>
+            <Tooltip title="Explore Products" className={classes.colorchange}>
+              <IconButton
+                //   color="primary"
+                type="submit"
+                className={classes.iconButton}
+                aria-label="search"
+                onClick={handleClick}
+              >
+                <FastfoodOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            <Divider className={classes.divider} orientation="vertical" />
+            <Tooltip title="Explore Shops" className={classes.colorchange}>
+              <IconButton
+                // color="primary"
+                type="submit"
+                className={classes.iconButton}
+                aria-label="search"
+              >
+                <StoreOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </div>
+        )}
       </Paper>
     </ThemeProvider>
   );
