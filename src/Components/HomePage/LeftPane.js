@@ -128,6 +128,8 @@ function LeftPane(props) {
 
   const anchor = "left";
 
+  console.log(props.shop.properties);
+
   return (
     <ThemeProvider theme={theme}>
       {props.shop ? (
@@ -141,30 +143,20 @@ function LeftPane(props) {
             onOpen={props.toggleDrawer(anchor, true, null)}
           >
             <div style={{ backgroundColor: "#F4F5F5" }}>
-              <Card>
+              <div style={{ position: "relative" }}>
+                <img
+                  src={props.shop.properties.image}
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "27vh",
+                    objectFit: "cover",
+                  }}
+                />
                 <div className={classes.searchbarPlacement}>
-                  <div className={classes.buttons}>
-                    <SearchBar />
-                    <IconButton
-                      aria-label="logo"
-                      color="red"
-                      style={{ backgroundColor: "white" }}
-                      onClick={props.toggleDrawer(anchor, false)}
-                    >
-                      <CloseIcon />
-                    </IconButton>
-                  </div>
+                  <SearchBar close={props.toggleDrawer(anchor, false)} />
                 </div>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    alt="Shop"
-                    height="200"
-                    image={banner_image}
-                    style={{ display: "flex" }}
-                  ></CardMedia>
-                </CardActionArea>
-              </Card>
+              </div>
               <div style={{ display: "flex" }}>
                 <div variant="h5" component="h2" className={classes.shopName}>
                   {props.shop.properties.name}
@@ -182,7 +174,8 @@ function LeftPane(props) {
                 </Box>
               </div>
               <div className={classes.timing}>
-                Open Now - 11:00 AM - 11:00 PM
+                Open Time - {props.shop.properties.open_time.slice(0, 5)} AM -{" "}
+                {props.shop.properties.close_time.slice(0, 5)} PM
               </div>
               <Divider variant="middle" />
               <div>

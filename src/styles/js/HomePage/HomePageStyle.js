@@ -54,6 +54,7 @@ const componentsStyle = {
   },
   searchbarPosition: {
     marginTop: "-45vh",
+    width: "400px",
   },
   textCenter: {
     textAlign: "center",

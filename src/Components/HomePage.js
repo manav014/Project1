@@ -84,7 +84,7 @@ function HomePage() {
                   />
                 ) : (
                   <div className={classes.searchbarPosition}>
-                    <SearchBar />
+                    <SearchBar shop={shop} />
                   </div>
                 )}
               </Grid>
