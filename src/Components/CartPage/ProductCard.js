@@ -20,6 +20,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import styles from "../../styles/js/CartPage/CartPageStyle.js";
 import product1 from "../../assets/HomePage/product1.png";
 import product2 from "../../assets/HomePage/product2.png";
+import product3 from "../../assets/HomePage/flour.jpg";
 import theme from "../../consts/theme";
 
 const useStyles = makeStyles(styles);
@@ -246,7 +247,7 @@ export default function SimplePaper() {
                 inputProps={{ "aria-label": "secondary checkbox" }}
               />
               <ButtonBase className={classes.image}>
-                <img className={classes.img} alt="complex" src={product2} />
+                <img className={classes.img} alt="complex" src={product3} />
               </ButtonBase>
             </Grid>
             <Grid item xs={12} sm container>

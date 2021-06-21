@@ -1,0 +1,168 @@
+Views:-
+1. User Interface(logged in/logged out)
+2. For logged in
+3. shopkeepers
+4. admin
+
+
+Pages:-
+1.1 Home Page
+	1.1.1 Header
+		a Search Bar - In side Panel
+		b Login /Sign up - done(Modal is to be designed)
+		c Logo - Done
+		d Location - In side Panel
+		e Cart - Done
+
+ //Logged in
+		(i) Logout - Done
+		(ii) Profile Dropdown - Done
+			(a) Link to all Logged in pages - Done
+	1.1.2 Footer
+	1.1.3 Map
+		a Left Panel
+			i Image - done
+			ii Shop Name - done
+			iii Address(Details) - done
+			iv Stars/Rating - done
+			v Reviews
+			vi Directions
+			vii Best selling products
+			viii Working hours
+			iX Share shop details
+			(Left)X More Nearby Shops
+			(Left)Xi Deal for shops
+			Xii Explore all products
+			Xiii Write a review
+			XiX menu using dropdown like open in google maps
+			xx Enter location textbox
+		a Popup
+			i Name over image
+			ii Stars/Rating
+			iii Working hours
+			iv Shop status
+			v Explore Products
+			PROS
+				1. Easy to design and implement in both mobile and lapy
+				2. From user perspective
+					2.1 Explore easily(In mobile version)
+					2.2 All details of a shop in a page
+					2.3 
+
+	1.1.4 Category wise product carousels
+	1.1.5 Offers
+	1.1.6 Deal of the day
+	1.1.7 Nearby Shops(if location) otherwise top shops
+	1.1.8 Shops (For Gifts, For Daily products etc.)
+
+1.2 Cart Page
+	1.2.1 Header
+	1.2.2 Products
+		1.2.2.1 Quantity
+		1.2.2.2 Delete
+		1.2.2.3 Move to wishlist
+		1.2.2.4 Price per unit
+		1.2.2.5 All quantity total price
+		1.2.2.6 Shipping
+		1.2.2.7 Per product offer
+	1.2.3 Proceed to payment
+	1.2.4 SubTotal(price breakage)
+	1.2.5 Related products
+	1.2.6 Footer
+	1.2.7 Enter pincode to check delivery
+	1.2.8 Message like You will save ₹1,500 on this order
+	1.2.9 category constraints
+
+
+1.3 Login/Sign Up
+1.4 Product Page(layout from paytm)
+	1.4.1 Product image and images explore
+	1.4.2 Product Name
+	1.4.3 Shop Name
+	1.4.4 Share options
+    1.4.5 Rating hover from amazon
+    1.4.6 MRP
+    1.4.7 Discounted Price
+    1.4.8 quantity
+    1.4.9 Rate per weight
+    1.4.10 Offers
+    1.4.11 Add to cart
+    1.4.12 Buy now
+    1.4.13 Add to wishlist
+    1.4.14 Expiry Date
+    1.4.15 Delivery by
+    1.4.16 4 warranty and return icons like amazon
+    1.4.17 Product status(stock or out of stock)
+    1.4.18 About the item (description i points)
+    1.4.19 Ask a question
+    1.4.20 Similar products
+    1.4.21 Details in tabular form from amazon
+    1.4.22 Reviews section in bottom
+    1.4.23 Size/Variant
+    1.4.24 Delivery Status with pincode
+    1.4.25 
+
+1.5 Product Detail Page
+1.6 Left Panel
+1.7 Shop list
+1.8 Shop Detail Page 
+	1.8.1 Direction
+
+Account Management
+//imp in dropdown
+
+    Accordian with default expanded open 
+            Shops in Accordian
+    Cards: My Orders(Accordian)
+            Orders card:
+                Rating from Myntra (modal)
+                Pic of order
+                Order item name 
+                Order item price
+
+
+    ,My Rashon List/Saved Rashon List, Login/Profile & Security
+    Tabs:Payments
+            Saved card Add card
+        Address Management
+                    saved Addresses (ADD/DELETE Option)
+         My Stuff
+                    Reviews and rating 
+                     My wishlist
+                     Coupens
+        Support                
+                    Contact Us  
+                     Need Help
+         Logout 
+
+
+	2.1 Profile Page
+	2.2 Payment/Delivery Page
+		2.2.1Apply gift card
+	2.3 Account Page
+	2.6 Wish List
+	2.5 Orders,order history
+	2.8 Saved Payment Page
+	2.9 Saved Rashon list
+
+
+2.4 Check Out Page
+2.7 Coupons
+2.10 Manage Addresses
+2.11 Login and Security
+2.12 Notification 
+
+// Switch between accounts! 
+
+Explore Products
+1. SlideShow for products(from swiggy)(best dairy products etc.)
+2. offer on daily products tiles from jiomart
+3. title with carouser from zomato
+4. Top deals from jiomart
+5. Shop by categories from jio mart
+6. Fashion Brands on Discounts from flipkart 
+7. circular card like Myntra
+8. add to cart button like groffers
+9. back to top button
+10. expand ctegory o hover from flipkart
+11. ek bada sa banner
