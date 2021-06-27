@@ -121,13 +121,16 @@ const typographyStyle = (theme) => ({
       marginTop: "1.8vh !important",
     },
   },
+  address: {
+    marginTop: "-2vh",
+    paddingLeft: "10px",
+  },
   timing: {
     paddingLeft: "10px",
     color: "#777777",
     fontSize: "0.8rem",
     fontWeight: "400",
     marginBottom: "2vh",
-    marginTop: "-2vh",
   },
   textfieldstyle: {
     width: "1vw",

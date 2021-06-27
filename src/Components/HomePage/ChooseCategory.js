@@ -1,4 +1,4 @@
-import React, { useEffect, createRef } from "react";
+import React, { useEffect, createRef, useState } from "react";
 
 // Libraries
 import classNames from "classnames";
@@ -21,6 +21,10 @@ import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import Popper from "@material-ui/core/Popper";
 import { ThemeProvider } from "@material-ui/core/styles";
+import Skeleton from "@material-ui/lab/Skeleton";
+import Box from "@material-ui/core/Box";
+import axios from "axios";
+import { ProductSearchWithCategory } from "../../consts/constants";
 
 // local components
 import theme from "../../consts/theme";
@@ -70,6 +74,8 @@ const AccordionDetails = withStyles((theme) => ({
 }))(MuiAccordionDetails);
 export default function CustomDropdown(props) {
   const [categoryRefs, setCategoryRefs] = React.useState([]);
+  const [loading, setLoading] = useState(true);
+  const [productDetails, setProductDetails] = useState({});
 
   const preventDefault = (event) => event.preventDefault();
   // TODO add transition on according expanding
@@ -96,7 +102,12 @@ export default function CustomDropdown(props) {
     }
     setAnchorEl(null);
   };
-  const dropdownList = ["Breads", "Dal", "Dairy", "Flour"];
+  var categoryList = props.category;
+  categoryList = categoryList.replaceAll('"', "");
+  categoryList = categoryList.replace("[", "");
+  categoryList = categoryList.replace("]", "");
+  // console.log(categoryList);
+  const dropdownList = categoryList.split(",");
 
   const classes = useStyles();
   const caretClasses = classNames({
@@ -132,6 +143,22 @@ export default function CustomDropdown(props) {
     } else {
       setState({ ...state, [prop]: false });
     }
+  };
+  const handleProductCategory = (sslug, cslug) => {
+    setLoading(true);
+    axios
+      .get(ProductSearchWithCategory(sslug, cslug), {})
+      .then((res) => {
+        setProductDetails({ ...productDetails, [cslug]: res.data });
+        setLoading(false);
+        console.log(productDetails);
+      })
+
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        //TODO Error
+      });
   };
 
   useEffect(() => {
@@ -202,6 +229,7 @@ export default function CustomDropdown(props) {
               <Accordion
                 expanded={state[element]}
                 onChange={handleAccordianChange(element)}
+                onClick={() => handleProductCategory(props.shopSlug, element)}
               >
                 <AccordionSummary
                   aria-controls="panel1a-content"
@@ -209,121 +237,98 @@ export default function CustomDropdown(props) {
                 >
                   <Typography>{element}</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    <Link href="#" onClick={preventDefault}>
-                      {element}
-                    </Link>
-                    <div style={{ display: "flex" }}>
-                      <div
-                        style={{
-                          fontSize: "13px",
-                          lineHeight: "15px",
-                          display: "flex",
-                        }}
-                      >
-                        &#8377;
-                        <div style={{ marginLeft: "1px" }}>21</div>
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "13px",
-                          lineHeight: "15px",
-                          textDecoration: "line-through",
-                          color: "#777777",
-                          marginLeft: "5px",
-                          display: "flex",
-                        }}
-                      >
-                        &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-                      </div>
-                    </div>
-                  </Typography>
+                {!loading ? (
+                  <div>
+                    {console.log(productDetails[element])}
+                    {productDetails[element] &&
+                    productDetails[element] !== [] ? (
+                      productDetails[element].map((e, k) => (
+                        <AccordionDetails>
+                          <Typography>
+                            <Link href="#" onClick={preventDefault}>
+                              {e.product.name}
+                            </Link>
+                            <div style={{ display: "flex" }}>
+                              <div
+                                style={{
+                                  fontSize: "13px",
+                                  lineHeight: "15px",
+                                  display: "flex",
+                                }}
+                              >
+                                &#8377;
+                                <div style={{ marginLeft: "1px" }}>21</div>
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "13px",
+                                  lineHeight: "15px",
+                                  textDecoration: "line-through",
+                                  color: "#777777",
+                                  marginLeft: "5px",
+                                  display: "flex",
+                                }}
+                              >
+                                &#8377;{" "}
+                                <div style={{ marginLeft: "1px" }}>25</div>
+                              </div>
+                            </div>
+                          </Typography>
 
-                  <ButtonGroup
-                    style={{
-                      position: "absolute",
-                      right: "1vw",
-                    }}
-                  >
-                    <RemoveCircleIcon
-                      onClick={subtract}
-                      style={{ color: "#37b3f9", cursor: "pointer" }}
-                    ></RemoveCircleIcon>
+                          <ButtonGroup
+                            style={{
+                              position: "absolute",
+                              right: "1vw",
+                            }}
+                          >
+                            <RemoveCircleIcon
+                              onClick={subtract}
+                              style={{ color: "#37b3f9", cursor: "pointer" }}
+                            ></RemoveCircleIcon>
 
-                    <div
-                      style={{
-                        minWidth: "15px",
-                        marginLeft: "1px",
-                        textAlign: "center",
-                      }}
-                    >
-                      {count}
-                    </div>
+                            <div
+                              style={{
+                                minWidth: "15px",
+                                marginLeft: "1px",
+                                textAlign: "center",
+                              }}
+                            >
+                              {count}
+                            </div>
 
-                    <AddCircleIcon
-                      onClick={add}
-                      style={{ color: "#37b3f9", cursor: "pointer" }}
-                    ></AddCircleIcon>
-                  </ButtonGroup>
-                </AccordionDetails>
-                <AccordionDetails>
-                  <Typography>
-                    <Link href="#" onClick={preventDefault}>
-                      Maida Wali Bread
-                    </Link>
-                    <div style={{ display: "flex" }}>
-                      <div
-                        style={{
-                          fontSize: "13px",
-                          lineHeight: "15px",
-                          display: "flex",
-                        }}
-                      >
-                        &#8377; <div style={{ marginLeft: "1px" }}>21</div>
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "13px",
-                          lineHeight: "15px",
-                          textDecoration: "line-through",
-                          color: "#777777",
-                          marginLeft: "5px",
-                          display: "flex",
-                        }}
-                      >
-                        &#8377; <div style={{ marginLeft: "1px" }}>25</div>
-                      </div>
-                    </div>
-                  </Typography>
-
-                  <ButtonGroup
-                    style={{
-                      position: "absolute",
-                      right: "1vw",
-                    }}
-                  >
-                    <RemoveCircleIcon
-                      onClick={subtract}
-                      style={{ color: "#37b3f9", cursor: "pointer" }}
-                    ></RemoveCircleIcon>
-
-                    <div
-                      style={{
-                        minWidth: "15px",
-                        marginLeft: "1px",
-                        textAlign: "center",
-                      }}
-                    >
-                      {count}
-                    </div>
-
-                    <AddCircleIcon
-                      onClick={add}
-                      style={{ color: "#37b3f9", cursor: "pointer" }}
-                    ></AddCircleIcon>
-                  </ButtonGroup>
-                </AccordionDetails>
+                            <AddCircleIcon
+                              onClick={add}
+                              style={{ color: "#37b3f9", cursor: "pointer" }}
+                            ></AddCircleIcon>
+                          </ButtonGroup>
+                        </AccordionDetails>
+                      ))
+                    ) : (
+                      <AccordionDetails>
+                        <Typography>
+                          <Link href="#" onClick={preventDefault}>
+                            {element}
+                          </Link>
+                        </Typography>
+                      </AccordionDetails>
+                    )}
+                  </div>
+                ) : (
+                  <div>
+                    <Box width={300} marginLeft={2} marginRight={2} my={1}>
+                      <Box pt={0.5}>
+                        <Skeleton width="50%" />
+                        <Skeleton />
+                      </Box>
+                    </Box>
+                    <Box width={300} marginLeft={2} marginRight={2} my={1}>
+                      <Box pt={0.5}>
+                        <Skeleton width="50%" />
+                        <Skeleton />
+                      </Box>
+                    </Box>
+                  </div>
+                )}
               </Accordion>
             </div>
           ))}

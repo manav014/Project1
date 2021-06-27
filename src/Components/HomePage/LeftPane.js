@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+import { connect } from "react-redux";
 
 // @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,9 +11,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Divider from "@material-ui/core/Divider";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import ShareIcon from "@material-ui/icons/Share";
@@ -21,8 +20,8 @@ import ExploreIcon from "@material-ui/icons/Explore";
 import DirectionsIcon from "@material-ui/icons/Directions";
 import Tooltip from "@material-ui/core/Tooltip";
 import CheckIcon from "@material-ui/icons/Check";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import FavoriteBorderSharpIcon from "@material-ui/icons/FavoriteBorderSharp";
+import FavoriteSharpIcon from "@material-ui/icons/FavoriteSharp";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import MuiChip from "@material-ui/core/Chip";
 import Link from "@material-ui/core/Link";
@@ -36,14 +35,19 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import CloseIcon from "@material-ui/icons/Close";
 import { ThemeProvider } from "@material-ui/core/styles";
-
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 // local components
 import CustomDropdown from "./ChooseCategory";
 import SearchBar from "./SearchBar";
 import ProductsTab from "./ProductsTab";
-import banner_image from "../../assets/HomePage/levis.jpg";
 import styles from "../../styles/js/HomePage/LeftPaneStyle.js";
 import theme from "../../consts/theme";
+import { favouriteSlugURL } from "../../consts/constants";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 // Making styles
 const useStyles = makeStyles(styles);
@@ -116,7 +120,25 @@ function LeftPane(props) {
   const [openmodal, setOpenModal] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const { token } = props;
+  const [AddFav, setAddFav] = React.useState(false);
+  const [RemoveFav, setRemoveFav] = React.useState(false);
 
+  const handleCloseFav = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setAddFav(false);
+  };
+
+  const handleCloseRemoveFav = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setRemoveFav(false);
+  };
   const handleClickOpen = () => {
     setOpenModal(true);
   };
@@ -129,7 +151,54 @@ function LeftPane(props) {
   const anchor = "left";
 
   console.log(props.shop.properties);
+  var today = new Date(),
+    CurrentTime =
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  const ShopOpen = props.shop.properties.open_time;
+  const ShopClose = props.shop.properties.close_time;
 
+  const handleDelete = () => {
+    axios
+      .delete(favouriteSlugURL(props.shop.properties.slug), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setAddFav(false);
+          setRemoveFav(true);
+          setSave(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+
+  const handleAddtoFav = () => {
+    console.log(token);
+    axios
+      .post(
+        favouriteSlugURL(props.shop.properties.slug),
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          setRemoveFav(false);
+          setAddFav(true);
+          setSave(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
   return (
     <ThemeProvider theme={theme}>
       {props.shop ? (
@@ -169,9 +238,20 @@ function LeftPane(props) {
                   <Rating
                     name="read-only"
                     value={props.shop.properties.rating}
+                    precision={0.5}
                     readOnly
                   />
                 </Box>
+              </div>
+              <div className={classes.address}>
+                {props.shop.properties.building_no}
+                &nbsp;
+                {props.shop.properties.locality}
+                &nbsp;
+                {props.shop.properties.city}
+                ,&nbsp;
+                {props.shop.properties.state},&nbsp;
+                {props.shop.properties.area_pincode}
               </div>
               <div className={classes.timing}>
                 Open Time - {props.shop.properties.open_time.slice(0, 5)} AM -{" "}
@@ -188,17 +268,31 @@ function LeftPane(props) {
                   }}
                 >
                   <Grid item>
-                    <Tooltip title="Open Now">
-                      <Box
-                        borderRadius="50px"
-                        border={1}
-                        className={classes.iconStyle}
-                      >
-                        <IconButton aria-label="ShopStatus">
-                          <CheckIcon style={{ color: "#37b3f9" }} />
-                        </IconButton>
-                      </Box>
-                    </Tooltip>
+                    {CurrentTime > ShopOpen && CurrentTime < ShopClose ? (
+                      <Tooltip title="closed">
+                        <Box
+                          borderRadius="50px"
+                          border={1}
+                          className={classes.iconStyle}
+                        >
+                          <IconButton aria-label="ShopStatus">
+                            <CloseIcon style={{ color: "#37b3f9" }} />
+                          </IconButton>
+                        </Box>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="Open Now">
+                        <Box
+                          borderRadius="50px"
+                          border={1}
+                          className={classes.iconStyle}
+                        >
+                          <IconButton aria-label="ShopStatus">
+                            <CheckIcon style={{ color: "#37b3f9" }} />
+                          </IconButton>
+                        </Box>
+                      </Tooltip>
+                    )}
                   </Grid>
                   <Grid item>
                     {save == true ? (
@@ -210,9 +304,9 @@ function LeftPane(props) {
                         >
                           <IconButton
                             aria-label="SaveShop"
-                            onClick={() => setSave(false)}
+                            onClick={handleDelete}
                           >
-                            <BookmarkIcon style={{ color: "#37b3f9" }} />
+                            <FavoriteSharpIcon style={{ color: "#37b3f9" }} />
                           </IconButton>
                         </Box>
                       </Tooltip>
@@ -225,9 +319,11 @@ function LeftPane(props) {
                         >
                           <IconButton
                             aria-label="SaveShop"
-                            onClick={() => setSave(true)}
+                            onClick={handleAddtoFav}
                           >
-                            <BookmarkBorderIcon style={{ color: "#37b3f9" }} />
+                            <FavoriteBorderSharpIcon
+                              style={{ color: "#37b3f9" }}
+                            />
                           </IconButton>
                         </Box>
                       </Tooltip>
@@ -288,7 +384,10 @@ function LeftPane(props) {
                   zIndex: "1100",
                 }}
               >
-                <CustomDropdown />
+                <CustomDropdown
+                  shopSlug={props.shop.properties.slug}
+                  category={props.shop.properties.category}
+                />
               </div>
 
               <div className={classes.bestdeals}>BEST DEALS</div>
@@ -453,6 +552,34 @@ function LeftPane(props) {
               </Dialog>
             </div>
           </CustomDrawer>
+          <Snackbar
+            open={AddFav}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            autoHideDuration={6000}
+            onClose={handleCloseFav}
+          >
+            <Alert
+              onClose={handleCloseFav}
+              style={{ zIndex: "12" }}
+              severity="success"
+            >
+              Added to Favourites!
+            </Alert>
+          </Snackbar>
+          <Snackbar
+            open={RemoveFav}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            autoHideDuration={6000}
+            onClose={handleCloseRemoveFav}
+          >
+            <Alert
+              onClose={handleCloseRemoveFav}
+              style={{ zIndex: "12" }}
+              severity="error"
+            >
+              Removed from Favourites!
+            </Alert>
+          </Snackbar>
         </React.Fragment>
       ) : (
         ""
@@ -461,4 +588,9 @@ function LeftPane(props) {
   );
 }
 // main functional component end
-export default LeftPane;
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+export default connect(mapStateToProps)(LeftPane);
