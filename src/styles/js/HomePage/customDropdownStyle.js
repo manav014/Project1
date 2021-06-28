@@ -185,6 +185,10 @@ const customDropdownStyle = (theme) => ({
   noLiPadding: {
     padding: "0",
   },
+    buttonPadding: {
+    padding: "10px",
+    margin:"5px",
+  },
 });
 
 export default customDropdownStyle;

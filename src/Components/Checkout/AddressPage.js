@@ -125,7 +125,7 @@ function AddressPage(props) {
       )
       .then((res) => {
         const newDetails = details;
-        const index = newDetails.findIndex((obj) => obj.slug == res.data.slug);
+        const index = newDetails.findIndex((obj) => obj.slug === res.data.slug);
         newDetails[index] = res.data;
         setdetails(newDetails);
         setEditSuccess(true);
@@ -157,6 +157,8 @@ function AddressPage(props) {
 
   useEffect(() => {
     if (token) getAddresses();
+    // HELP The below comment is to remove warning
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
   const steps = ["Shipping address", "Payment details", "Review your order"];
 

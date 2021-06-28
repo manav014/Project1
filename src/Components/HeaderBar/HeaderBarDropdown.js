@@ -118,7 +118,7 @@ function HeaderBarDropdown(props) {
   };
   const [username, setUserName] = useState("");
   useEffect(() => {
-    if (authenticated && username == "") {
+    if (authenticated && username === "") {
       axios
         .get(userDetailsURL, {
           headers: {
@@ -131,15 +131,14 @@ function HeaderBarDropdown(props) {
         .catch((err) => {
           console.log(err.response);
         });
-    } else if (!authenticated && username != "") {
+    } else if (!authenticated && username !== "") {
       setOpenSuccess(true);
       setAuthSuccess("Logged Out");
       setUserName("");
     }
-    {
-      authSuccess ? setOpenSuccess(true) : setOpenSuccess(false);
-    }
-  }, [authenticated, token, authSuccess]);
+
+    authSuccess ? setOpenSuccess(true) : setOpenSuccess(false);
+  }, [authenticated, token, authSuccess, username]);
   return (
     <ThemeProvider theme={theme}>
       <div>

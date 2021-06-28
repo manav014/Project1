@@ -99,7 +99,7 @@ export default function MediaCard() {
   const classes = useStyles();
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <h2 style={{ marginLeft: "1vw" }}>TOP DEALS</h2>
       <Carousel
         swipeable={true}
@@ -293,6 +293,6 @@ export default function MediaCard() {
           </CardActionArea>
         </Card>
       </Carousel>
-    </div>
+    </ThemeProvider>
   );
 }

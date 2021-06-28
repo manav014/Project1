@@ -36,6 +36,8 @@ const useStyles = makeStyles(() => ({
 
 function SideBarMobile(props) {
   const [username, setUserName] = useState("Khushi Rauniyar");
+  // TODO to be removed after complete backend imlpementation
+  setUserName("Khushi Rauniyar");
   const classes = useStyles();
   const { token } = props;
   if (!token) {

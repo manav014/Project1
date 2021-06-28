@@ -65,9 +65,9 @@ function GirdDiscounts() {
             Explore all varities of Dal and Pulses
           </div>
           <img className={classes.GridImage1} src={dal} alt="" />
-          <a className={classes.seemore} href="" variant="body2">
+          <div className={classes.seemore} variant="body2">
             see more
-          </a>
+          </div>
         </Grid>
         <Grid item className={classes.gridBorder}>
           <div className={classes.heading}>Snacks Time!</div>

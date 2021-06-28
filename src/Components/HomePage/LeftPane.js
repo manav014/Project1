@@ -42,7 +42,7 @@ import CustomDropdown from "./ChooseCategory";
 import SearchBar from "./SearchBar";
 import ProductsTab from "./ProductsTab";
 import styles from "../../styles/js/HomePage/LeftPaneStyle.js";
-import theme from "../../consts/theme";
+import customTheme from "../../consts/theme";
 import { favouriteSlugURL } from "../../consts/constants";
 
 function Alert(props) {
@@ -150,7 +150,6 @@ function LeftPane(props) {
 
   const anchor = "left";
 
-  console.log(props.shop.properties);
   var today = new Date(),
     CurrentTime =
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -177,7 +176,6 @@ function LeftPane(props) {
   };
 
   const handleAddtoFav = () => {
-    console.log(token);
     axios
       .post(
         favouriteSlugURL(props.shop.properties.slug),
@@ -200,16 +198,14 @@ function LeftPane(props) {
       });
   };
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={customTheme}>
       {props.shop ? (
         <React.Fragment key={anchor}>
           <CustomDrawer
             variant="permanent"
-            disableSwipeToOpen={true}
             anchor={anchor}
             open={props.state[anchor]}
             onClose={props.toggleDrawer(anchor, false, null)}
-            onOpen={props.toggleDrawer(anchor, true, null)}
           >
             <div style={{ backgroundColor: "#F4F5F5" }}>
               <div style={{ position: "relative" }}>
@@ -237,7 +233,7 @@ function LeftPane(props) {
                 >
                   <Rating
                     name="read-only"
-                    value={props.shop.properties.rating}
+                    value={Number(props.shop.properties.rating)}
                     precision={0.5}
                     readOnly
                   />
@@ -295,7 +291,7 @@ function LeftPane(props) {
                     )}
                   </Grid>
                   <Grid item>
-                    {save == true ? (
+                    {save === true ? (
                       <Tooltip title="unsave">
                         <Box
                           borderRadius="50px"
@@ -384,6 +380,7 @@ function LeftPane(props) {
                   zIndex: "1100",
                 }}
               >
+                {console.log(props.shop)}
                 <CustomDropdown
                   shopSlug={props.shop.properties.slug}
                   category={props.shop.properties.category}
@@ -412,7 +409,7 @@ function LeftPane(props) {
                 >
                   From Customers
                 </Typography>
-                <Divider variant="left" />
+                <Divider />
 
                 <Typography
                   variant="h6"

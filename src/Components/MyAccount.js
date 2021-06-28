@@ -28,6 +28,8 @@ const useStyles = makeStyles(() => ({
 function MyAccount(props) {
   const classes = useStyles();
   const [username, setUserName] = useState("Khushi Rauniyar");
+  // TODO to be removed after complete backend imlpementation
+  setUserName("Khushi Rauniyar");
   const { token } = props;
   if (!token) {
     return <Redirect to="/" />;

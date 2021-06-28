@@ -76,7 +76,7 @@ function HomePage() {
                 </h3>
               </div> */}
 
-                {shop != null ? (
+                {shop !== null ? (
                   <LeftPane
                     state={leftPane}
                     toggleDrawer={toggleDrawer}

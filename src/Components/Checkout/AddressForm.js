@@ -132,7 +132,7 @@ function AddressForm(props) {
     }
   };
   React.useEffect(() => {
-    if (props.updateDetails != null) {
+    if (props.updateDetails !== null) {
       setAddressData(props.updateDetails);
     }
     if (props.turnEmpty) {
@@ -148,11 +148,11 @@ function AddressForm(props) {
       });
       props.setTurnEmpty(false);
     }
-  }, [props.updateDetails, props.turnEmpty]);
+  }, [props]);
   return (
     <ThemeProvider theme={theme}>
       <Typography variant="h6" gutterBottom align="center">
-        {props.updateDetails == null
+        {props.updateDetails === null
           ? "Add a new Address"
           : "Update the Address"}
       </Typography>
@@ -279,7 +279,7 @@ function AddressForm(props) {
             />
           </Grid>
           <Grid item xs className={classes.buttons}>
-            {props.updateDetails == null ? (
+            {props.updateDetails === null ? (
               <Button
                 type="submit"
                 variant="contained"

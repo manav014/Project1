@@ -95,7 +95,7 @@ function ShopOrderMobile() {
               <Grid container spacing={2}>
                 <Grid item xs>
                   <ButtonBase className={classes.image}>
-                    <img className={classes.img} src={product1} />
+                    <img alt="imag1e" className={classes.img} src={product1} />
                   </ButtonBase>
                 </Grid>
                 <Grid item xs={7}>
@@ -136,7 +136,7 @@ function ShopOrderMobile() {
               <Grid container spacing={2}>
                 <Grid item xs>
                   <ButtonBase className={classes.image}>
-                    <img className={classes.img} src={dairy} />
+                    <img alt="1" className={classes.img} src={dairy} />
                   </ButtonBase>
                 </Grid>
                 <Grid item xs={7}>

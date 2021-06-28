@@ -7,7 +7,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 
 // local components
 import AddressPage from "../Checkout/AddressPage";
-import PersonalForm from "./PersonalForm";
+// import PersonalForm from "./PersonalForm";
 import theme from "../../consts/theme";
 
 function MainContainer() {

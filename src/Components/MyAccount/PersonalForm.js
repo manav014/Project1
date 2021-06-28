@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // @material-ui components
 import TextField from "@material-ui/core/TextField";
@@ -188,7 +188,6 @@ function PersonalForm(props) {
                 inputProps={{
                   pattern: "[1-9]{1}[0-9]{9}",
                 }}
-                label
                 required
                 id="contact"
                 name="contact"

@@ -144,7 +144,7 @@ export default function CustomizedInputBase(props) {
           </IconButton>
         </Tooltip>
         <Divider className={classes.divider} orientation="vertical" />
-        {props.LeftPane == null ? (
+        {props.LeftPane === null ? (
           <Tooltip title="Close" className={classes.colorchange}>
             <IconButton
               type="submit"

@@ -88,7 +88,9 @@ function Login(props) {
         console.log("Network Error");
       }
     }
-  }, [token, error]);
+    // HELP The below comment is to remove warning
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token, error, formData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

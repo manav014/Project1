@@ -87,15 +87,6 @@ export default function CustomDropdown(props) {
       setAnchorEl(event.currentTarget);
     }
   };
-  const handleClose = (prop, key) => {
-    categoryRefs[key].current.scrollIntoView({
-      behavior: "smooth",
-    });
-    handleChange(prop);
-
-    setAnchorEl(null);
-    // console.log(categoryRefs[key].current.scrollIntoView );
-  };
   const handleCloseAway = (event) => {
     if (anchorEl.contains(event.target)) {
       return;
@@ -105,8 +96,10 @@ export default function CustomDropdown(props) {
   var categoryList = props.category;
   categoryList = categoryList.replaceAll('"', "");
   categoryList = categoryList.replace("[", "");
-  categoryList = categoryList.replace("]", "");
-  // console.log(categoryList);
+  var pos = categoryList.lastIndexOf("]");
+  categoryList =
+    categoryList.substring(0, pos) + "" + categoryList.substring(pos + 1);
+
   const dropdownList = categoryList.split(",");
 
   const classes = useStyles();
@@ -122,38 +115,45 @@ export default function CustomDropdown(props) {
       setCount(0);
     } else setCount(count - 1);
   };
-  const [count, setCount] = React.useState(0);
-  const [state, setState] = React.useState({
-    Breads: false,
-    Dal: false,
-    Dairy: false,
-    Flour: false,
+
+  const defaultState = {};
+  dropdownList.map((ele) => {
+    defaultState[ele] = false;
+    return null;
   });
-  const handleChange = (prop, key) => {
+  const [count, setCount] = React.useState(0);
+  const [state, setState] = React.useState(defaultState);
+  const hadleOpenAccordion = (prop, key) => {
     setState({ ...state, [prop]: true });
   };
-  const handleForm = (key) => {
-    categoryRefs[key].current.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
-  const handleAccordianChange = (prop) => (event, newExpanded) => {
-    if (newExpanded === true) {
-      setState({ ...state, [prop]: true });
-    } else {
-      setState({ ...state, [prop]: false });
-    }
-  };
-  const handleProductCategory = (sslug, cslug) => {
+  const handleAccordianChange =
+    (key, element, sslug) => (event, newExpanded) => {
+      if (newExpanded === true) {
+        setState({ ...state, [element]: true });
+        key !== -1
+          ? handleProductCategory(key, sslug, element)
+          : handleProductCategory(-1, sslug, element);
+      } else {
+        setState({ ...state, [element]: false });
+      }
+    };
+  const handleProductCategory = (key, sslug, cslug) => {
     setLoading(true);
     axios
       .get(ProductSearchWithCategory(sslug, cslug), {})
       .then((res) => {
         setProductDetails({ ...productDetails, [cslug]: res.data });
         setLoading(false);
-        console.log(productDetails);
+        if (key !== -1) {
+          categoryRefs[key].current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            alignToTop: 0,
+          });
+          hadleOpenAccordion(cslug);
+          setAnchorEl(null);
+        }
       })
-
       .catch((err) => {
         console.log(err);
         setLoading(false);
@@ -173,15 +173,15 @@ export default function CustomDropdown(props) {
     <ThemeProvider theme={theme}>
       <div>
         <Paper
+          variant="outlined"
           style={{
             position: "sticky",
             top: 0,
             zIndex: 1,
           }}
-          color="primary"
           elevation={0}
         >
-          <Button onClick={handleClick}>
+          <Button onClick={handleClick} className={classes.buttonPadding}>
             Choose a Category
             <b className={caretClasses} />
           </Button>
@@ -189,47 +189,47 @@ export default function CustomDropdown(props) {
         <Popper
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
-          transition
           disablePortal
           className={classNames({
             [classes.popperClose]: !anchorEl,
             [classes.popperResponsive]: true,
           })}
         >
-          {() => (
-            <Grow in={Boolean(anchorEl)} style={{ transformOrigin: "0 0 0" }}>
-              <Paper className={classes.dropdown}>
-                <ClickAwayListener onClickAway={handleCloseAway}>
-                  <MenuList role="menu" className={classes.menuList}>
-                    {dropdownList.map((prop, key) => {
-                      return (
-                        <MenuItem
-                          key={key}
-                          onClick={() => {
-                            handleClose(prop, key);
-                          }}
-                          className={classNames(
-                            classes.dropdownItem,
-                            classes["primaryHover"]
-                          )}
-                        >
-                          {prop}
-                        </MenuItem>
-                      );
-                    })}
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
+          <Grow in={Boolean(anchorEl)}>
+            <Paper className={classes.dropdown}>
+              <ClickAwayListener onClickAway={handleCloseAway}>
+                <MenuList role="menu" className={classes.menuList}>
+                  {dropdownList.map((prop, key) => {
+                    return (
+                      <MenuItem
+                        key={key}
+                        onClick={() => {
+                          handleAccordianChange(
+                            key,
+                            prop,
+                            props.shopSlug
+                          )("adsf", true);
+                        }}
+                        className={classNames(
+                          classes.dropdownItem,
+                          classes["primaryHover"]
+                        )}
+                      >
+                        {prop}
+                      </MenuItem>
+                    );
+                  })}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
         </Popper>
         <div>
           {dropdownList.map((element, key) => (
-            <div ref={categoryRefs[key]}>
+            <div ref={categoryRefs[key]} key={key}>
               <Accordion
                 expanded={state[element]}
-                onChange={handleAccordianChange(element)}
-                onClick={() => handleProductCategory(props.shopSlug, element)}
+                onChange={handleAccordianChange(-1, element, props.shopSlug)}
               >
                 <AccordionSummary
                   aria-controls="panel1a-content"
@@ -237,11 +237,26 @@ export default function CustomDropdown(props) {
                 >
                   <Typography>{element}</Typography>
                 </AccordionSummary>
-                {!loading ? (
+
+                {loading && !productDetails[element] ? (
                   <div>
-                    {console.log(productDetails[element])}
+                    <Box width={300} marginLeft={2} marginRight={2} my={1}>
+                      <Box pt={0.5}>
+                        <Skeleton width="50%" />
+                        <Skeleton />
+                      </Box>
+                    </Box>
+                    <Box width={300} marginLeft={2} marginRight={2} my={1}>
+                      <Box pt={0.5}>
+                        <Skeleton width="50%" />
+                        <Skeleton />
+                      </Box>
+                    </Box>
+                  </div>
+                ) : (
+                  <div>
                     {productDetails[element] &&
-                    productDetails[element] !== [] ? (
+                    productDetails[element].length !== 0 ? (
                       productDetails[element].map((e, k) => (
                         <AccordionDetails>
                           <Typography>
@@ -305,28 +320,9 @@ export default function CustomDropdown(props) {
                       ))
                     ) : (
                       <AccordionDetails>
-                        <Typography>
-                          <Link href="#" onClick={preventDefault}>
-                            {element}
-                          </Link>
-                        </Typography>
+                        <Typography>No Items present under this</Typography>
                       </AccordionDetails>
                     )}
-                  </div>
-                ) : (
-                  <div>
-                    <Box width={300} marginLeft={2} marginRight={2} my={1}>
-                      <Box pt={0.5}>
-                        <Skeleton width="50%" />
-                        <Skeleton />
-                      </Box>
-                    </Box>
-                    <Box width={300} marginLeft={2} marginRight={2} my={1}>
-                      <Box pt={0.5}>
-                        <Skeleton width="50%" />
-                        <Skeleton />
-                      </Box>
-                    </Box>
                   </div>
                 )}
               </Accordion>

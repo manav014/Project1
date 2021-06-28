@@ -8,22 +8,11 @@ import marker from "../../assets/HomePage/marker.png";
 import { allShopsURL } from "../../consts/constants";
 import mapboxgl from "mapbox-gl";
 import { withStyles } from "@material-ui/core/styles";
-import MuiAlert from "@material-ui/lab/Alert";
-import { Snackbar } from "@material-ui/core";
+
 var stores = {
   type: "FeatureCollection",
   features: [],
 };
-function Alert(props) {
-  return (
-    <MuiAlert
-      elevation={6}
-      variant="filled"
-      {...props}
-      style={{ zIndex: 122 }}
-    />
-  );
-}
 const getShops = () => {
   axios
     .get(allShopsURL, {})
@@ -37,8 +26,8 @@ const getShops = () => {
           },
           properties: { ...shop },
         });
+        return null;
       });
-      console.log(stores);
     })
     .catch((err) => {
       console.log(err.response);
@@ -99,7 +88,7 @@ class Map extends React.Component {
         center: center,
         zoom: self.state.zoom,
       });
-      var marker = new mapboxgl.Marker({
+      new mapboxgl.Marker({
         color: "#37b3f9",
         draggable: true,
       })
@@ -119,7 +108,7 @@ class Map extends React.Component {
           zoom: map.getZoom().toFixed(2),
         });
       });
-      const nav = new mapboxgl.NavigationControl();
+      new mapboxgl.NavigationControl();
       // map.addControl(nav, "top-right");
       // map.addControl(
       //   new mapboxgl.GeolocateControl({
@@ -185,7 +174,7 @@ class Map extends React.Component {
         /** Check if there is already a popup on the map and if so, remove it */
         if (popUps[0]) popUps[0].remove();
 
-        var popup = new mapboxgl.Popup({ closeOnClick: false })
+        new mapboxgl.Popup({ closeOnClick: false })
           .setLngLat(currentFeature.geometry.coordinates)
           .setHTML(
             "<h3>" +

@@ -1,7 +1,7 @@
 import React from "react";
 
 // Libraries
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 // @material-ui components
@@ -22,14 +22,7 @@ const useStyles = makeStyles(styles);
 
 function Checkout(props) {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
   const { token } = props;
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
 
   if (!token) {
     return <Redirect to="/" />;

@@ -3,7 +3,6 @@ import oats from "../../assets/ExploreProduct/oatsImage.jpg";
 import dairy from "../../assets/ExploreProduct/dairy.png";
 import nuts from "../../assets/ExploreProduct/nuts.png";
 import pulses from "../../assets/ExploreProduct/dal.png";
-import flour from "../../assets/ExploreProduct/flour.jpg";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";

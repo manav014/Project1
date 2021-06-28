@@ -26,9 +26,6 @@ const useStyles = makeStyles((theme) => ({
     color: "#B40000",
     fontWeight: "700",
     fontSize: "1.1rem",
-    background: "#FFFFFF",
-    background: "-webkit-linear-gradient(top, #FFFFFF, #BCE7FF)",
-    background: "-moz-linear-gradient(top, #FFFFFF, #BCE7FF)",
     background: "linear-gradient(to bottom, #FFFFFF,#BCE7FF)",
   },
 }));
@@ -110,9 +107,7 @@ function OffersDailyProduct() {
               color: "#B40000",
               fontWeight: "700",
               fontSize: "1.1rem",
-              background: "#FFFFFF",
-              background: "-webkit-linear-gradient(top, #FFFFFF, #BCE7FF)",
-              background: "-moz-linear-gradient(top, #FFFFFF, #BCE7FF)",
+
               background: "linear-gradient(to bottom, #FFFFFF,#BCE7FF)",
             }}
           >
