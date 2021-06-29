@@ -153,8 +153,6 @@ function LeftPane(props) {
   var today = new Date(),
     CurrentTime =
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  const ShopOpen = props.shop.properties.open_time;
-  const ShopClose = props.shop.properties.close_time;
 
   const handleDelete = () => {
     axios
@@ -166,6 +164,10 @@ function LeftPane(props) {
       .then((res) => {
         if (res.status === 200) {
           setAddFav(false);
+          const newFav = props.favShops.filter(
+            (item) => item !== props.shop.properties.slug
+          );
+          props.setFavShops(newFav);
           setRemoveFav(true);
           setSave(false);
         }
@@ -190,6 +192,8 @@ function LeftPane(props) {
         if (res.status === 200) {
           setRemoveFav(false);
           setAddFav(true);
+          const newFav = props.favShops.concat(props.shop.properties.slug);
+          props.setFavShops(newFav);
           setSave(true);
         }
       })
@@ -197,6 +201,11 @@ function LeftPane(props) {
         console.log(err.response);
       });
   };
+  React.useEffect(() => {
+    today = new Date();
+    CurrentTime =
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  }, [props.shop]);
   return (
     <ThemeProvider theme={customTheme}>
       {props.shop ? (
@@ -233,8 +242,8 @@ function LeftPane(props) {
                 >
                   <Rating
                     name="read-only"
-                    value={Number(props.shop.properties.rating)}
-                    precision={0.5}
+                    value={parseFloat(props.shop.properties.rating)}
+                    precision={0.1}
                     readOnly
                   />
                 </Box>
@@ -264,7 +273,10 @@ function LeftPane(props) {
                   }}
                 >
                   <Grid item>
-                    {CurrentTime > ShopOpen && CurrentTime < ShopClose ? (
+                    {!(
+                      CurrentTime > props.shop.properties.open_time &&
+                      CurrentTime < props.shop.properties.close_time
+                    ) ? (
                       <Tooltip title="closed">
                         <Box
                           borderRadius="50px"
@@ -291,7 +303,7 @@ function LeftPane(props) {
                     )}
                   </Grid>
                   <Grid item>
-                    {save === true ? (
+                    {props.favShops.includes(props.shop.properties.slug) ? (
                       <Tooltip title="unsave">
                         <Box
                           borderRadius="50px"

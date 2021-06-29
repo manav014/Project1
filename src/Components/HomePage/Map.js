@@ -42,6 +42,7 @@ const mapStyles = {
     left: "0",
     bottom: "0",
   },
+
   marker: {
     backgroundImage: "url(" + marker + ")",
     backgroundSize: "cover",
@@ -88,6 +89,7 @@ class Map extends React.Component {
         center: center,
         zoom: self.state.zoom,
       });
+      // TODO add heart marker for favourite shops
       new mapboxgl.Marker({
         color: "#37b3f9",
         draggable: true,

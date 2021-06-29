@@ -2,6 +2,8 @@ import React from "react";
 
 // Libraries
 import classNames from "classnames";
+import { connect } from "react-redux";
+import axios from "axios";
 
 // @material-ui components
 import Grid from "@material-ui/core/Grid";
@@ -16,12 +18,14 @@ import HomePageContainer from "./HomePage/HomePageContainer.js";
 import HeaderBar from "./HeaderBar.js";
 import styles from "../styles/js/HomePage/HomePageStyle.js";
 import theme from "../consts/theme";
+import { favouriteURL } from "../consts/constants";
 
 const gridStyles = {
   grid: {
     width: "auto",
   },
 };
+
 const gridItemStyles = {
   grid: {
     position: "relative",
@@ -31,11 +35,12 @@ const gridItemStyles = {
     flexBasis: "auto",
   },
 };
+
 const useStyles = makeStyles(styles);
 const useGridStyles = makeStyles(gridStyles);
 const useGridItemStyles = makeStyles(gridItemStyles);
 
-function HomePage() {
+function HomePage(props) {
   const [leftPane, setLeftPane] = React.useState({
     top: false,
     left: false,
@@ -43,6 +48,24 @@ function HomePage() {
     right: false,
   });
   const [shop, setShop] = React.useState(null);
+  const { token } = props;
+  const [favShops, setFavShops] = React.useState([]);
+  const getSavedShops = () => {
+    if (token) {
+      axios
+        .get(favouriteURL, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setFavShops(res.data.favshops);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   const toggleDrawer =
     (anchor, open, shop = null) =>
@@ -60,6 +83,12 @@ function HomePage() {
   const gridclasses = useGridStyles();
   const griditemclasses = useGridItemStyles();
   const classes = useStyles();
+
+  React.useEffect(() => {
+    getSavedShops();
+  }, [token]);
+  // TODO add breadcrums in single product page
+  // TODO add tabs in mobile view navigation
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -81,6 +110,8 @@ function HomePage() {
                     state={leftPane}
                     toggleDrawer={toggleDrawer}
                     shop={shop}
+                    favShops={favShops}
+                    setFavShops={setFavShops}
                   />
                 ) : (
                   <div className={classes.searchbarPosition}>
@@ -191,4 +222,10 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+
+export default connect(mapStateToProps)(HomePage);

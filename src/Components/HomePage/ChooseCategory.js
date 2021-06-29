@@ -100,7 +100,7 @@ export default function CustomDropdown(props) {
   categoryList =
     categoryList.substring(0, pos) + "" + categoryList.substring(pos + 1);
 
-  const dropdownList = categoryList.split(",");
+  var dropdownList = categoryList.split(",");
 
   const classes = useStyles();
   const caretClasses = classNames({
@@ -116,7 +116,7 @@ export default function CustomDropdown(props) {
     } else setCount(count - 1);
   };
 
-  const defaultState = {};
+  var defaultState = {};
   dropdownList.map((ele) => {
     defaultState[ele] = false;
     return null;
@@ -162,12 +162,28 @@ export default function CustomDropdown(props) {
   };
 
   useEffect(() => {
+    setCategoryRefs([]);
+    setProductDetails({});
+    setAnchorEl(null);
+    categoryList = props.category;
+    categoryList = categoryList.replaceAll('"', "");
+    categoryList = categoryList.replace("[", "");
+    pos = categoryList.lastIndexOf("]");
+    categoryList =
+      categoryList.substring(0, pos) + "" + categoryList.substring(pos + 1);
+    dropdownList = categoryList.split(",");
+    defaultState = {};
+    dropdownList.map((ele) => {
+      defaultState[ele] = false;
+      return null;
+    });
+    setState(defaultState);
     setCategoryRefs((categoryRefs) =>
       Array(dropdownList.length)
         .fill()
         .map((_, i) => categoryRefs[i] || createRef())
     );
-  }, [dropdownList.length]);
+  }, [dropdownList.length, props.shopSlug]);
 
   return (
     <ThemeProvider theme={theme}>
