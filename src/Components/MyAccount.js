@@ -30,6 +30,7 @@ const useStyles = makeStyles(() => ({
 function MyAccount(props) {
   const classes = useStyles();
   const [username, setUserName] = useState("");
+  const [userDetails, setUserDetails] = useState("");
   // TODO to be removed after complete backend imlpementation
   // setUserName("Khushi Rauniyar");
   const { token, authenticated } = props;
@@ -43,7 +44,7 @@ function MyAccount(props) {
           },
         })
         .then((res) => {
-          console.log(res);
+          setUserDetails(res.data);
           setUserName(
             res.data.fname.charAt(0).toUpperCase() +
               res.data.fname.slice(1) +
@@ -95,12 +96,14 @@ function MyAccount(props) {
               <SideBar />
             </Grid>
             <Grid item xs={8}>
-              <MainContainer />
+              <MainContainer
+                userDetails={userDetails}
+                setUserDetails={setUserDetails}
+              />
             </Grid>
           </Grid>
         </Hidden>
       </div>
-
       <Hidden mdUp>
         <SideBarMobile uname={username} />
       </Hidden>

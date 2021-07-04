@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import axios from "axios";
 
 // @material-ui components
 import TextField from "@material-ui/core/TextField";
@@ -12,6 +14,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
+
+import { userDetailsURL } from "../../consts/constants";
 
 const useStyles = makeStyles((theme) => ({
   buttons: {
@@ -135,7 +139,24 @@ function PersonalForm(props) {
   const changePasswordHandler = (e) => {
     e.preventDefault();
   };
+  const { token } = props;
 
+  React.useEffect(() => {
+    if (!props.userDetails && token) {
+      axios
+        .get(userDetailsURL, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          props.setUserDetails(res.data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    }
+  }, [props.userDetails]);
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static">
@@ -155,7 +176,8 @@ function PersonalForm(props) {
                 name="firstName"
                 label="First name"
                 fullWidth
-                autoComplete="given-name"
+                variant="filled"
+                defaultValue={props.userDetails.fname}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -316,4 +338,10 @@ function PersonalForm(props) {
   );
 }
 
-export default PersonalForm;
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+
+export default connect(mapStateToProps)(PersonalForm);

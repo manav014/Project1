@@ -115,14 +115,14 @@ function SideBar() {
               />
             </ListItem>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
+              <ListItem
+                button
+                className={classes.nested}
+                onClick={() => handleRedirect("/myaccount/address")}
+              >
                 <ListItemText
                   primary={
-                    <Typography
-                      variant="button"
-                      color="primary"
-                      onClick={() => handleRedirect("/myaccount/address")}
-                    >
+                    <Typography variant="button" color="primary">
                       Manage Addresses
                     </Typography>
                   }
@@ -141,7 +141,11 @@ function SideBar() {
               />
             </ListItem>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
+              <ListItem
+                button
+                className={classes.nested}
+                onClick={() => handleRedirect("/myaccount/review")}
+              >
                 <ListItemText
                   primary={
                     <Typography variant="button" color="primary">

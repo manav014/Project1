@@ -11,7 +11,7 @@ import MyAccountRoutes from "../../routes/MyAccountRoutes";
 // import PersonalForm from "./PersonalForm";
 import theme from "../../consts/theme";
 
-function MainContainer() {
+function MainContainer(props) {
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -20,7 +20,10 @@ function MainContainer() {
             <Grid item xs={12}>
               {/* <PersonalForm /> */}
               {/* <AddressPage /> */}
-              <MyAccountRoutes />
+              <MyAccountRoutes
+                userDetails={props.userDetails}
+                setUserDetails={props.setUserDetails}
+              />
             </Grid>
           </Grid>
         </Paper>

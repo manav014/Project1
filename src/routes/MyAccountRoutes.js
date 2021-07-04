@@ -3,11 +3,18 @@ import { Route } from "react-router-dom";
 
 import AddressPage from "../components/Checkout/AddressPage";
 import PersonalForm from "../components/MyAccount/PersonalForm";
+import ReviewSection from "../components/MyAccount/ReviewSection";
 
-const CheckoutRoutes = () => (
+const MyAccountRoutes = (props) => (
   <div>
     <Route exact path="/myaccount">
-      <PersonalForm />
+      <PersonalForm
+        userDetails={props.userDetails}
+        setUserDetails={props.setUserDetails}
+      />
+    </Route>
+    <Route exact path="/myaccount/review">
+      <ReviewSection />
     </Route>
     <Route exact path="/myaccount/address">
       <AddressPage />
@@ -15,4 +22,4 @@ const CheckoutRoutes = () => (
   </div>
 );
 
-export default CheckoutRoutes;
+export default MyAccountRoutes;
