@@ -9,7 +9,7 @@ FIGMA
 FrontEnd
 1. Rashion List
 2. Single Page
-3. contact us and need help and Coupoun
+3. contact us and need help and Coupon
 4. Explore Shop
 5. Single Shop Page
 

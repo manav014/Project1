@@ -73,7 +73,7 @@ const AccordionDetails = withStyles((theme) => ({
   },
 }))(MuiAccordionDetails);
 export default function CustomDropdown(props) {
-  const [categoryRefs, setCategoryRefs] = React.useState([]);
+  const [categoryRefs, setCategoryRefs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [productDetails, setProductDetails] = useState({});
 
@@ -103,17 +103,20 @@ export default function CustomDropdown(props) {
   var dropdownList = categoryList.split(",");
 
   const classes = useStyles();
+  const [productCount, setCounters] = useState({});
   const caretClasses = classNames({
     [classes.caret]: true,
     [classes.caretActive]: Boolean(anchorEl),
   });
-  const add = () => {
-    setCount(count + 1);
+  const add = (slug) => {
+    var a = productCount[slug] ? productCount[slug] : 0;
+    setCounters({ ...productCount, [slug]: a + 1 });
   };
-  const subtract = () => {
-    if (count <= 0) {
-      setCount(0);
-    } else setCount(count - 1);
+  const subtract = (slug) => {
+    if (productCount[slug] && productCount[slug] > 0) {
+      var a = productCount[slug];
+      setCounters({ ...productCount, [slug]: a - 1 });
+    } else setCounters({ ...productCount, [slug]: 0 });
   };
 
   var defaultState = {};
@@ -313,7 +316,7 @@ export default function CustomDropdown(props) {
                             }}
                           >
                             <RemoveCircleIcon
-                              onClick={subtract}
+                              onClick={() => subtract(e.product.slug)}
                               style={{ color: "#37b3f9", cursor: "pointer" }}
                             ></RemoveCircleIcon>
 
@@ -324,11 +327,13 @@ export default function CustomDropdown(props) {
                                 textAlign: "center",
                               }}
                             >
-                              {count}
+                              {productCount[e.product.slug]
+                                ? productCount[e.product.slug]
+                                : 0}
                             </div>
 
                             <AddCircleIcon
-                              onClick={add}
+                              onClick={() => add(e.product.slug)}
                               style={{ color: "#37b3f9", cursor: "pointer" }}
                             ></AddCircleIcon>
                           </ButtonGroup>
