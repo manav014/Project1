@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Libraries
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 import { connect } from "react-redux";
 
 // @material-ui components
@@ -19,6 +20,7 @@ import MainContainer from "./MyAccount/MainContainer";
 import SideBar from "./MyAccount/SideBar";
 import SideBarMobile from "./MyAccount/SideBarMobile.js";
 import theme from "../consts/theme";
+import { userDetailsURL } from "../consts/constants";
 
 const useStyles = makeStyles(() => ({
   avatar: {
@@ -27,13 +29,39 @@ const useStyles = makeStyles(() => ({
 }));
 function MyAccount(props) {
   const classes = useStyles();
-  const [username, setUserName] = useState("Khushi Rauniyar");
+  const [username, setUserName] = useState("");
   // TODO to be removed after complete backend imlpementation
-  setUserName("Khushi Rauniyar");
-  const { token } = props;
+  // setUserName("Khushi Rauniyar");
+  const { token, authenticated } = props;
+
+  useEffect(() => {
+    if (authenticated) {
+      axios
+        .get(userDetailsURL, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setUserName(
+            res.data.fname.charAt(0).toUpperCase() +
+              res.data.fname.slice(1) +
+              " " +
+              res.data.lname.charAt(0).toUpperCase() +
+              res.data.lname.slice(1)
+          );
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    }
+  }, [authenticated, token]);
+
   if (!token) {
     return <Redirect to="/" />;
   }
+
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -74,7 +102,7 @@ function MyAccount(props) {
       </div>
 
       <Hidden mdUp>
-        <SideBarMobile />
+        <SideBarMobile uname={username} />
       </Hidden>
     </ThemeProvider>
   );
@@ -82,6 +110,7 @@ function MyAccount(props) {
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
+    authenticated: state.auth.token !== null,
   };
 };
 

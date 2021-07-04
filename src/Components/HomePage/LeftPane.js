@@ -303,38 +303,42 @@ function LeftPane(props) {
                     )}
                   </Grid>
                   <Grid item>
-                    {props.favShops.includes(props.shop.properties.slug) ? (
-                      <Tooltip title="unsave">
-                        <Box
-                          borderRadius="50px"
-                          border={1}
-                          className={classes.iconStyle}
-                        >
-                          <IconButton
-                            aria-label="SaveShop"
-                            onClick={handleDelete}
+                    {token ? (
+                      props.favShops.includes(props.shop.properties.slug) ? (
+                        <Tooltip title="unsave">
+                          <Box
+                            borderRadius="50px"
+                            border={1}
+                            className={classes.iconStyle}
                           >
-                            <FavoriteSharpIcon style={{ color: "#37b3f9" }} />
-                          </IconButton>
-                        </Box>
-                      </Tooltip>
+                            <IconButton
+                              aria-label="SaveShop"
+                              onClick={handleDelete}
+                            >
+                              <FavoriteSharpIcon style={{ color: "#37b3f9" }} />
+                            </IconButton>
+                          </Box>
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="save">
+                          <Box
+                            borderRadius="50px"
+                            border={1}
+                            className={classes.iconStyle}
+                          >
+                            <IconButton
+                              aria-label="SaveShop"
+                              onClick={handleAddtoFav}
+                            >
+                              <FavoriteBorderSharpIcon
+                                style={{ color: "#37b3f9" }}
+                              />
+                            </IconButton>
+                          </Box>
+                        </Tooltip>
+                      )
                     ) : (
-                      <Tooltip title="save">
-                        <Box
-                          borderRadius="50px"
-                          border={1}
-                          className={classes.iconStyle}
-                        >
-                          <IconButton
-                            aria-label="SaveShop"
-                            onClick={handleAddtoFav}
-                          >
-                            <FavoriteBorderSharpIcon
-                              style={{ color: "#37b3f9" }}
-                            />
-                          </IconButton>
-                        </Box>
-                      </Tooltip>
+                      <div></div>
                     )}
                   </Grid>
                   <Grid item>

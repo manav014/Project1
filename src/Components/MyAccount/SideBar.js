@@ -15,6 +15,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import { ThemeProvider } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 
 // local components
 import theme from "../../consts/theme";
@@ -32,7 +33,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function SideBar() {
+  let history = useHistory();
+
   const classes = useStyles();
+  const handleRedirect = (url) => {
+    history.push(url);
+  };
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -52,7 +58,11 @@ function SideBar() {
               />
             </ListItem>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
+              <ListItem
+                button
+                className={classes.nested}
+                onClick={() => handleRedirect("/myaccount")}
+              >
                 <ListItemText
                   primary={
                     <Typography variant="button" color="primary">
@@ -108,7 +118,11 @@ function SideBar() {
               <ListItem button className={classes.nested}>
                 <ListItemText
                   primary={
-                    <Typography variant="button" color="primary">
+                    <Typography
+                      variant="button"
+                      color="primary"
+                      onClick={() => handleRedirect("/myaccount/address")}
+                    >
                       Manage Addresses
                     </Typography>
                   }

@@ -16,6 +16,7 @@ const BaseRouter = () => (
     <Route exact path="/checkout/*" component={Checkout} />
     <Route exact path="/cart" component={CartPage} />
     <Route exact path="/ExploreProduct" component={ExploreProduct} />
+    <Route exact path="/myaccount/*" component={MyAccount} />
     <Route exact path="/myaccount" component={MyAccount} />
     <Route exact path="/orders" component={Orders} />
     <Route exact path="/" component={HomePage} />

@@ -1,0 +1,32 @@
+FIGMA
+1. My account page
+   contact us and need help
+2. Rashion List
+3. Logo
+4. Explore Shop
+5. Sibngle shop 
+
+FrontEnd
+1. Rashion List
+2. Single Page
+3. contact us and need help and Coupoun
+4. Explore Shop
+5. Single Shop Page
+
+BackEnd
+7. orders ka backend
+1. Best Deals backend (Left Pane)
+2. Explore Shop
+3. Product Descrioption
+4. Explore Product backend
+5. Coupons Backend
+6. rating and Reviews my list backend
+
+8. Rashion List
+9. Single Product Page 
+10, Single Shop Page
+
+
+The most importatn part
+1. UI improvement 
+	to be turned from boring to interesting

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Libraries
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 import { connect } from "react-redux";
 
 // @material-ui components
@@ -19,6 +20,7 @@ import Button from "@material-ui/core/Button";
 // local components
 import SideBar from "./SideBar";
 import theme from "../../consts/theme";
+import { userDetailsURL } from "../../consts/constants";
 
 const useStyles = makeStyles(() => ({
   avatar: {
@@ -35,11 +37,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 function SideBarMobile(props) {
-  const [username, setUserName] = useState("Khushi Rauniyar");
+  const [username, setUserName] = useState("");
   // TODO to be removed after complete backend imlpementation
-  setUserName("Khushi Rauniyar");
+  // setUserName("Khushi Rauniyar");
+  const { token, uname } = props;
+
+  useEffect(() => {
+    setUserName(uname);
+  }, [uname]);
+
   const classes = useStyles();
-  const { token } = props;
   if (!token) {
     return <Redirect to="/" />;
   }
@@ -93,6 +100,7 @@ function SideBarMobile(props) {
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
+    authenticated: state.auth.token !== null,
   };
 };
 
