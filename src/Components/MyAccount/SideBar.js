@@ -154,7 +154,11 @@ function SideBar() {
                   }
                 />
               </ListItem>
-              <ListItem button className={classes.nested}>
+              <ListItem
+                button
+                className={classes.nested}
+                onClick={() => handleRedirect("/myaccount/wishlist")}
+              >
                 <ListItemText
                   primary={
                     <Typography variant="button" color="primary">

@@ -45,60 +45,124 @@ function ReviewSection() {
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
+        <Typography
+          component="h1"
+          variant="h4"
+          align="center"
+          //   style={{ marginLeft: "3vw", marginTop: "5vh" }}
+        >
+          Your Review
+        </Typography>
         <Paper className={classes.paper}>
-          <Grid container spacing={2}>
-            <Grid item>
-              <Checkbox
-                defaultChecked
-                color="primary"
-                inputProps={{ "aria-label": "secondary checkbox" }}
-              />
-              <ButtonBase className={classes.image}>
-                <img className={classes.img} alt="complex" src={product1} />
-              </ButtonBase>
-            </Grid>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <Typography
-                    gutterBottom
-                    variant="subtitle1"
-                    style={{ fontWeight: "bold" }}
-                  >
-                    Khushi Multi Store
-                  </Typography>
-                  <Typography
-                    gutterBottom
-                    variant="body2"
-                    style={{ color: "grey" }}
-                  >
-                    Ghaziabad, UttarPradesh, 123432
-                  </Typography>
-                  <Grid container>
-                    <Grid xs={5}>
-                      <Rating name="read-only" value={3} readOnly />
+          <Grid container>
+            <Grid item xs={6}>
+              <Grid container spacing={2}>
+                <Grid item>
+                  <Checkbox defaultChecked color="primary" />
+                  <ButtonBase className={classes.image}>
+                    <img className={classes.img} alt="complex" src={product1} />
+                  </ButtonBase>
+                </Grid>
+                <Grid item xs={12} sm container>
+                  <Grid item xs container direction="column" spacing={2}>
+                    <Grid item xs>
+                      <Typography
+                        gutterBottom
+                        variant="subtitle1"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        Khushi Multi Store
+                      </Typography>
+                      <Typography
+                        gutterBottom
+                        variant="body2"
+                        style={{ color: "grey" }}
+                      >
+                        Ghaziabad, UttarPradesh, 123432
+                      </Typography>
+                      <Grid container>
+                        <Grid xs={5}>
+                          <Rating name="read-only" value={3} readOnly />
+                        </Grid>
+                        <Grid>
+                          <Typography variant="caption" gutterBottom>
+                            19. November. 2020
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Typography variant="subtitle2" gutterBottom>
+                        Amazing Shop
+                      </Typography>
                     </Grid>
-                    <Grid>
-                      <Typography variant="caption" gutterBottom>
-                        19. November. 2020
+                    <Grid item>
+                      <Typography
+                        variant="body2"
+                        style={{ cursor: "pointer", color: "#00A3FF" }}
+                      >
+                        Edit | Delete | Share
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Typography variant="subtitle2" gutterBottom>
-                    Amazing Shop
-                  </Typography>
                 </Grid>
-                <Grid item>
-                  <Typography
-                    variant="body2"
-                    style={{ cursor: "pointer", color: "#00A3FF" }}
-                  >
-                    Edit | Delete | Share
-                  </Typography>
-                </Grid>
+                <Divider className={classes.divider} orientation="horizontal" />
               </Grid>
             </Grid>
-            <Divider className={classes.divider} orientation="horizontal" />
+            <Grid item xs={6}>
+              <Grid container spacing={2}>
+                <Grid item>
+                  <Checkbox
+                    defaultChecked
+                    color="primary"
+                    inputProps={{ "aria-label": "secondary checkbox" }}
+                  />
+                  <ButtonBase className={classes.image}>
+                    <img className={classes.img} alt="complex" src={product1} />
+                  </ButtonBase>
+                </Grid>
+                <Grid item xs={12} sm container>
+                  <Grid item xs container direction="column" spacing={2}>
+                    <Grid item xs>
+                      <Typography
+                        gutterBottom
+                        variant="subtitle1"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        Khushi Multi Store
+                      </Typography>
+                      <Typography
+                        gutterBottom
+                        variant="body2"
+                        style={{ color: "grey" }}
+                      >
+                        Ghaziabad, UttarPradesh, 123432
+                      </Typography>
+                      <Grid container>
+                        <Grid xs={5}>
+                          <Rating name="read-only" value={3} readOnly />
+                        </Grid>
+                        <Grid>
+                          <Typography variant="caption" gutterBottom>
+                            19. November. 2020
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Typography variant="subtitle2" gutterBottom>
+                        Amazing Shop
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography
+                        variant="body2"
+                        style={{ cursor: "pointer", color: "#00A3FF" }}
+                      >
+                        Edit | Delete | Share
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Divider className={classes.divider} orientation="horizontal" />
+              </Grid>
+            </Grid>
           </Grid>
         </Paper>
       </div>
