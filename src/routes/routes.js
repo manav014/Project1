@@ -7,12 +7,13 @@ import CartPage from "../components/CartPage";
 import ExploreProduct from "../components/ExploreProduct";
 import Orders from "../components/Orders";
 import MyAccount from "../components/MyAccount";
+import SingleProduct from "../components/SingleProduct";
 
 const BaseRouter = () => (
   <div>
     {/* For references on how to pass values */}
     {/* <Route path="/products/:productID" component={ProductDetail} /> */}
-
+    <Route exact path="/single" component={SingleProduct} />  
     <Route exact path="/checkout/*" component={Checkout} />
     <Route exact path="/cart" component={CartPage} />
     <Route exact path="/ExploreProduct" component={ExploreProduct} />
