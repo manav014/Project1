@@ -3,9 +3,9 @@ import { Route } from "react-router-dom";
 
 import Typography from "@material-ui/core/Typography";
 
-import PaymentForm from "../components/Checkout/PaymentForm";
-import ReviewOrder from "../components/Checkout/ReviewOrder";
-import AddressPage from "../components/Checkout/AddressPage";
+import PaymentForm from "../Components/Checkout/PaymentForm";
+import ReviewOrder from "../Components/Checkout/ReviewOrder";
+import AddressPage from "../Components/Checkout/AddressPage";
 
 const CheckoutRoutes = () => (
   <div>

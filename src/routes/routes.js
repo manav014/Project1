@@ -1,13 +1,13 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import HomePage from "../components/HomePage.js";
-import Checkout from "../components/Checkout";
-import CartPage from "../components/CartPage";
-import ExploreProduct from "../components/ExploreProduct";
-import Orders from "../components/Orders";
-import MyAccount from "../components/MyAccount";
-import SingleProduct from "../components/SingleProduct";
+import HomePage from "../Components/HomePage.js";
+import Checkout from "../Components/Checkout";
+import CartPage from "../Components/CartPage";
+import ExploreProduct from "../Components/ExploreProduct";
+import Orders from "../Components/Orders";
+import MyAccount from "../Components/MyAccount";
+import SingleProduct from "../Components/SingleProduct";
 
 const BaseRouter = () => (
   <div>

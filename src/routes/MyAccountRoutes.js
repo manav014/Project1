@@ -1,11 +1,11 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import AddressPage from "../components/Checkout/AddressPage";
-import PersonalForm from "../components/MyAccount/PersonalForm";
-import ReviewSection from "../components/MyAccount/ReviewSection";
-import CouponSection from "../components/MyAccount/CouponSection";
-import WishList from "../components/MyAccount/WishList";
+import AddressPage from "../Components/Checkout/AddressPage";
+import PersonalForm from "../Components/MyAccount/PersonalForm";
+import ReviewSection from "../Components/MyAccount/ReviewSection";
+import CouponSection from "../Components/MyAccount/CouponSection";
+import WishList from "../Components/MyAccount/WishList";
 
 const MyAccountRoutes = (props) => (
   <div>

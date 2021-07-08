@@ -366,7 +366,7 @@ function CustomDropdown(props) {
                               </div>
                             </div>
                           </Typography>
-
+                              {token?
                           <ButtonGroup
                             style={{
                               position: "absolute",
@@ -400,7 +400,8 @@ function CustomDropdown(props) {
                               ></AddCircleIcon>
                             )}
                           </ButtonGroup>
-                        </AccordionDetails>
+:<div></div>}
+                       </AccordionDetails>
                       ))
                     ) : (
                       <AccordionDetails>
