@@ -111,7 +111,6 @@ function CustomDropdown(props) {
   var dropdownList = categoryList.split(",");
 
   const classes = useStyles();
-  const [productCount, setCounters] = useState({});
   const [cartLoading, setcartLoading] = useState(false);
 
   const caretClasses = classNames({
@@ -119,7 +118,7 @@ function CustomDropdown(props) {
     [classes.caretActive]: Boolean(anchorEl),
   });
 
-  const add = (slug) => {
+  const add = (slug, cslug, k) => {
     setcartLoading(true);
     axios
       .post(
@@ -133,10 +132,8 @@ function CustomDropdown(props) {
       )
       .then((res) => {
         if (res.status === 200) {
-          var a = productCount[slug] ? productCount[slug] : 0;
-          setCounters({ ...productCount, [slug]: a + 1 });
+          productDetails[cslug][k].cart_value = res.data.quantity;
           setcartLoading(false);
-          console.log(res);
         }
       })
       .catch((err) => {
@@ -144,7 +141,7 @@ function CustomDropdown(props) {
         console.log(err.response);
       });
   };
-  const subtract = (slug) => {
+  const subtract = (slug, cslug, k) => {
     setcartLoading(true);
     axios
       .post(
@@ -160,10 +157,7 @@ function CustomDropdown(props) {
       )
       .then((res) => {
         if (res.status === 200) {
-          if (productCount[slug] && productCount[slug] > 0) {
-            var a = productCount[slug];
-            setCounters({ ...productCount, [slug]: a - 1 });
-          } else setCounters({ ...productCount, [slug]: 0 });
+          productDetails[cslug][k].cart_value = res.data.quantity;
           setcartLoading(false);
         }
       })
@@ -177,7 +171,6 @@ function CustomDropdown(props) {
     defaultState[ele] = false;
     return null;
   });
-  const [count, setCount] = React.useState(0);
   const [state, setState] = React.useState(defaultState);
   const hadleOpenAccordion = (prop, key) => {
     setState({ ...state, [prop]: true });
@@ -194,13 +187,15 @@ function CustomDropdown(props) {
       }
     };
   const handleProductCategory = (key, sslug, cslug) => {
-    setLoading(true);
     axios
-      .get(ProductSearchWithCategory(sslug, cslug), {})
+      .get(ProductSearchWithCategory(sslug, cslug), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setProductDetails({ ...productDetails, [cslug]: res.data });
         setLoading(false);
-        console.log(productDetails);
         if (key !== -1) {
           categoryRefs[key].current.scrollIntoView({
             behavior: "smooth",
@@ -366,42 +361,50 @@ function CustomDropdown(props) {
                               </div>
                             </div>
                           </Typography>
-                              {token?
-                          <ButtonGroup
-                            style={{
-                              position: "absolute",
-                              right: "1vw",
-                            }}
-                          >
-                            {cartLoading ? (
-                              <LoopIcon color="disabled" />
-                            ) : (
-                              <RemoveCircleIcon
-                                onClick={() => subtract(e.slug)}
-                                style={{ color: "#37b3f9", cursor: "pointer" }}
-                              ></RemoveCircleIcon>
-                            )}
-
-                            <div
+                          {token ? (
+                            <ButtonGroup
                               style={{
-                                minWidth: "15px",
-                                marginLeft: "1px",
-                                textAlign: "center",
+                                position: "absolute",
+                                right: "1vw",
                               }}
                             >
-                              {productCount[e.slug] ? productCount[e.slug] : 0}
-                            </div>
-                            {cartLoading ? (
-                              <LoopIcon color="disabled" />
-                            ) : (
-                              <AddCircleIcon
-                                onClick={() => add(e.slug)}
-                                style={{ color: "#37b3f9", cursor: "pointer" }}
-                              ></AddCircleIcon>
-                            )}
-                          </ButtonGroup>
-:<div></div>}
-                       </AccordionDetails>
+                              {cartLoading ? (
+                                <LoopIcon color="disabled" />
+                              ) : (
+                                <RemoveCircleIcon
+                                  onClick={() => subtract(e.slug, element, k)}
+                                  style={{
+                                    color: "#37b3f9",
+                                    cursor: "pointer",
+                                  }}
+                                ></RemoveCircleIcon>
+                              )}
+
+                              <div
+                                style={{
+                                  minWidth: "15px",
+                                  marginLeft: "1px",
+                                  textAlign: "center",
+                                }}
+                              >
+                                {e.cart_value}
+                              </div>
+                              {cartLoading ? (
+                                <LoopIcon color="disabled" />
+                              ) : (
+                                <AddCircleIcon
+                                  onClick={() => add(e.slug, element, k)}
+                                  style={{
+                                    color: "#37b3f9",
+                                    cursor: "pointer",
+                                  }}
+                                ></AddCircleIcon>
+                              )}
+                            </ButtonGroup>
+                          ) : (
+                            <div></div>
+                          )}
+                        </AccordionDetails>
                       ))
                     ) : (
                       <AccordionDetails>
