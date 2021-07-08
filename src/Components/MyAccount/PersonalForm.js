@@ -156,7 +156,7 @@ function PersonalForm(props) {
           console.log(err.response);
         });
     }
-  }, [props.userDetails]);
+  }, [props, token]);
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static">

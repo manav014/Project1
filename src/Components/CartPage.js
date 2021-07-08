@@ -16,6 +16,8 @@ import PaymentDetails from "./Checkout/PaymentDetails.js";
 import styles from "../styles/js/CartPage/CartPageStyle.js";
 import theme from "../consts/theme";
 import { cartDetailsURL } from "../consts/constants";
+import { Redirect } from "react-router-dom";
+
 
 const useStyles = makeStyles(styles);
 
@@ -24,8 +26,13 @@ function CartPage(props) {
   const { token } = props;
 
   const [productDetails, setproductDetails] = useState(null);
+  
 
   useEffect(() => {
+    if (!token) {
+      return <Redirect to="/" />;
+    }
+  
     axios
       .get(cartDetailsURL, {
         headers: {
@@ -39,7 +46,7 @@ function CartPage(props) {
       .catch((err) => {
         console.log(err.response);
       });
-  }, []);
+  }, [token]);
 
   return (
     <ThemeProvider theme={theme}>
