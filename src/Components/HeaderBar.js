@@ -124,7 +124,11 @@ function HeaderBar(props) {
               <StyledBadge
                 badgeContent={
                   cart ? (
-                    cart.total_products_quantity
+                    cart.total_products_quantity ? (
+                      cart.total_products_quantity
+                    ) : (
+                      "0"
+                    )
                   ) : loading ? (
                     <LoopIcon color="disabled" />
                   ) : (

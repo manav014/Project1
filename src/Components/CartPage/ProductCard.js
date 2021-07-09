@@ -170,7 +170,7 @@ function ProductCard(props) {
                     textAlign: "center",
                   }}
                 >
-                  {productCount[props.slug] ? productCount[props.slug] : 0}
+                  {props.quantity}
                 </div>
                 <AddCircleIcon
                   onClick={() => add(props.slug)}
