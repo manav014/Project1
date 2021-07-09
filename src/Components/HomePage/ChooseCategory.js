@@ -2,6 +2,8 @@ import React, { useEffect, createRef, useState } from "react";
 
 // Libraries
 import classNames from "classnames";
+import axios from "axios";
+import { connect } from "react-redux";
 
 // @material-ui/core components
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -23,12 +25,16 @@ import Popper from "@material-ui/core/Popper";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Box from "@material-ui/core/Box";
-import axios from "axios";
-import { ProductSearchWithCategory } from "../../consts/constants";
+import LoopIcon from "@material-ui/icons/Loop";
 
 // local components
 import theme from "../../consts/theme";
 import styles from "../../styles/js/HomePage/customDropdownStyle.js";
+import {
+  ProductSearchWithCategory,
+  removeFromCartURL,
+  addToCartURL,
+} from "../../consts/constants";
 
 const useStyles = makeStyles(styles);
 const Accordion = withStyles({
@@ -72,7 +78,9 @@ const AccordionDetails = withStyles((theme) => ({
     padding: theme.spacing(2),
   },
 }))(MuiAccordionDetails);
-export default function CustomDropdown(props) {
+
+function CustomDropdown(props) {
+  const { token } = props;
   const [categoryRefs, setCategoryRefs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [productDetails, setProductDetails] = useState({});
@@ -103,20 +111,59 @@ export default function CustomDropdown(props) {
   var dropdownList = categoryList.split(",");
 
   const classes = useStyles();
-  const [productCount, setCounters] = useState({});
+  const [cartLoading, setcartLoading] = useState(false);
+
   const caretClasses = classNames({
     [classes.caret]: true,
     [classes.caretActive]: Boolean(anchorEl),
   });
-  const add = (slug) => {
-    var a = productCount[slug] ? productCount[slug] : 0;
-    setCounters({ ...productCount, [slug]: a + 1 });
+
+  const add = (slug, cslug, k) => {
+    setcartLoading(true);
+    axios
+      .post(
+        addToCartURL,
+        { pslug: slug },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          productDetails[cslug][k].cart_value = res.data.quantity;
+          setcartLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log("not added ");
+        console.log(err.response);
+      });
   };
-  const subtract = (slug) => {
-    if (productCount[slug] && productCount[slug] > 0) {
-      var a = productCount[slug];
-      setCounters({ ...productCount, [slug]: a - 1 });
-    } else setCounters({ ...productCount, [slug]: 0 });
+  const subtract = (slug, cslug, k) => {
+    setcartLoading(true);
+    axios
+      .post(
+        removeFromCartURL,
+        {
+          pslug: slug,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          productDetails[cslug][k].cart_value = res.data.quantity;
+          setcartLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log("Error");
+      });
   };
 
   var defaultState = {};
@@ -124,7 +171,6 @@ export default function CustomDropdown(props) {
     defaultState[ele] = false;
     return null;
   });
-  const [count, setCount] = React.useState(0);
   const [state, setState] = React.useState(defaultState);
   const hadleOpenAccordion = (prop, key) => {
     setState({ ...state, [prop]: true });
@@ -141,9 +187,12 @@ export default function CustomDropdown(props) {
       }
     };
   const handleProductCategory = (key, sslug, cslug) => {
-    setLoading(true);
     axios
-      .get(ProductSearchWithCategory(sslug, cslug), {})
+      .get(ProductSearchWithCategory(sslug, cslug), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setProductDetails({ ...productDetails, [cslug]: res.data });
         setLoading(false);
@@ -291,7 +340,9 @@ export default function CustomDropdown(props) {
                                 }}
                               >
                                 &#8377;
-                                <div style={{ marginLeft: "1px" }}>21</div>
+                                <div style={{ marginLeft: "1px" }}>
+                                  {e.seller_price}
+                                </div>
                               </div>
                               <div
                                 style={{
@@ -303,40 +354,56 @@ export default function CustomDropdown(props) {
                                   display: "flex",
                                 }}
                               >
-                                &#8377;{" "}
-                                <div style={{ marginLeft: "1px" }}>25</div>
+                                &#8377;
+                                <div style={{ marginLeft: "1px" }}>
+                                  {e.product.mrp}
+                                </div>
                               </div>
                             </div>
                           </Typography>
-
-                          <ButtonGroup
-                            style={{
-                              position: "absolute",
-                              right: "1vw",
-                            }}
-                          >
-                            <RemoveCircleIcon
-                              onClick={() => subtract(e.product.slug)}
-                              style={{ color: "#37b3f9", cursor: "pointer" }}
-                            ></RemoveCircleIcon>
-
-                            <div
+                          {token ? (
+                            <ButtonGroup
                               style={{
-                                minWidth: "15px",
-                                marginLeft: "1px",
-                                textAlign: "center",
+                                position: "absolute",
+                                right: "1vw",
                               }}
                             >
-                              {productCount[e.product.slug]
-                                ? productCount[e.product.slug]
-                                : 0}
-                            </div>
+                              {cartLoading ? (
+                                <LoopIcon color="disabled" />
+                              ) : (
+                                <RemoveCircleIcon
+                                  onClick={() => subtract(e.slug, element, k)}
+                                  style={{
+                                    color: "#37b3f9",
+                                    cursor: "pointer",
+                                  }}
+                                ></RemoveCircleIcon>
+                              )}
 
-                            <AddCircleIcon
-                              onClick={() => add(e.product.slug)}
-                              style={{ color: "#37b3f9", cursor: "pointer" }}
-                            ></AddCircleIcon>
-                          </ButtonGroup>
+                              <div
+                                style={{
+                                  minWidth: "15px",
+                                  marginLeft: "1px",
+                                  textAlign: "center",
+                                }}
+                              >
+                                {e.cart_value}
+                              </div>
+                              {cartLoading ? (
+                                <LoopIcon color="disabled" />
+                              ) : (
+                                <AddCircleIcon
+                                  onClick={() => add(e.slug, element, k)}
+                                  style={{
+                                    color: "#37b3f9",
+                                    cursor: "pointer",
+                                  }}
+                                ></AddCircleIcon>
+                              )}
+                            </ButtonGroup>
+                          ) : (
+                            <div></div>
+                          )}
                         </AccordionDetails>
                       ))
                     ) : (
@@ -354,3 +421,9 @@ export default function CustomDropdown(props) {
     </ThemeProvider>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+export default connect(mapStateToProps)(CustomDropdown);
