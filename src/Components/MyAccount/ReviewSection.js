@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     maxHeight: "100%",
   },
+  reviewHeading: {
+    marginLeft: "1vw",
+  },
 }));
 
 function ReviewSection() {
@@ -164,6 +167,7 @@ function ReviewSection() {
               </Grid>
             </Grid>
           </Grid>
+          <br></br>
         </Paper>
       </div>
     </ThemeProvider>
