@@ -4,6 +4,7 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 
 // @material-ui components
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,10 +21,12 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import List from "@material-ui/core/List";
 import { ThemeProvider } from "@material-ui/core/styles";
+import LoopIcon from "@material-ui/icons/Loop";
 
 // local components
 import HeaderBarDropdown from "./HeaderBar/HeaderBarDropdown";
 import styles from "../styles/js/HomePage/HeaderBarStyle.js";
+import { fetchCart } from "../store/actions/cart";
 import theme from "../consts/theme";
 
 const useStyles = makeStyles(styles);
@@ -43,7 +46,7 @@ function userMenu(view) {
     </List>
   );
 }
-export default function HeaderBar(props) {
+function HeaderBar(props) {
   let history = useHistory();
   function handleClick() {
     history.push("/cart");
@@ -53,6 +56,9 @@ export default function HeaderBar(props) {
   }
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  React.useEffect(() => {
+    props.fetchCart();
+  }, []);
   React.useEffect(() => {
     window.addEventListener("scroll", headerColorChange);
     return function cleanup() {
@@ -80,7 +86,7 @@ export default function HeaderBar(props) {
         .classList.remove(classes.fixed);
     }
   };
-  const { fixed, absolute, sticky, bottom } = props;
+  const { fixed, absolute, sticky, bottom, token, cart, loading } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes.absolute]: absolute,
@@ -113,12 +119,26 @@ export default function HeaderBar(props) {
               <Menu />
             </IconButton>
           </Hidden>
-
-          <IconButton aria-label="cart" onClick={handleClick}>
-            <StyledBadge badgeContent={4} color="secondary">
-              <ShoppingCartIcon />
-            </StyledBadge>
-          </IconButton>
+          {token ? (
+            <IconButton aria-label="cart" onClick={handleClick}>
+              <StyledBadge
+                badgeContent={
+                  cart ? (
+                    cart.total_products_quantity
+                  ) : loading ? (
+                    <LoopIcon color="disabled" />
+                  ) : (
+                    "error"
+                  )
+                }
+                color="secondary"
+              >
+                <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+          ) : (
+            <div></div>
+          )}
         </Toolbar>
         <Hidden mdUp implementation="js">
           <Drawer
@@ -164,3 +184,17 @@ HeaderBar.propTypes = {
     height: PropTypes.number.isRequired,
   }),
 };
+
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+    cart: state.cart.shoppingCart,
+    loading: state.cart.loading,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCart: () => dispatch(fetchCart()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderBar);

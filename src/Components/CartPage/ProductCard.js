@@ -23,18 +23,16 @@ import LoopIcon from "@material-ui/icons/Loop";
 import styles from "../../styles/js/CartPage/CartPageStyle.js";
 import product1 from "../../assets/HomePage/product1.png";
 import theme from "../../consts/theme";
+import { fetchCart } from "../../store/actions/cart";
 import { removeFromCartURL, addToCartURL } from "../../consts/constants";
+
 const useStyles = makeStyles(styles);
 
 function ProductCard(props) {
-  const { token } = props;
+  const { token, fetchCart } = props;
   const [productCount, setproductCount] = useState({});
-  // console.log(props.slug);
-  // console.log(props.slug);
 
   const add = (slug) => {
-    console.log(props.slug);
-    console.log(slug);
     var a = productCount[slug] ? productCount[slug] : 0;
     setproductCount({ ...productCount, [slug]: a + 1 });
     axios
@@ -50,6 +48,7 @@ function ProductCard(props) {
       .then((res) => {
         if (res.status === 200) {
           console.log("added succesfully");
+          fetchCart();
         }
       })
       .catch((err) => {
@@ -77,6 +76,7 @@ function ProductCard(props) {
       .then((res) => {
         if (res.status === 200) {
           console.log("Removed Successfully");
+          fetchCart();
         }
       })
       .catch((err) => {
@@ -154,9 +154,7 @@ function ProductCard(props) {
               </Grid>
               <Grid item>
                 <Typography variant="subtitle1"> </Typography>
-                <Typography variant="subtitle1">
-                  <Typography variant="subtitle1"></Typography>
-                </Typography>
+                <Typography variant="subtitle1"></Typography>
               </Grid>
             </Grid>
             <Grid item>
@@ -205,4 +203,9 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
   };
 };
-export default connect(mapStateToProps)(ProductCard);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCart: () => dispatch(fetchCart()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);

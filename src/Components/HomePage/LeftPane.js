@@ -396,7 +396,6 @@ function LeftPane(props) {
                   zIndex: "1100",
                 }}
               >
-                {console.log(props.shop)}
                 <CustomDropdown
                   shopSlug={props.shop.properties.slug}
                   category={props.shop.properties.category}
@@ -499,7 +498,7 @@ function LeftPane(props) {
                 fullScreen={fullScreen}
                 maxWidth={"sm"}
                 open={openmodal}
-                fullWidth={true}
+                fullWidth
                 onClose={handleClose}
               >
                 <div
@@ -534,7 +533,7 @@ function LeftPane(props) {
                         label="Label"
                         style={{ margin: 8 }}
                         placeholder="Placeholder"
-                        fullWidth="true"
+                        fullWidth
                         margin="normal"
                         InputLabelProps={{
                           shrink: true,

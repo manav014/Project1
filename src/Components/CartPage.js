@@ -17,37 +17,25 @@ import styles from "../styles/js/CartPage/CartPageStyle.js";
 import theme from "../consts/theme";
 import { cartDetailsURL } from "../consts/constants";
 import { Redirect } from "react-router-dom";
-
+import { fetchCart } from "../store/actions/cart";
 
 const useStyles = makeStyles(styles);
 
 function CartPage(props) {
   const classes = useStyles();
-  const { token } = props;
-
+  const { token, cart, loading } = props;
   const [productDetails, setproductDetails] = useState(null);
-  
 
   useEffect(() => {
-    if (!token) {
-      return <Redirect to="/" />;
-    }
-  
-    axios
-      .get(cartDetailsURL, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setproductDetails(res.data.products);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  }, [token]);
+    props.fetchCart();
+  }, []);
+  useEffect(() => {
+    cart ? setproductDetails(cart.products) : console.log("");
+  }, [cart]);
 
+  if (!token) {
+    return <Redirect to="/" />;
+  }
   return (
     <ThemeProvider theme={theme}>
       <HeaderBar />
@@ -63,7 +51,7 @@ function CartPage(props) {
             </Typography>
             {productDetails ? (
               productDetails.map((element, key) => (
-                <div className={classes.ProductCardStyle}>
+                <div className={classes.ProductCardStyle} key={key}>
                   <ProductCard
                     name={element.product.product.name}
                     mrp={element.product.product.mrp}
@@ -95,6 +83,13 @@ function CartPage(props) {
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
+    cart: state.cart.shoppingCart,
+    loading: state.cart.loading,
   };
 };
-export default connect(mapStateToProps)(CartPage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCart: () => dispatch(fetchCart()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CartPage);

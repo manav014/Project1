@@ -29,6 +29,7 @@ import LoopIcon from "@material-ui/icons/Loop";
 
 // local components
 import theme from "../../consts/theme";
+import { fetchCart } from "../../store/actions/cart";
 import styles from "../../styles/js/HomePage/customDropdownStyle.js";
 import {
   ProductSearchWithCategory,
@@ -80,7 +81,7 @@ const AccordionDetails = withStyles((theme) => ({
 }))(MuiAccordionDetails);
 
 function CustomDropdown(props) {
-  const { token } = props;
+  const { token, fetchCart } = props;
   const [categoryRefs, setCategoryRefs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [productDetails, setProductDetails] = useState({});
@@ -134,6 +135,7 @@ function CustomDropdown(props) {
         if (res.status === 200) {
           productDetails[cslug][k].cart_value = res.data.quantity;
           setcartLoading(false);
+          fetchCart();
         }
       })
       .catch((err) => {
@@ -159,10 +161,12 @@ function CustomDropdown(props) {
         if (res.status === 200) {
           productDetails[cslug][k].cart_value = res.data.quantity;
           setcartLoading(false);
+          fetchCart();
         }
       })
       .catch((err) => {
         console.log("Error");
+        setcartLoading(false);
       });
   };
 
@@ -426,4 +430,9 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
   };
 };
-export default connect(mapStateToProps)(CustomDropdown);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCart: () => dispatch(fetchCart()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CustomDropdown);
