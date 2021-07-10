@@ -13,6 +13,7 @@ export const favouriteURL = `${accounts_endpoint}/favouriteshop/`;
 export const favouriteSlugURL = (slug) => `${favouriteURL}${slug}/`;
 export const allShopsURL = `${core_endpoint}/allshops/`;
 export const removeFromCartURL = `${core_endpoint}${cartApiURL}/remove/`;
+export const removeAllFromCartURL = `${core_endpoint}${cartApiURL}/removeall/`;
 export const cartDetailsURL = `${core_endpoint}${cartApiURL}/`;
 export const addToCartURL = `${core_endpoint}${cartApiURL}/add/`;
 export const authLoginURL = `${accounts_endpoint}/login/`;
