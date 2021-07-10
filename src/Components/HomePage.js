@@ -14,6 +14,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import SearchBar from "./HomePage/SearchBar";
 import LeftPane from "./HomePage/LeftPane.js";
 import Map from "./HomePage/Map.js";
+import ExploreProduct from "./ExploreProduct";
 import HomePageContainer from "./HomePage/HomePageContainer.js";
 import HeaderBar from "./HeaderBar.js";
 import styles from "../styles/js/HomePage/HomePageStyle.js";
@@ -124,98 +125,7 @@ function HomePage(props) {
         </HomePageContainer>
         <div className={classNames(classes.main, classes.mainRaised)}>
           <HeaderBar sticky />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+          <ExploreProduct />
         </div>
       </div>
     </ThemeProvider>
