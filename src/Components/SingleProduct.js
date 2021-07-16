@@ -13,7 +13,7 @@ function SingleProduct() {
         justify="space-evenly"
         alignItems="center"
       >
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           <SpImages />
         </Grid>
         <Grid item xs={6}>

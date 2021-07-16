@@ -17,7 +17,6 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import Divider from "@material-ui/core/Divider";
 import { ThemeProvider } from "@material-ui/core/styles";
-import LoopIcon from "@material-ui/icons/Loop";
 
 // local components
 import styles from "../../styles/js/CartPage/CartPageStyle.js";
