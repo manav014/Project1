@@ -10,7 +10,7 @@ import GridDiscounts from "./ExploreProduct/GridDiscounts";
 function ExploreProduct() {
   return (
     <div>
-      <HeaderBar sticky />
+      {/* <HeaderBar sticky /> */}
       <Banner />
       <OffersDailyProduct />
       <SpecificCategory />

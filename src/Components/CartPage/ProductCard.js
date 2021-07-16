@@ -22,20 +22,19 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import styles from "../../styles/js/CartPage/CartPageStyle.js";
 import product1 from "../../assets/HomePage/product1.png";
 import theme from "../../consts/theme";
-import { removeFromCartURL, addToCartURL } from "../../consts/constants";
+import { fetchCart } from "../../store/actions/cart";
+import {
+  removeFromCartURL,
+  addToCartURL,
+  removeAllFromCartURL,
+} from "../../consts/constants";
+
 const useStyles = makeStyles(styles);
 
 function ProductCard(props) {
-  const { token } = props;
-  const [productCount, setproductCount] = useState({});
-  // console.log(props.slug);
-  // console.log(props.slug);
+  const { token, fetchCart } = props;
 
   const add = (slug) => {
-    console.log(props.slug);
-    console.log(slug);
-    var a = productCount[slug] ? productCount[slug] : 0;
-    setproductCount({ ...productCount, [slug]: a + 1 });
     axios
       .post(
         addToCartURL,
@@ -49,6 +48,7 @@ function ProductCard(props) {
       .then((res) => {
         if (res.status === 200) {
           console.log("added succesfully");
+          fetchCart();
         }
       })
       .catch((err) => {
@@ -57,10 +57,6 @@ function ProductCard(props) {
       });
   };
   const subtract = (slug) => {
-    if (productCount[slug] && productCount[slug] > 0) {
-      var a = productCount[slug];
-      setproductCount({ ...productCount, [slug]: a - 1 });
-    } else setproductCount({ ...productCount, [slug]: 0 });
     axios
       .post(
         removeFromCartURL,
@@ -75,7 +71,29 @@ function ProductCard(props) {
       )
       .then((res) => {
         if (res.status === 200) {
-          console.log("Removed Successfully");
+          fetchCart();
+        }
+      })
+      .catch((err) => {
+        console.log("Error");
+      });
+  };
+  const removeAll = (slug) => {
+    axios
+      .post(
+        removeAllFromCartURL,
+        {
+          pslug: slug,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          fetchCart();
         }
       })
       .catch((err) => {
@@ -147,15 +165,20 @@ function ProductCard(props) {
                     variant="body2"
                     style={{ cursor: "pointer", color: "#7D808E" }}
                   >
-                    Remove | Save For Later | See More Like This
+                    <span
+                      onClick={() => {
+                        removeAll(props.slug);
+                      }}
+                    >
+                      Remove
+                    </span>{" "}
+                    | Save For Later | See More Like This
                   </Typography>
                 </Grid>
               </Grid>
               <Grid item>
                 <Typography variant="subtitle1"> </Typography>
-                <Typography variant="subtitle1">
-                  <Typography variant="subtitle1"></Typography>
-                </Typography>
+                <Typography variant="subtitle1"></Typography>
               </Grid>
             </Grid>
             <Grid item>
@@ -171,7 +194,7 @@ function ProductCard(props) {
                     textAlign: "center",
                   }}
                 >
-                  {productCount[props.slug] ? productCount[props.slug] : 0}
+                  {props.quantity}
                 </div>
                 <AddCircleIcon
                   onClick={() => add(props.slug)}
@@ -204,4 +227,9 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
   };
 };
-export default connect(mapStateToProps)(ProductCard);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCart: () => dispatch(fetchCart()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);

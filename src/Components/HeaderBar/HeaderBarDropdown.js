@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 // Libraries
 import classNames from "classnames";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
 // @material-ui components
@@ -112,6 +113,11 @@ function HeaderBarDropdown(props) {
       setemailMobile(emailMobile);
     }
   };
+  let history = useHistory();
+
+  const handleRedirect = (url) => {
+    history.push(url);
+  };
 
   const handleCloseDropdownsignup = () => {
     setOpensignup(false);
@@ -191,7 +197,7 @@ function HeaderBarDropdown(props) {
                           <div>
                             <MenuItem
                               key={1}
-                              // onClick={handleClickOpenlogin}
+                              onClick={() => handleRedirect("/myaccount")}
                               className={dropdownItem}
                             >
                               {"Profile"}
