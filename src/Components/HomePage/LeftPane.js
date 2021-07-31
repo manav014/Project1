@@ -43,7 +43,7 @@ import SearchBar from "./SearchBar";
 import ProductsTab from "./ProductsTab";
 import styles from "../../styles/js/HomePage/LeftPaneStyle.js";
 import customTheme from "../../consts/theme";
-import { favouriteSlugURL } from "../../consts/constants";
+import { favouriteSlugURL, allShopsURL } from "../../consts/constants";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -123,6 +123,7 @@ function LeftPane(props) {
   const { token } = props;
   const [AddFav, setAddFav] = React.useState(false);
   const [RemoveFav, setRemoveFav] = React.useState(false);
+  const [stores, setStores] = React.useState(null);
 
   const handleCloseFav = (event, reason) => {
     if (reason === "clickaway") {
@@ -130,6 +131,17 @@ function LeftPane(props) {
     }
 
     setAddFav(false);
+  };
+
+  const getShops = () => {
+    axios
+      .get(allShopsURL, {})
+      .then((res) => {
+        setStores(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
 
   const handleCloseRemoveFav = (event, reason) => {
@@ -203,19 +215,20 @@ function LeftPane(props) {
   };
   React.useEffect(() => {
     today = new Date();
+    getShops();
     CurrentTime =
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   }, [props.shop]);
   return (
     <ThemeProvider theme={customTheme}>
-      {props.shop ? (
-        <React.Fragment key={anchor}>
-          <CustomDrawer
-            variant="permanent"
-            anchor={anchor}
-            open={props.state[anchor]}
-            onClose={props.toggleDrawer(anchor, false, null)}
-          >
+      <React.Fragment key={anchor}>
+        <CustomDrawer
+          variant="permanent"
+          anchor={anchor}
+          open={props.state[anchor]}
+          onClose={props.toggleDrawer(anchor, false, null)}
+        >
+          {props.shop ? (
             <div style={{ backgroundColor: "#F4F5F5" }}>
               <div style={{ position: "relative" }}>
                 <img
@@ -563,39 +576,50 @@ function LeftPane(props) {
                 </DialogActions>
               </Dialog>
             </div>
-          </CustomDrawer>
-          <Snackbar
-            open={AddFav}
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            autoHideDuration={6000}
+          ) : (
+            <div className={classes.searchbarPlacement}>
+              <SearchBar LeftPane={true} />
+              <div>{"asdfdf"}</div>
+              {stores
+                ? stores.map((store, key) => {
+                    <div style={{ backgroundColor: "#F4F5F5" }}>
+                      <div>"asdgsagg"</div>
+                    </div>;
+                  })
+                : ""}
+              {stores ? stores.map((store, key) => {}) : "asdf"}
+            </div>
+          )}
+        </CustomDrawer>
+        <Snackbar
+          open={AddFav}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          autoHideDuration={6000}
+          onClose={handleCloseFav}
+        >
+          <Alert
             onClose={handleCloseFav}
+            style={{ zIndex: "12" }}
+            severity="success"
           >
-            <Alert
-              onClose={handleCloseFav}
-              style={{ zIndex: "12" }}
-              severity="success"
-            >
-              Added to Favourites!
-            </Alert>
-          </Snackbar>
-          <Snackbar
-            open={RemoveFav}
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            autoHideDuration={6000}
+            Added to Favourites!
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={RemoveFav}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          autoHideDuration={6000}
+          onClose={handleCloseRemoveFav}
+        >
+          <Alert
             onClose={handleCloseRemoveFav}
+            style={{ zIndex: "12" }}
+            severity="error"
           >
-            <Alert
-              onClose={handleCloseRemoveFav}
-              style={{ zIndex: "12" }}
-              severity="error"
-            >
-              Removed from Favourites!
-            </Alert>
-          </Snackbar>
-        </React.Fragment>
-      ) : (
-        ""
-      )}
+            Removed from Favourites!
+          </Alert>
+        </Snackbar>
+      </React.Fragment>
     </ThemeProvider>
   );
 }

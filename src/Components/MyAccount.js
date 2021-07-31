@@ -31,8 +31,6 @@ function MyAccount(props) {
   const classes = useStyles();
   const [username, setUserName] = useState("");
   const [userDetails, setUserDetails] = useState("");
-  // TODO to be removed after complete backend imlpementation
-  // setUserName("Khushi Rauniyar");
   const { token, authenticated } = props;
 
   useEffect(() => {

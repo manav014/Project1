@@ -44,7 +44,7 @@ const useGridItemStyles = makeStyles(gridItemStyles);
 function HomePage(props) {
   const [leftPane, setLeftPane] = React.useState({
     top: false,
-    left: false,
+    left: true,
     bottom: false,
     right: false,
   });
@@ -116,7 +116,13 @@ function HomePage(props) {
                   />
                 ) : (
                   <div className={classes.searchbarPosition}>
-                    <SearchBar LeftPane={true} />
+                    <LeftPane
+                      state={leftPane}
+                      toggleDrawer={toggleDrawer}
+                      // shop={shop}
+                      // favShops={favShops}
+                      // setFavShops={setFavShops}
+                    />
                   </div>
                 )}
               </Grid>

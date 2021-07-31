@@ -54,11 +54,13 @@ function HeaderBar(props) {
   function GoToHome() {
     history.push("/");
   }
+  const { fixed, absolute, sticky, bottom, token, cart, loading } = props;
+
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
     props.fetchCart();
-  }, []);
+  }, [token]);
   React.useEffect(() => {
     window.addEventListener("scroll", headerColorChange);
     return function cleanup() {
@@ -86,7 +88,6 @@ function HeaderBar(props) {
         .classList.remove(classes.fixed);
     }
   };
-  const { fixed, absolute, sticky, bottom, token, cart, loading } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes.absolute]: absolute,

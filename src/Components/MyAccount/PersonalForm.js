@@ -55,21 +55,22 @@ function PersonalForm(props) {
     },
     {
       abbreviation: "Others",
-      name: "Others",
+      name: null,
     },
   ];
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const [userDetails, setUserDetails] = React.useState(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    contact: "",
+    fname: "",
+    lname: "",
+    email_address: "",
+    userid: "",
     dob: "",
     gender: "",
   });
@@ -156,6 +157,9 @@ function PersonalForm(props) {
           console.log(err.response);
         });
     }
+    setFormData({
+      ...props.userDetails,
+    });
   }, [props, token]);
   return (
     <ThemeProvider theme={theme}>
@@ -177,7 +181,7 @@ function PersonalForm(props) {
                 label="First name"
                 fullWidth
                 variant="filled"
-                defaultValue={props.userDetails.fname}
+                value={formData.fname}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -188,6 +192,7 @@ function PersonalForm(props) {
                 label="Last name"
                 onChange={onChangeHandler}
                 fullWidth
+                variant="filled"
                 autoComplete="family-name"
               />
             </Grid>
@@ -201,6 +206,7 @@ function PersonalForm(props) {
                   pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$",
                 }}
                 fullWidth
+                variant="filled"
                 autoComplete="Email"
                 onChange={onChangeHandler}
               />
@@ -215,6 +221,7 @@ function PersonalForm(props) {
                 name="contact"
                 label="Contact"
                 fullWidth
+                variant="filled"
                 value={formData.contact}
                 autoComplete="contact"
                 onChange={mobileOnChangeHandler}
@@ -228,6 +235,7 @@ function PersonalForm(props) {
                 label="DOB"
                 fullWidth
                 autoComplete="dob"
+                variant="filled"
                 onChange={onChangeHandler}
               />
             </Grid>
@@ -238,6 +246,7 @@ function PersonalForm(props) {
                 id="gender"
                 name="gender"
                 label="Gender"
+                variant="filled"
                 fullWidth
                 onChange={onChangeHandler}
                 value={formData.gender}
