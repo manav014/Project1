@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import HomePage from "./components/HomePage.js";
-import Checkout from "./components/Checkout";
-import CartPage from "./components/CartPage";
+import HomePage from "./Components/HomePage.js";
+import Checkout from "./Components/Checkout";
+import CartPage from "./Components/CartPage";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/auth";
 
